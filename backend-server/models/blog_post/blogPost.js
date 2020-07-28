@@ -6,12 +6,13 @@ const blogPostSchema = new mongoose.Schema({
         default: mongoose.Types.ObjectId()
     },
     title: String,
-    authod_id: mongoose.Schema.Types.ObjectId,
+    author_id: mongoose.Schema.Types.ObjectId,
     date: {type: Date, default: Date.now()},
     header_image: String,
     url_id: String,
     content: String,
     tags: [String],
+    comments: [{author_id: mongoose.Schema.Types.ObjectId, date: Date, content: String}]
 });
 
 const blogPostModel = mongoose.model("blogPosts", blogPostSchema);

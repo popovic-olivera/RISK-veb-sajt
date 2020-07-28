@@ -1,14 +1,19 @@
 const express = require("express");
-const { urlencoded, json } = require("body-parser");
+const {urlencoded, json} = require("body-parser");
 const mongoose = require("mongoose");
 
-const blogPostController = require("./models/blog_post/blogPostController");
-
-mongoose.connect("mongodb://localhost:27017/risk", {
-   useNewUrlParser: true,
-   useUnifiedTopology: true
+mongoose.connection.once("open", () => {
+    console.log("Successfully connected to database.");
 });
+mongoose.connection.on("error", (error) => {
+    console.log("Database error ", error);
+})
 
+// noinspection JSIgnoredPromiseFromCall
+mongoose.connect("mongodb://localhost:27017/risk", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
 const app = express();
 
 app.use(json());
