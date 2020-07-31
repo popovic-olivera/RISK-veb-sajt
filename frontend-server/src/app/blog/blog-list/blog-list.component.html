@@ -1,1 +1,4 @@
-<p>blog-list works!</p>
+<div *ngFor="let post of blogPosts | async">
+  <h4> {{ post.title }} </h4>
+  <a [routerLink]="['/blog', post._id]" class="btn btn-primary">See</a>
+</div>

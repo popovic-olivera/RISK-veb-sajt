@@ -1,6 +1,6 @@
 import {Comment} from './comments.model';
 
-export interface Blog {
+export interface BlogPost {
   _id: string;
   title: string;
   author_id: string;
