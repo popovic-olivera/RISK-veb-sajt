@@ -9,8 +9,10 @@ import { HomeComponent } from './home/home.component';
 import { GatheringsComponent } from './gatherings/gatherings.component';
 import { OrganizationComponent } from './organization/organization.component';
 import { ProjectsComponent } from './projects/projects.component';
-import { BlogComponent } from './blog/blog.component';
 import { GalleryComponent } from './gallery/gallery.component';
+import { BlogListComponent } from './blog/blog-list/blog-list.component';
+import { BlogPostComponent } from './blog/blog-post/blog-post.component';
+import { CreateBlogPostComponent } from './blog/create-blog-post/create-blog-post.component';
 
 @NgModule({
   declarations: [
@@ -21,8 +23,10 @@ import { GalleryComponent } from './gallery/gallery.component';
     GatheringsComponent,
     OrganizationComponent,
     ProjectsComponent,
-    BlogComponent,
     GalleryComponent,
+    BlogListComponent,
+    BlogPostComponent,
+    CreateBlogPostComponent,
   ],
   imports: [
     BrowserModule,
