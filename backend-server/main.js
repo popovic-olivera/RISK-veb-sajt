@@ -1,6 +1,7 @@
 const express = require("express");
 const {urlencoded, json} = require("body-parser");
 const mongoose = require("mongoose");
+const cors = require('cors');
 
 mongoose.connection.once("open", () => {
     console.log("Successfully connected to database.");
@@ -16,6 +17,7 @@ mongoose.connect("mongodb://localhost:27017/risk", {
 });
 const app = express();
 
+app.use(cors());
 app.use(json());
 app.use(urlencoded({extended: false}));
 

@@ -1,4 +1,4 @@
-import {Comment} from './comments.model';
+import { Comment } from './comments.model';
 
 export interface BlogPost {
   _id: string;

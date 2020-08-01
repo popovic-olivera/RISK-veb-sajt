@@ -13,6 +13,8 @@ import { GalleryComponent } from './gallery/gallery.component';
 import { BlogListComponent } from './blog/blog-list/blog-list.component';
 import { BlogPostComponent } from './blog/blog-post/blog-post.component';
 import { CreateBlogPostComponent } from './blog/create-blog-post/create-blog-post.component';
+import { HttpClientModule } from '@angular/common/http';
+import { BlogService } from './blog/blog.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { CreateBlogPostComponent } from './blog/create-blog-post/create-blog-pos
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
