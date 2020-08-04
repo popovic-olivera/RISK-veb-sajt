@@ -1,3 +1,41 @@
 <div *ngFor="let post of blogPosts | async">
-  <h4> {{ post.title }} </h4>
+  <div class="row">
+    <div class="card">
+      <a class="nav-link" [routerLink]="['/okupljanja']"> <!-- url prepraviti -->
+        <h4 class="card-header text-dark"> {{ post.title }} </h4>
+      </a>
+      <div class="card-body">
+        <div class="col-md-12">
+          <div class="row" style="padding-left: 1.25rem;">
+            <img class="img-fluid img-thumbnail blog-header-img" src="{{ post.header_image }}" alt="Autorova slika">
+            <div style="margin-left: 15px;">
+              <p>
+                <span class="text-primary">
+                  <i class="fa fa-podcast fa-fw"></i>
+                </span>
+                {{ post.author_id }}
+              </p>
+              <p>
+                <span class="text-primary">
+                  <i class="fa fa-calendar"></i>
+                </span>
+                {{ post.date }}
+              </p>
+            </div>
+          </div>
+          <div class="no_img">
+            <p></p>
+            <p> {{ post.content }} </p>
+          </div>
+          <a class="nav-link" [routerLink]="['/okupljanja']"> <!-- url prepraviti -->
+            <button class="btn btn-primary">
+              <i class="fa fa-eye"></i>
+            Pročitaj
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
 </div>
