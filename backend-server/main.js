@@ -35,5 +35,6 @@ app.use((err, req, res) => {
     }
 });
 
+const server = app.listen(3000);
 
-app.listen(3000);
+module.exports = server;
