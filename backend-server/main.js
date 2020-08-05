@@ -8,7 +8,7 @@ mongoose.connection.once("open", () => {
 });
 mongoose.connection.on("error", (error) => {
     console.log("Database error ", error);
-})
+});
 
 // noinspection JSIgnoredPromiseFromCall
 mongoose.connect("mongodb://localhost:27017/risk", {
@@ -23,6 +23,17 @@ app.use(urlencoded({extended: false}));
 
 const blogPostRoutes = require("./models/blog_post/blogPostRouter");
 app.use("/blogPosts", blogPostRoutes);
+
+const userRoutes = require("./models/user/userRouter");
+app.use("/user", userRoutes);
+
+app.use((err, req, res) => {
+    if (err.name === "UnauthorizedError") {
+        res.status(401).json(
+            {"message": `${err.name}: ${err.message}`}
+        )
+    }
+});
 
 
 app.listen(3000);
