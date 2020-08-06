@@ -3,6 +3,13 @@ const {urlencoded, json} = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require('cors');
 
+if (process.env.NODE_ENV === "test") {
+    const Mockgoose = require("mockgoose").Mockgoose;
+    const mockgoose = new Mockgoose(mongoose);
+    // noinspection JSIgnoredPromiseFromCall
+    mockgoose.prepareStorage();
+}
+
 mongoose.connection.once("open", () => {
     console.log("Successfully connected to database.");
 });
