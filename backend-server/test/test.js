@@ -13,7 +13,7 @@ describe("BlogPosts", function () {
     describe("GET", function () {
         it("should get all available blog posts", function (done) {
             chai.request(server)
-                .get("/blogPosts/")
+                .get("/api/blogPosts/")
                 .send({})
                 .end((err, res) => {
                     res.should.have.status(200);

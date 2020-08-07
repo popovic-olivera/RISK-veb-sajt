@@ -34,13 +34,19 @@ app.use("/api/blogPosts", blogPostRoutes);
 const userRoutes = require("./models/user/userRouter");
 app.use("/api/user", userRoutes);
 
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
     if (err.name === "UnauthorizedError") {
         res.status(401).json(
             {"message": `${err.name}: ${err.message}`}
         )
+    } else {
+        next(req, res);
     }
 });
+
+app.use((req, res) => {
+    res.status(404).send();
+})
 
 const server = app.listen(3000);
 

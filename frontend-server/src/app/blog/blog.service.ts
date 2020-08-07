@@ -11,7 +11,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class BlogService extends HttpErrorHandler {
   private blogPosts: Observable<BlogPost[]>;
-  private readonly blogPostsUrl = 'http://localhost:3000/blogPosts';
+  private readonly blogPostsUrl = '/api/blogPosts';
 
   constructor(private http: HttpClient, router: Router) {
     super(router);
