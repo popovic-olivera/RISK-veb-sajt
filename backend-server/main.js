@@ -29,10 +29,10 @@ app.use(json());
 app.use(urlencoded({extended: false}));
 
 const blogPostRoutes = require("./models/blog_post/blogPostRouter");
-app.use("/blogPosts", blogPostRoutes);
+app.use("/api/blogPosts", blogPostRoutes);
 
 const userRoutes = require("./models/user/userRouter");
-app.use("/user", userRoutes);
+app.use("/api/user", userRoutes);
 
 app.use((err, req, res) => {
     if (err.name === "UnauthorizedError") {
