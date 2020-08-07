@@ -6,6 +6,7 @@ import { OrganizationComponent } from '../organization/organization.component';
 import { ProjectsComponent } from '../projects/projects.component';
 import { BlogListComponent } from '../blog/blog-list/blog-list.component';
 import { GalleryComponent } from '../gallery/gallery.component';
+import {LoginComponent} from "../login/login.component";
 
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'projekti', component: ProjectsComponent},
   { path: 'blog', component: BlogListComponent},
   { path: 'galerija', component: GalleryComponent},
+  { path: 'login', component: LoginComponent }
 ];
 
 @NgModule({

@@ -1,5 +1,6 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {FormsModule} from "@angular/forms";
 
 import { AppRoutingModule } from './routing/app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +17,7 @@ import { CreateBlogPostComponent } from './blog/create-blog-post/create-blog-pos
 import { HttpClientModule } from '@angular/common/http';
 import { BlogService } from './blog/blog.service';
 import { AuthenticationService } from './authentication.service';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -30,11 +32,13 @@ import { AuthenticationService } from './authentication.service';
     BlogListComponent,
     BlogPostComponent,
     CreateBlogPostComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

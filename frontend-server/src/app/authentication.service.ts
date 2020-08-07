@@ -97,7 +97,7 @@ export class AuthenticationService {
 
   public login(user: TokenPayload): Observable<any> {
 
-    return this.http.post(`/user/login`, user).pipe(
+    return this.http.post('api/user/login', user).pipe(
       map((data: TokenResponse) => {
         if (data.token) {
           this.saveToken(data.token);
