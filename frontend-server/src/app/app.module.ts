@@ -15,6 +15,7 @@ import { BlogPostComponent } from './blog/blog-post/blog-post.component';
 import { CreateBlogPostComponent } from './blog/create-blog-post/create-blog-post.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BlogService } from './blog/blog.service';
+import { AuthenticationService } from './authentication.service';
 
 @NgModule({
   declarations: [
