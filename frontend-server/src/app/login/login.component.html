@@ -1,11 +1,27 @@
-<form (ngSubmit)="login()">
-  <div class="form-group">
-    <label for="email_input"></label>
-    <input type="email" class="form-control" [(ngModel)]="email" id="email_input" placeholder="Email" name="email">
+<div class="dropdown">
+  <button class="btn btn-outline-dark dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Prijavi se
+  </button>
+  <div class="dropdown-menu dropdown-menu-right" style="min-width: 20rem">
+    <form class="px-4 py-3" (ngSubmit)="login()">
+      <div class="form-group">
+        <label for="exampleDropdownFormEmail1">Email address</label>
+        <input type="email" class="form-control" [(ngModel)]="email" name="email" id="exampleDropdownFormEmail1" placeholder="ai12345@alas.matf.bg.ac.rs">
+      </div>
+      <div class="form-group">
+        <label for="exampleDropdownFormPassword1">Password</label>
+        <input type="password" class="form-control" [(ngModel)]="password" name="password" id="exampleDropdownFormPassword1" placeholder="Password">
+      </div>
+      <div class="form-check">
+        <input type="checkbox" [disabled]="true" class="form-check-input" id="dropdownCheck">
+        <label class="form-check-label" for="dropdownCheck">
+          Remember me
+        </label>
+      </div>
+      <button type="submit" class="btn btn-primary">Sign in</button>
+    </form>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="#">Registruj se</a>
+    <a class="dropdown-item" href="#">Zaboravljena lozinka?</a>
   </div>
-  <div class="form-group">
-    <label for="password_input"></label>
-    <input type="password" class="form-control" [(ngModel)]="password" id="password_input" placeholder="Password" name="password">
-  </div>
-  <input type="submit" class="btn btn-primary">
-</form>
+</div>
