@@ -61,8 +61,7 @@
         </div>
       </li>
     </ul>
-
-    <app-login *ngIf="!auth.isLoggedIn()"></app-login>
-    <button class="btn btn-outline-dark btn-sm" *ngIf="auth.isLoggedIn()" (click)="auth.logout()">Odjavi se</button>
+    <app-login *ngIf="!auth.userProfile"></app-login>
+    <button class="btn btn-outline-dark btn-sm" *ngIf="auth.userProfile" (click)="auth.logout()">Odjavi se</button>
   </div>
 </nav>

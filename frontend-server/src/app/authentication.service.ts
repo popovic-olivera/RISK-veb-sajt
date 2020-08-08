@@ -1,10 +1,8 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {Router} from '@angular/router';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
-export interface UserDetails {
+export interface UserProfile {
   _id: string;
   email: string;
   firstName: string;
@@ -18,17 +16,12 @@ interface TokenResponse {
   token: string;
 }
 
-export interface TokenPayload {
-  email: string;
-  password: string;
-  name?: string;
-}
-
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
+  public userProfile: UserProfile;
   private token: string;
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -46,64 +39,45 @@ export class AuthenticationService {
   }
 
   public async logout() {
-    this.token = '';
+    this.token = undefined;
+    this.userProfile = undefined;
     window.localStorage.removeItem('auth-token');
     await this.router.navigateByUrl('/');
   }
 
-  public getUserDetails(): UserDetails | undefined {
-    const token = this.getToken();
-    if (token) {
-      // Because the token is in the following form: "Bearer xxxxxxxx"
-      let payload = token.split('.')[1];
-      payload = window.atob(payload);
-      return JSON.parse(payload);
-    } else {
-      return null;
-    }
-  }
-
-  public isLoggedIn(): boolean {
-    const user = this.getUserDetails();
-    if (user) {
-      return user.exp > Date.now() / 1000;
-    } else {
-      return false;
-    }
-  }
-
-  private profile(user: TokenPayload): Observable<any> {
-
-    return this.http.get(
-      'user/profile',
+  private fetchProfile(): void {
+    this.http.get<UserProfile>(
+      'api/user/profile',
       {
         headers: {
           Authorization: `Bearer ${this.getToken()}`
         }
       }
-    );
+    ).subscribe((profile) => {
+      this.userProfile = profile;
+    });
   }
 
-  public register(user: TokenPayload): Observable<any> {
+  public register(email: string, password: string) {
 
-    return this.http.post(`/user/register`, user).pipe(
-      map((data: TokenResponse) => {
-        if (data.token) {
-          this.saveToken(data.token);
-        }
-      })
-    );
+    this.http.post(`api/user/register`, {email, password}).subscribe((data: TokenResponse) => {
+      if (data.token) {
+        this.saveToken(data.token);
+        this.fetchProfile();
+      }
+      return data;
+    });
   }
 
-  public login(user: TokenPayload): Observable<any> {
+  public login(email: string, password: string) {
 
-    return this.http.post('api/user/login', user).pipe(
-      map((data: TokenResponse) => {
-        if (data.token) {
-          this.saveToken(data.token);
-        }
-      })
-    );
+    const credentialsPayload = {email, password};
+    this.http.post('api/user/login', credentialsPayload).subscribe((data: TokenResponse) => {
+      if (data.token) {
+        this.saveToken(data.token);
+        this.fetchProfile();
+      }
+    });
   }
 
 
