@@ -3,25 +3,35 @@ const {urlencoded, json} = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require('cors');
 
-if (process.env.NODE_ENV === "test") {
-    const Mockgoose = require("mockgoose").Mockgoose;
-    const mockgoose = new Mockgoose(mongoose);
-    // noinspection JSIgnoredPromiseFromCall
-    mockgoose.prepareStorage();
+async function loadMongoDB() {
+
+    mongoose.connection.once("open", () => {
+        console.log("Successfully connected to database.");
+    });
+    mongoose.connection.on("error", (error) => {
+        console.log("Database error ", error);
+    });
+
+    let uri;
+    if (process.env.NODE_ENV === "test") {
+        const MongoMemoryServer = require("mongodb-memory-server").MongoMemoryServer;
+        const mongoMemoryServer = new MongoMemoryServer();
+        uri = await mongoMemoryServer.getUri();
+    } else {
+        uri = "mongodb://localhost:27017/risk";
+    }
+
+    await mongoose.connect(uri, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    });
 }
 
-mongoose.connection.once("open", () => {
-    console.log("Successfully connected to database.");
-});
-mongoose.connection.on("error", (error) => {
-    console.log("Database error ", error);
-});
+loadMongoDB().catch((err) => {
+    console.log(err);
+    process.exit();
+})
 
-// noinspection JSIgnoredPromiseFromCall
-mongoose.connect("mongodb://localhost:27017/risk", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
 const app = express();
 
 app.use(cors());

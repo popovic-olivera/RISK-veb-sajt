@@ -37,7 +37,7 @@ module.exports.createBlogPost = async (req, res, next) => {
             comments: req.body.comments
         });
         await newBlogPost.save();
-        res.status(201).send();
+        res.status(201).json(newBlogPost);
     } catch (err) {
         next(err);
     }
@@ -48,9 +48,9 @@ module.exports.updateBlogPost = async (req, res, next) => {
         if (!mongoose.Types.ObjectId.isValid(req.params.id) || (req.body._id != null && req.params.id !== req.body._id)) {
             res.status(400).send();
         } else {
-            const blogPost = await BlogPost.findByIdAndUpdate(req.params.id, req.body, {useFindAndModify: false}).exec();
+            const blogPost = await BlogPost.findByIdAndUpdate(req.params.id, req.body, {useFindAndModify: false, new: true}).exec();
             if (blogPost) {
-                res.status(200).send();
+                res.status(200).json(blogPost);
             } else {
                 res.status(404).send();
             }
