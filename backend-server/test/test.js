@@ -15,6 +15,7 @@ describe("BlogPosts", function () {
                 .get("/api/blogPosts/")
                 .send({})
                 .end((err, res) => {
+                    // noinspection JSUnresolvedFunction
                     res.should.have.status(200);
                     done();
                 })
@@ -31,14 +32,38 @@ describe("BlogPosts", function () {
                         "Tag1",
                         "Tag2"
                     ],
+                    "author_id": "5f291a30e7a3e4461aa45bc3",
                     "title": "Postman test2",
                     "header_image": "Test",
                     "url_id": "URL",
                     "content": "Content"
                 })
                 .end((err, res) => {
+                    // noinspection JSUnresolvedFunction
                     res.should.have.status(201);
                     res.body.should.not.be.empty;
+                    done();
+                })
+        });
+
+        it('should fail when missing a required field', function (done) {
+            // Title is missing from the payload
+            chai.request(server)
+                .post("/api/blogPosts")
+                .send({
+                    "date": "2020-07-21T11:17:54.743Z",
+                    "tags": [
+                        "Tag1",
+                        "Tag2"
+                    ],
+                    "header_image": "Test",
+                    "url_id": "URL",
+                    "content": "Content"
+                })
+                .end((err, res) => {
+                    // noinspection JSUnresolvedFunction
+                    res.should.have.status(400);
+                    res.body.should.have.property("message");
                     done();
                 })
         });
@@ -54,12 +79,14 @@ describe("BlogPosts", function () {
                         "Tag1",
                         "Tag2"
                     ],
+                    "author_id": "5f291a30e7a3e4461aa45bc3",
                     "title": "Postman test2",
                     "header_image": "Test",
                     "url_id": "URL",
                     "content": "Content"
                 });
 
+            // noinspection JSUnresolvedFunction
             response.should.have.status(201);
             response.body.should.have.property("_id");
             const id = response.body._id;
@@ -68,6 +95,7 @@ describe("BlogPosts", function () {
                 .get(`/api/blogPosts/${id}`)
                 .send()
                 .end((err, res) => {
+                    // noinspection JSUnresolvedFunction
                     res.should.have.status(200);
                     res.should.have.property("body");
                     res.body.should.have.property("_id");
@@ -88,27 +116,90 @@ describe("BlogPosts", function () {
                         "Tag1",
                         "Tag2"
                     ],
+                    "author_id": "5f291a30e7a3e4461aa45bc3",
                     "title": "Postman test2",
                     "header_image": "Test",
                     "url_id": "URL",
                     "content": "Content"
                 });
 
+            // noinspection JSUnresolvedFunction
             response.should.have.status(201);
             response.should.have.property("body");
 
             const responseBody = response.body;
             responseBody.title = "Updated title";
 
-            chai.request(server)
+            const putResponse = await chai.request(server)
                 .put(`/api/blogPosts/${responseBody._id}`)
                 .send(responseBody)
-                .end((err, res) => {
-                    res.should.have.status(200);
-                    res.should.have.property("body");
-                    res.body.title.should.be.equal("Updated title");
-                })
 
+            // noinspection JSUnresolvedFunction
+            putResponse.should.have.status(200);
+            putResponse.should.have.property("body");
+            putResponse.body.title.should.be.equal("Updated title");
+
+        });
+
+        it('should fail when required fields are missing', async () => {
+            const postReponse = await chai.request(server)
+                .post("/api/blogPosts")
+                .send({
+                    "date": "2020-07-21T11:17:54.743Z",
+                    "tags": [
+                        "Tag1",
+                        "Tag2"
+                    ],
+                    "author_id": "5f291a30e7a3e4461aa45bc3",
+                    "title": "Postman test2",
+                    "header_image": "Test",
+                    "url_id": "URL",
+                    "content": "Content"
+                });
+
+            const id = postReponse.body._id;
+
+            const blogPost = postReponse.body;
+
+            // Delete a required field
+            delete blogPost.title;
+
+            const putResponse = await chai.request(server)
+                .put(`/api/blogPosts/${id}`)
+                .send(blogPost);
+
+            // noinspection JSUnresolvedFunction
+            putResponse.should.have.status(400);
+            putResponse.body.should.have.property("message");
+        });
+
+        it("should fail when a field value isn't valid", async () => {
+            const postReponse = await chai.request(server)
+                .post("/api/blogPosts")
+                .send({
+                    "date": "2020-07-21T11:17:54.743Z",
+                    "tags": [
+                        "Tag1",
+                        "Tag2"
+                    ],
+                    "author_id": "5f291a30e7a3e4461aa45bc3",
+                    "title": "Postman test2",
+                    "header_image": "Test",
+                    "url_id": "URL",
+                    "content": "Content"
+                });
+
+            const blogPost = postReponse.body;
+
+            blogPost.date = "asdasdasd";
+
+            const putResponse = await chai.request(server)
+                .put(`/api/blogPosts/${blogPost._id}`)
+                .send(blogPost);
+
+            // noinspection JSUnresolvedFunction
+            putResponse.should.have.status(400);
+            putResponse.body.should.have.property("message");
         });
     });
 
@@ -123,18 +214,20 @@ describe("BlogPosts", function () {
                         "Tag1",
                         "Tag2"
                     ],
+                    "author_id": "5f291a30e7a3e4461aa45bc3",
                     "title": "Postman test2",
                     "header_image": "Test",
                     "url_id": "URL",
                     "content": "Content"
                 });
 
+            // noinspection JSUnresolvedFunction
             postResponse.should.have.status(201);
             postResponse.should.have.property("body");
             postResponse.body.should.have.property("_id");
             const id = postResponse.body._id;
 
-            const deleteResponse = await chai.request(server)
+            await chai.request(server)
                 .delete(`/api/blogPosts/${id}`)
                 .send()
 
@@ -142,6 +235,7 @@ describe("BlogPosts", function () {
                 .get(`/api/blogPosts/${id}`)
                 .send()
                 .end((err, res) => {
+                    // noinspection JSUnresolvedFunction
                     res.should.have.status(404);
                 })
 

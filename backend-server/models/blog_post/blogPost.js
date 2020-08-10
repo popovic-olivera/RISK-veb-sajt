@@ -1,12 +1,13 @@
 const mongoose = require("mongoose")
 
 const blogPostSchema = new mongoose.Schema({
-    title: String,
-    author_id: mongoose.Schema.Types.ObjectId,
+    title: {type: String, required: true},
+    author_id: {type: mongoose.Schema.Types.ObjectId, required: true},
     date: {type: Date, default: Date.now()},
-    header_image: String,
+    header_image: {type: String, required: true},
+    content: {type: String, required: true},
+
     url_id: String,
-    content: String,
     tags: [String],
     comments: [{author_id: mongoose.Schema.Types.ObjectId, date: Date, content: String}]
 });

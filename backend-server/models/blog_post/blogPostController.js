@@ -10,36 +10,25 @@ module.exports.getBlogPosts = async (req, res, next) => {
     }
 }
 
-module.exports.getBlogPostById = async (req, res, next) => {
-    try {
-        const blogPost = await BlogPost.findById(req.params.id).exec();
-        if (blogPost) {
-            res.status(200).json(blogPost);
-        } else {
-            res.status(404).send();
-        }
-    } catch (err) {
-        next(err);
+module.exports.getBlogPostById = async (req, res) => {
+    const blogPost = await BlogPost.findById(req.params.id).exec();
+    if (blogPost) {
+        res.status(200).json(blogPost);
+    } else {
+        res.status(404).send();
     }
 }
 
-// TODO validate the request
-module.exports.createBlogPost = async (req, res, next) => {
-    try {
-        const newBlogPost = new BlogPost({
-            title: req.body.title,
-            author_id: req.body.author_id,
-            date: req.body.date,
-            header_image: req.body.header_image,
-            url_id: req.body.url_id,
-            content: req.body.content,
-            tags: req.body.tags,
-            comments: req.body.comments
+module.exports.createBlogPost = async (req, res) => {
+    const blogPost = new BlogPost(req.body);
+    const error = await blogPost.validateSync();
+    if (error) {
+        res.status(400).json({
+            message: `Fields [${Object.keys(error.errors)}] are not correct`
         });
-        await newBlogPost.save();
-        res.status(201).json(newBlogPost);
-    } catch (err) {
-        next(err);
+    } else {
+        await blogPost.save();
+        res.status(201).json(blogPost);
     }
 }
 
@@ -48,7 +37,18 @@ module.exports.updateBlogPost = async (req, res, next) => {
         if (!mongoose.Types.ObjectId.isValid(req.params.id) || (req.body._id != null && req.params.id !== req.body._id)) {
             res.status(400).send();
         } else {
-            const blogPost = await BlogPost.findByIdAndUpdate(req.params.id, req.body, {useFindAndModify: false, new: true}).exec();
+            const blogPostFromPayload = new BlogPost(req.body);
+            const error = blogPostFromPayload.validateSync();
+            if (error) {
+                res.status(400).json({
+                    message: `Fields [${Object.keys(error.errors)}] are not correct`
+                });
+            }
+            /* `blogPostFromPayload` cannot be simply saved to override the existing one, because it would still be
+                saved, even when such document didn't exist before. Instead, assumed existing blog post is being
+                updated by the id, and it is checked whether the document existed beforehand.
+             */
+            const blogPost = await BlogPost.findByIdAndUpdate(req.params.id, blogPostFromPayload, {useFindAndModify: false, new: true}).exec();
             if (blogPost) {
                 res.status(200).json(blogPost);
             } else {

@@ -50,7 +50,7 @@ app.use((err, req, res, next) => {
             {"message": `${err.name}: ${err.message}`}
         )
     } else {
-        next(req, res);
+        next(err, req, res);
     }
 });
 
@@ -58,6 +58,8 @@ app.use((req, res) => {
     res.status(404).send();
 })
 
-const server = app.listen(3000);
+const port = process.env.NODE_ENV === "test" ? 3001 : 3000;
+
+const server = app.listen(port);
 
 module.exports = server;
