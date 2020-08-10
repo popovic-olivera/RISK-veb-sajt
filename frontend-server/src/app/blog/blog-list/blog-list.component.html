@@ -1,6 +1,6 @@
-<div *ngFor="let post of blogPosts | async">
-  <div class="row">
-    <div class="card">
+<ul class="flex-container no-bullets">
+  <div class="flex-item" *ngFor="let post of blogPosts | async">
+    <li>
       <a class="nav-link" [routerLink]="['/okupljanja']"> <!-- url prepraviti -->
         <h4 class="card-header text-dark"> {{ post.title }} </h4>
       </a>
@@ -35,7 +35,7 @@
           </a>
         </div>
       </div>
-    </div>
+    </li>
   </div>
-  <br>
-</div>
+</ul>
+
