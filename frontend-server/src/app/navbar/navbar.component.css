@@ -1,0 +1,13 @@
+.mat-button {
+  text-transform: uppercase;
+}
+
+.mat-button:focus {
+  outline: none;
+  border: 0;
+}
+
+.active-link {
+  background-color: lightslategray;
+  color: #fafafa;
+}
