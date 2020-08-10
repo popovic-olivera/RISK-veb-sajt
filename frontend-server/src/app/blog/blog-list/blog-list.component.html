@@ -1,22 +1,28 @@
 <div fxLayout='row' fxLayout.xs="column" fxLayoutAlign="space-around stretch" fxFlexFill fxLayoutGap>
   <div fxFlex="30" fxFlex.xs="40" *ngFor="let post of blogPosts | async">
-    <mat-card>
+    <mat-card style="padding: 0px; margin: 0px;">
       <a class="nav-link" [routerLink]="['/okupljanja']">
         <img mat-card-image src="{{ post.header_image }}" alt="Slika clanka">
-        <mat-card-title> {{ post.title }} </mat-card-title>
+        <mat-card-title>{{ post.title }}</mat-card-title>
       </a>
-      <mat-card-subtitle>
-        <a class="nav-link" [routerLink]="['/okupljanja']">
-          <img mat-card-avatar src="{{ post.author_image }}" alt="Autorova slika">
-        </a>
-        <p>{{ post.date }}</p>
-      </mat-card-subtitle>
       <mat-card-content>
-        {{ post.content }}
+        <p style="margin-left: 15px; margin-right: 15px;">{{ post.content }}</p>
       </mat-card-content>
-      <mat-card-footer>
-        {{ post.tags }}
-      </mat-card-footer>
+      <mat-card-header>
+        <div mat-card-avatar class="avatarImage">
+          <a style="margin-left: 15px;" [routerLink]="['/okupljanja']">
+            <img mat-card-avatar src="{{ post.author_image }}" alt="Autorova slika">
+          </a>
+        </div>
+        <div>
+            <a [routerLink]="['/okupljanja']">
+              {{ post.title }}
+            </a>
+          <div>
+            <mat-card-subtitle>{{ post.date | date: 'longDate'}}</mat-card-subtitle>
+          </div>
+        </div>
+      </mat-card-header>
     </mat-card>
   </div>
 </div>

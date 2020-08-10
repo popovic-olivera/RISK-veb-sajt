@@ -29,6 +29,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,7 @@ import { MatCardModule } from '@angular/material/card';
     FlexLayoutModule,
     MatCardModule,
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
