@@ -1,41 +1,22 @@
-<ul class="flex-container no-bullets">
-  <div class="flex-item" *ngFor="let post of blogPosts | async">
-    <li>
-      <a class="nav-link" [routerLink]="['/okupljanja']"> <!-- url prepraviti -->
-        <h4 class="card-header text-dark"> {{ post.title }} </h4>
+<div fxLayout='row' fxLayout.xs="column" fxLayoutAlign="space-around stretch" fxFlexFill fxLayoutGap>
+  <div fxFlex="30" fxFlex.xs="40" *ngFor="let post of blogPosts | async">
+    <mat-card>
+      <a class="nav-link" [routerLink]="['/okupljanja']">
+        <img mat-card-image src="{{ post.header_image }}" alt="Slika clanka">
+        <mat-card-title> {{ post.title }} </mat-card-title>
       </a>
-      <div class="card-body">
-        <div class="col-md-12">
-          <div class="row" style="padding-left: 1.25rem;">
-            <img class="img-fluid img-thumbnail blog-header-img" src="{{ post.header_image }}" alt="Autorova slika">
-            <div style="margin-left: 15px;">
-              <p>
-                <span class="text-primary">
-                  <i class="fa fa-podcast fa-fw"></i>
-                </span>
-                {{ post.author_id }}
-              </p>
-              <p>
-                <span class="text-primary">
-                  <i class="fa fa-calendar"></i>
-                </span>
-                {{ post.date }}
-              </p>
-            </div>
-          </div>
-          <div class="no_img">
-            <p></p>
-            <p> {{ post.content }} </p>
-          </div>
-          <a class="nav-link" [routerLink]="['/okupljanja']"> <!-- url prepraviti -->
-            <button class="btn btn-primary">
-              <i class="fa fa-eye"></i>
-            Pročitaj
-            </button>
-          </a>
-        </div>
-      </div>
-    </li>
+      <mat-card-subtitle>
+        <a class="nav-link" [routerLink]="['/okupljanja']">
+          <img mat-card-avatar src="{{ post.author_image }}" alt="Autorova slika">
+        </a>
+        <p>{{ post.date }}</p>
+      </mat-card-subtitle>
+      <mat-card-content>
+        {{ post.content }}
+      </mat-card-content>
+      <mat-card-footer>
+        {{ post.tags }}
+      </mat-card-footer>
+    </mat-card>
   </div>
-</ul>
-
+</div>
