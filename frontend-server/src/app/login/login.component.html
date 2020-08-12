@@ -1,27 +1,31 @@
-<div class="dropdown">
-  <button class="btn btn-outline-dark dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Prijavi se
-  </button>
-  <div class="dropdown-menu dropdown-menu-right" style="min-width: 20rem">
-    <form class="px-4 py-3" (ngSubmit)="login()">
-      <div class="form-group">
-        <label for="exampleDropdownFormEmail1">Email address</label>
-        <input type="email" class="form-control" [(ngModel)]="email" name="email" id="exampleDropdownFormEmail1" placeholder="ai12345@alas.matf.bg.ac.rs">
-      </div>
-      <div class="form-group">
-        <label for="exampleDropdownFormPassword1">Password</label>
-        <input type="password" class="form-control" [(ngModel)]="password" name="password" id="exampleDropdownFormPassword1" placeholder="Password">
-      </div>
-      <div class="form-check">
-        <input type="checkbox" [disabled]="true" class="form-check-input" id="dropdownCheck">
-        <label class="form-check-label" for="dropdownCheck">
-          Remember me
-        </label>
-      </div>
-      <button type="submit" class="btn btn-primary">Sign in</button>
-    </form>
-    <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="#">Registruj se</a>
-    <a class="dropdown-item" href="#">Zaboravljena lozinka?</a>
+<div id="form-container">
+  <mat-card-title>Prijavi se</mat-card-title>
+  <br>
+  <br>
+  <mat-form-field appearance="outline">
+    <mat-label >Imejl adresa</mat-label>
+      <input matInput type="email" name="email" placeholder="ai12345@alas.matf.bg.ac.rs" [formControl]="email" required>
+    <mat-error *ngIf="email.invalid">{{emailErrorMessage()}}</mat-error>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="outline">
+    <mat-label>Lozinka</mat-label>
+    <input matInput type="password" placeholder="p@$$word123" [formControl]="password" required>
+    <mat-error *ngIf="password.invalid">Ovo je obavezno polje</mat-error>
+  </mat-form-field>
+  <br>
+  <button mat-raised-button (click)="login()" [disabled]="!loginEnabled()">Prijavi se</button>
+  <br>
+  <br>
+  <div *ngIf="unsuccessfulLoginResponse">
+    <mat-error *ngIf="unsuccessfulLoginResponse" class="mat-small">Neuspelo prijavlivanje</mat-error>
+    <br>
   </div>
+  <mat-divider></mat-divider>
+  <mat-list>
+    <!-- TODO make these links functional (create appropriate Components) -->
+    <mat-list-item><a class="">Registruj se</a></mat-list-item>
+    <mat-list-item><a class="">Zaboravljena lozinka?</a></mat-list-item>
+  </mat-list>
+
 </div>

@@ -7,5 +7,7 @@
   <button mat-button [routerLink]="['/blog']" [routerLinkActive]="'active-link'">Blog</button>
   <button mat-button [routerLink]="['/galerija']" [routerLinkActive]="'active-link'">Galerija</button>
   <span style="flex: 1 1 auto;"></span>
-  <button mat-button>Prijavljivanje</button>
+  <!-- TODO this is just for demonstration/debugging purposes, actual GUI should be very different -->
+  <p *ngIf="auth.userProfile">Prijavljen korisnik: {{auth.userProfile.firstName}}</p>
+  <button *ngIf="!auth.userProfile" mat-button (click)="displayLogin()">Prijavi se</button>
 </mat-toolbar>

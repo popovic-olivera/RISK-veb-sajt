@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { catchError, map } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 export interface UserProfile {
   _id: string;
@@ -69,15 +71,39 @@ export class AuthenticationService {
     });
   }
 
-  public login(email: string, password: string) {
+
+  /**
+   * Upon successful login, returns true, saves the JWT token and attempts to fetch the user profile as a side-effect.
+   *
+   * @returns true upon successful login, false otherwise.
+   */
+  public login(email: string, password: string): Promise<boolean> {
 
     const credentialsPayload = {email, password};
-    this.http.post('api/user/login', credentialsPayload).subscribe((data: TokenResponse) => {
-      if (data.token) {
-        this.saveToken(data.token);
-        this.fetchProfile();
-      }
-    });
+
+    // TODO error appears in the console when the server returns status 400, we should look into suppressing
+    //  that error to avoid noise in the console.
+    const observable = this.http.post('api/user/login', credentialsPayload, {observe: 'response'}).pipe(
+      map((response: any) => {
+        if (response.status === 200) {
+          const body: any = response.body;
+          if (body.token) {
+            this.saveToken(body.token);
+            this.fetchProfile();
+            return true;
+          } else {
+            return false;
+          }
+        } else {
+          return false;
+        }
+      }),
+      catchError(() => {
+        return of(false);
+      })
+    );
+
+    return observable.toPromise();
   }
 
 
