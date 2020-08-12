@@ -23,7 +23,7 @@ interface TokenResponse {
 })
 export class AuthenticationService {
 
-  public userProfile: UserProfile;
+  private userProfile: UserProfile;
   private token: string;
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -40,10 +40,23 @@ export class AuthenticationService {
     return this.token;
   }
 
+  private saveUserProfile(profile: UserProfile) {
+    localStorage.setItem('user-profile', JSON.stringify(profile));
+    this.userProfile = profile;
+  }
+
+  public getUserProfile(): UserProfile {
+    if (!this.userProfile) {
+      this.userProfile = JSON.parse(localStorage.getItem('user-profile'));
+    }
+    return this.userProfile;
+  }
+
   public async logout() {
     this.token = undefined;
     this.userProfile = undefined;
     window.localStorage.removeItem('auth-token');
+    window.localStorage.removeItem('user-profile');
     await this.router.navigateByUrl('/');
   }
 
@@ -56,7 +69,7 @@ export class AuthenticationService {
         }
       }
     ).subscribe((profile) => {
-      this.userProfile = profile;
+      this.saveUserProfile(profile);
     });
   }
 

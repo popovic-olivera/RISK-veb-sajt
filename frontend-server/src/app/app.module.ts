@@ -15,8 +15,6 @@ import { BlogListComponent } from './blog/blog-list/blog-list.component';
 import { BlogPostComponent } from './blog/blog-post/blog-post.component';
 import { CreateBlogPostComponent } from './blog/create-blog-post/create-blog-post.component';
 import { HttpClientModule } from '@angular/common/http';
-import { BlogService } from './blog/blog.service';
-import { AuthenticationService } from './authentication.service';
 import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
@@ -33,6 +31,8 @@ import { DatePipe } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { ProfileBadgeComponent } from './profile-badge/profile-badge.component';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 @NgModule({
@@ -49,6 +49,7 @@ import { MatInputModule } from '@angular/material/input';
     CreateBlogPostComponent,
     LoginComponent,
     NavbarComponent,
+    ProfileBadgeComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,7 +70,8 @@ import { MatInputModule } from '@angular/material/input';
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatMenuModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

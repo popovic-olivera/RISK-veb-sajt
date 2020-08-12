@@ -1,0 +1,11 @@
+<button id="bagde-container" mat-flat-button [matMenuTriggerFor]="menu">
+  <img [src]="auth.getUserProfile().profilePictureUrl"/>
+  {{auth.getUserProfile().firstName}} {{auth.getUserProfile().lastName}}
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-button [routerLink]="['/profile']">Otvori profil</button>
+  <br>
+  <button mat-button [routerLink]="['/profile/settings']">Podešavanja</button>
+  <br>
+  <button mat-button (click)="auth.logout()">Odjavi se</button>
+</mat-menu>
