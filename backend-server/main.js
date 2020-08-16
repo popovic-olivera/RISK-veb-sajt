@@ -2,6 +2,8 @@ const express = require("express");
 const {urlencoded, json} = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require('cors');
+const fileUpload = require("express-fileupload");
+const fileMiddleware = require("./models/file/fileMiddleware")
 
 async function loadMongoDB() {
 
@@ -30,19 +32,24 @@ async function loadMongoDB() {
 loadMongoDB().catch((err) => {
     console.log(err);
     process.exit();
-})
+});
 
 const app = express();
 
 app.use(cors());
 app.use(json());
 app.use(urlencoded({extended: false}));
+app.use(fileUpload());
+app.use(fileMiddleware);
 
 const blogPostRoutes = require("./models/blog_post/blogPostRouter");
 app.use("/api/blogPosts", blogPostRoutes);
 
 const userRoutes = require("./models/user/userRouter");
 app.use("/api/user", userRoutes);
+
+const fileRoutes = require("./models/file/fileRouter");
+app.use("/api/files", fileRoutes);
 
 app.use((err, req, res, next) => {
     if (err.name === "UnauthorizedError") {
