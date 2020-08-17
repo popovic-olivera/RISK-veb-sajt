@@ -1,7 +1,7 @@
 const express = require("express");
 const {urlencoded, json} = require("body-parser");
 const mongoose = require("mongoose");
-const cors = require('cors');
+const cors = require("cors");
 const fileUpload = require("express-fileupload");
 const fileMiddleware = require("./models/file/fileMiddleware")
 
@@ -51,6 +51,9 @@ app.use("/api/user", userRoutes);
 const fileRoutes = require("./models/file/fileRouter");
 app.use("/api/files", fileRoutes);
 
+const meetingRoutes = require("./models/meeting/meetingRouter");
+app.use("/api/meeting", meetingRoutes);
+
 app.use((err, req, res, next) => {
     if (err.name === "UnauthorizedError") {
         res.status(401).json(
@@ -61,9 +64,12 @@ app.use((err, req, res, next) => {
     }
 });
 
-app.use((req, res) => {
-    res.status(404).send();
-})
+app.use(function (req, res, next) {
+    const error = new Error("Request is not supported");
+    error.status = 405;
+  
+    next(error);
+});
 
 const port = process.env.NODE_ENV === "test" ? 3001 : 3000;
 
