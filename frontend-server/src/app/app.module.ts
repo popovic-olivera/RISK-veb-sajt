@@ -7,7 +7,9 @@ import { AppComponent } from './app.component';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
-import { MeetingsComponent } from './meetings/meetings.component';
+import { MeetingsListComponent } from './meetings/meetings-list/meetings-list.component';
+import { CreateMeetingComponent } from './meetings/create-meeting/create-meeting.component';
+import { MeetingComponent } from './meetings/meeting/meeting.component';
 import { OrganizationComponent } from './organization/organization.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { GalleryComponent } from './gallery/gallery.component';
@@ -40,7 +42,9 @@ import { MatMenuModule } from '@angular/material/menu';
     AppComponent,
     FooterComponent,
     HomeComponent,
-    MeetingsComponent,
+    MeetingsListComponent,
+    MeetingComponent,
+    CreateMeetingComponent,
     OrganizationComponent,
     ProjectsComponent,
     GalleryComponent,
