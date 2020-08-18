@@ -1,5 +1,5 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './routing/app-routing.module';
@@ -7,9 +7,6 @@ import { AppComponent } from './app.component';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
-import { MeetingsListComponent } from './meetings/meetings-list/meetings-list.component';
-import { CreateMeetingComponent } from './meetings/create-meeting/create-meeting.component';
-import { MeetingComponent } from './meetings/meeting/meeting.component';
 import { OrganizationComponent } from './organization/organization.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { GalleryComponent } from './gallery/gallery.component';
@@ -19,32 +16,18 @@ import { CreateBlogPostComponent } from './blog/create-blog-post/create-blog-pos
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSliderModule } from '@angular/material/slider';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-import { MatGridListModule } from '@angular/material/grid-list';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatCardModule } from '@angular/material/card';
 import { DatePipe } from '@angular/common';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { ProfileBadgeComponent } from './profile-badge/profile-badge.component';
-import { MatMenuModule } from '@angular/material/menu';
-
+import { MeetingsModule } from './meetings/meetings.module';
+import { MaterialModule } from './material/material.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     FooterComponent,
     HomeComponent,
-    MeetingsListComponent,
-    MeetingComponent,
-    CreateMeetingComponent,
     OrganizationComponent,
     ProjectsComponent,
     GalleryComponent,
@@ -53,29 +36,19 @@ import { MatMenuModule } from '@angular/material/menu';
     CreateBlogPostComponent,
     LoginComponent,
     NavbarComponent,
-    ProfileBadgeComponent,
+    ProfileBadgeComponent
   ],
   imports: [
     BrowserModule,
+    MeetingsModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    MatSliderModule,
     LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatGridListModule,
     FlexLayoutModule,
-    MatCardModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
     ReactiveFormsModule,
-    MatMenuModule
+    MaterialModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

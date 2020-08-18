@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const meetingSchema = new mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
     title: {type: String, required: true},
     author_id: {type: mongoose.Schema.Types.ObjectId},
     date: {type: Date, default: Date.now()},

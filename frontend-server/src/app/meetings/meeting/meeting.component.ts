@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Meeting } from '../meeting.model';
 
 @Component({
   selector: 'app-meeting',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./meeting.component.css']
 })
 export class MeetingComponent implements OnInit {
+
+  @Input() 
+  public meeting: Meeting;
 
   constructor() { }
 

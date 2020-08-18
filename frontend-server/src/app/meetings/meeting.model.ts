@@ -2,17 +2,17 @@ import { Comment } from '../blog/comments.model';
 
 export class Meeting {
 
-    constructor(_id: string,
-                title: string,
-                author_id: string,
-                date: Date,
-                description: string,
-                posterUrl: string,
-                githubRepoUrl: string,
-                presentationUrl: string,
-                photosUrl: string,
-                videoUrl: string,
-                surveyUrl: string,
-                tags: [string],
-                comments: [Comment]) {}
+    constructor(public _id: string,
+                public title: string,
+                public author_id: string,
+                public date: Date,
+                public description: string,
+                public posterUrl: string,
+                public githubRepoUrl: string,
+                public presentationUrl: string,
+                public photosUrl: string,
+                public videoUrl: string,
+                public surveyUrl: string,
+                public tags: [string],
+                public comments: [Comment]) {}
 }

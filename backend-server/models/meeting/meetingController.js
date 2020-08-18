@@ -25,11 +25,7 @@ module.exports.getMeetingById = async (req, res) => {
 
 module.exports.createMeeting = async (req, res) => {
     try {
-        const newMeeting = new Meeting({
-            _id: new mongoose.Types.ObjectId(),
-            title: req.body.title,
-            description: req.body.description
-        });
+        const newMeeting = new Meeting(req.body);
         await newMeeting.save();
         res.status(201).json(newMeeting);
     } catch (err) {

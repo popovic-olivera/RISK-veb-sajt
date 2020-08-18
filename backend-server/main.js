@@ -52,7 +52,7 @@ const fileRoutes = require("./models/file/fileRouter");
 app.use("/api/files", fileRoutes);
 
 const meetingRoutes = require("./models/meeting/meetingRouter");
-app.use("/api/meeting", meetingRoutes);
+app.use("/api/meetings", meetingRoutes);
 
 app.use((err, req, res, next) => {
     if (err.name === "UnauthorizedError") {
