@@ -1,2 +1,17 @@
-<p>Meetings works!</p>
-  
+<mat-card class="container">
+    <mat-card-header>
+        <div mat-card-avatar class="header-image" style="background-image: url('assets/generic_user.jpeg');"></div>
+        <mat-card-title style="font-size: x-large;">{{meeting.title}}</mat-card-title>
+        <mat-card-subtitle>Autor: Nepoznat</mat-card-subtitle> <!--TODO add lecturer-->
+        <mat-card-subtitle>{{ meeting.date | date: 'longDate'}}</mat-card-subtitle>
+    </mat-card-header>
+    <hr>
+    <mat-card-content style="font-size: large;">
+        <p>{{meeting.description}}</p>
+    </mat-card-content>
+    <mat-card-actions>
+        <a mat-raised-button *ngFor="let btn of buttons" href="{{btn.url}}" target="_blank" class="{{btn.color}}">
+            <i class="{{btn.icon}}"></i> {{btn.text}}
+        </a>
+    </mat-card-actions>
+</mat-card>

@@ -11,7 +11,7 @@ const meetingSchema = new mongoose.Schema({
     presentationUrl: {type: String},
     photosUrl: {type: String},
     videoUrl: {type: String},
-    surveyUrl: {typ: String},
+    surveyUrl: {type: String},
 
     tags: [String],
     comments: [{author_id: mongoose.Schema.Types.ObjectId, date: Date, content: String}]

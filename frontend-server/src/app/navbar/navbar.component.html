@@ -1,8 +1,8 @@
-<mat-toolbar>
+<mat-toolbar class="navbar">
   <button *ngIf="(isHandset | async)" mat-icon-button class="example-icon" (click)="drawer.toggle()" id="nav-button">
     <mat-icon>menu</mat-icon>
   </button>
-  <a [routerLink]="'/'"><img src="https://i.imgur.com/vPIuIJr.png" style="width: 100px" alt="RISK logo"></a>
+  <a [routerLink]="'/'"><img src="assets/risk_logo.png" style="width: 100px" alt="RISK logo"></a>
   <span style="flex: 0.02 1 auto;"></span>
   <div *ngIf="!(isHandset | async)">
     <button mat-button [routerLink]="['/okupljanja']" [routerLinkActive]="'active-link'">Okupljanja</button>
