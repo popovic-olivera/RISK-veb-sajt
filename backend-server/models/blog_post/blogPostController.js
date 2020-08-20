@@ -10,30 +10,42 @@ module.exports.getBlogPosts = async (req, res, next) => {
     }
 }
 
-module.exports.getBlogPostById = async (req, res) => {
-    const blogPost = await BlogPost.findById(req.params.id).exec();
-    if (blogPost) {
-        res.status(200).json(blogPost);
-    } else {
-        res.status(404).send();
+module.exports.getBlogPostById = async (req, res, next) => {
+    try {
+        const blogPost = await BlogPost.findById(req.params.id).exec();
+        if (blogPost) {
+            res.status(200).json(blogPost);
+        } else {
+            res.status(404).send();
+        }
+    } catch (err) {
+        next(err);
     }
+
 }
 
-module.exports.createBlogPost = async (req, res) => {
-    const blogPost = new BlogPost(req.body);
-    const error = await blogPost.validateSync();
-    if (error) {
-        res.status(400).json({
-            message: `Fields [${Object.keys(error.errors)}] are not correct`
-        });
-    } else {
-        await blogPost.save();
-        res.status(201).json(blogPost);
+module.exports.createBlogPost = async (req, res, next) => {
+    try {
+        const blogPost = new BlogPost(req.body);
+        const error = await blogPost.validateSync();
+        if (error) {
+            res.status(400).json({
+                message: `Fields [${Object.keys(error.errors)}] are not correct`
+            });
+        } else {
+            await blogPost.save();
+            res.status(201).json(blogPost);
+        }
+    } catch (err) {
+        next(err);
     }
 }
 
 module.exports.updateBlogPost = async (req, res, next) => {
     try {
+        /* Valid id must be contained within the path parameters, and, if the body contains an id, it must match the
+           id contained in the path parameter.
+         */
         if (!mongoose.Types.ObjectId.isValid(req.params.id) || (req.body._id != null && req.params.id !== req.body._id)) {
             res.status(400).send();
         } else {

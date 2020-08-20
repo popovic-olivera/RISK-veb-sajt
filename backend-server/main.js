@@ -54,21 +54,17 @@ app.use("/api/files", fileRoutes);
 const meetingRoutes = require("./models/meeting/meetingRouter");
 app.use("/api/meetings", meetingRoutes);
 
-app.use((err, req, res, next) => {
-    if (err.name === "UnauthorizedError") {
-        res.status(401).json(
-            {"message": `${err.name}: ${err.message}`}
-        )
-    } else {
-        next(err, req, res);
-    }
+// Catch unknown (and unsupported) requests
+app.use(function (req, res) {
+    res.status(405).send();
 });
 
-app.use(function (req, res, next) {
-    const error = new Error("Request is not supported");
-    error.status = 405;
-  
-    next(error);
+/* Catch internal errors. When an error occurs inside a middleware, execution automatically jumps to this error-handling
+* middleware. Note that it is recognized as an error handling middleware as it has 4 parameters. */
+app.use((err, req, res, _) => {
+    // Expand with other error status codes as necessary
+    const status = err.name === "UnauthorizedError" ? 401 : 500;
+    res.status(status).send();
 });
 
 const port = process.env.NODE_ENV === "test" ? 3001 : 3000;

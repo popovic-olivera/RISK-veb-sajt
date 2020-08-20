@@ -1,62 +1,77 @@
 const User = require("./user");
+const File = require("../file/file");
+const UnauthorizedError = require("express-jwt/lib/errors/UnauthorizedError");
 
-// TODO add error handling
-module.exports.register = async (req, res) => {
-    const user = new User({
-        email: req.body.email,
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        profilePictureUrl: req.body.profilePictureUrl
-    });
+// TODO add validation (also edit the User model so that User::validateSync could be used)
+module.exports.register = async (req, res, next) => {
+    try {
+        let profilePictureUrl = undefined;
+        if (req.files && req.files['profilePicture']) {
+            const profilePictureFile = await File.fromRequestFile(req.files['profilePicture']);
+            profilePictureUrl = profilePictureFile.path();
+        }
 
-    user.setPassword(req.body.password);
-
-    await user.save();
-
-    const token = user.generateJwt();
-    res.status(200);
-    res.json({
-        "token": token
-    });
-};
-
-module.exports.login = async (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
-
-    if (!email) {
-        res.status(400).json({
-            message: "Missing 'email' parameter"
+        const user = new User({
+            email: req.body.email,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            profilePictureUrl: profilePictureUrl
         });
-    }
 
-    if (!password) {
-        res.status(400).json({
-            message: "Missing 'password' parameter"
-        });
-    }
+        user.setPassword(req.body.password);
 
-    const user = await User.findOne({email: email}).exec();
+        await user.save();
 
-    if (!user || !user.validPassword(password)) {
-        res.status(400).json({
-            message: "Wrong username or password"
-        });
-    } else {
-        res.status(200).json({
-            token: user.generateJwt()
-        });
+        const token = user.generateJwt();
+        res.status(200).json({token});
+    } catch (err) {
+        next(err);
     }
 };
 
-module.exports.getProfile = async (req, res) => {
-    if (!req.payload._id) {
-        res.status(401).json({
-            "message" : "UnauthorizedError: private profile"
-        });
-    } else {
-        const user = await User.findById(req.payload._id).exec();
-        res.status(200).json(user);
+module.exports.login = async (req, res, next) => {
+    try {
+        const email = req.body.email;
+        const password = req.body.password;
+
+        if (!email) {
+            res.status(400).json({
+                message: "Missing 'email' parameter"
+            });
+        } else {
+            if (!password) {
+                res.status(400).json({
+                    message: "Missing 'password' parameter"
+                });
+            } else {
+                const user = await User.findOne({email: email}).exec();
+
+                if (!user || !user.validPassword(password)) {
+                    res.status(400).json({
+                        message: "Wrong username or password"
+                    });
+                } else {
+                    res.status(200).json({
+                        token: user.generateJwt()
+                    });
+                }
+            }
+        }
+    } catch (err) {
+        next(err);
+    }
+};
+
+module.exports.getProfile = async (req, res, next) => {
+    try {
+        if (!req.payload._id) {
+            next(new UnauthorizedError())
+        } else {
+            const user = await User.findById(req.payload._id).exec();
+            res.status(200).json(user);
+        }
+    } catch (err) {
+        next(err);
     }
 };
 
