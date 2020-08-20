@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { Meeting } from '../meeting.model';
 import { Button } from './button.model';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-meeting',
@@ -12,6 +13,9 @@ export class MeetingComponent implements OnInit {
   @Input() 
   public meeting: Meeting;
   public buttons: Button[] = [];
+
+  @Output()
+  public emitMeetingToDelete: EventEmitter<string> = new EventEmitter<string>();
 
   constructor() { }
 
@@ -25,5 +29,9 @@ export class MeetingComponent implements OnInit {
 
     this.buttons = urls.filter((url) => { return url[0] !== undefined; })
                        .map((url) => { return new Button(url[0], url[1]); });
+  }
+
+  public onDeleteMeeting() {
+    this.emitMeetingToDelete.emit(this.meeting._id);
   }
 }

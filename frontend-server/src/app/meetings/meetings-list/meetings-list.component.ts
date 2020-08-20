@@ -24,6 +24,10 @@ export class MeetingsListComponent implements OnInit {
     this.meetingsService.loadMoreMeetings();
   }
 
+  public deleteMeeting(id: string) {
+    this.meetingsService.deleteMeeting(id);
+  }
+
   ngOnDestroy() {
     this.meetingsService.resetShowingLen();
   }

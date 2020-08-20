@@ -16,8 +16,8 @@ export class MeetingsService {
 
   constructor(private http: HttpClient) {}
 
-  public getMeetings() {
-    if (this.meetings.length !== 0) {
+  public getMeetings(reload = false) {
+    if (this.meetings.length !== 0 && !reload) {
       return ;
     }
 
@@ -47,14 +47,16 @@ export class MeetingsService {
   }
 
   public addMeeting(newMeeting: Meeting) {
-    this.http.post<Meeting>(this.meetingsUrl, newMeeting);
+    this.http.post<Meeting>(this.meetingsUrl, newMeeting).toPromise();
+    this.getMeetings(true); // TODO This works, but should be improved
   }
 
   public updateMeeting(updatedMeeting: Meeting) {
-    this.http.put<Meeting>(this.meetingsUrl + updatedMeeting._id, updatedMeeting);
+    this.http.put<Meeting>(this.meetingsUrl + updatedMeeting._id, updatedMeeting).toPromise();
   }
 
   public deleteMeeting(id: string) {
-    this.http.delete<Meeting>(this.meetingsUrl + id);
+    this.http.delete<Meeting>(this.meetingsUrl + id).toPromise();
+    this.getMeetings(true); // TODO This works, but should be improved
   }
 }

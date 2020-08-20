@@ -1,4 +1,4 @@
-<mat-card class="container">
+<mat-card>
     <mat-card-header>
         <div mat-card-avatar class="header-image" style="background-image: url('assets/generic_user.jpeg');"></div>
         <mat-card-title style="font-size: x-large;">{{meeting.title}}</mat-card-title>
@@ -12,6 +12,10 @@
     <mat-card-actions>
         <a mat-raised-button *ngFor="let btn of buttons" href="{{btn.url}}" target="_blank" class="{{btn.color}}">
             <i class="{{btn.icon}}"></i> {{btn.text}}
+        </a>
+
+        <a mat-raised-button style="float: right;" (click)="onDeleteMeeting()">
+            <i class="fa fa-trash"></i> Obriši okupljanje
         </a>
     </mat-card-actions>
 </mat-card>
