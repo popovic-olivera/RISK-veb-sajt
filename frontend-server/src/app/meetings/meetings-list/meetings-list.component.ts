@@ -9,15 +9,22 @@ import { Meeting } from '../meeting.model';
 })
 
 export class MeetingsListComponent implements OnInit {
-  public meetings: Meeting[]; 
 
   constructor(private meetingsService: MeetingsService) {}
 
   ngOnInit(): void {
-    this.meetingsService.getMeetings().subscribe(
-      meetings => this.meetings = meetings,
-      error => console.error(error)
-    );
+    this.meetingsService.getMeetings(); 
   }
 
+  get meetings(): Meeting[] {
+    return this.meetingsService.getShowingMeetings();
+  }
+
+  public loadOlderMeetings() {
+    this.meetingsService.loadMoreMeetings();
+  }
+
+  ngOnDestroy() {
+    this.meetingsService.resetShowingLen();
+  }
 }

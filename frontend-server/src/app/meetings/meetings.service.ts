@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Meeting } from './meeting.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +10,36 @@ import { Meeting } from './meeting.model';
 
 export class MeetingsService {
   private readonly meetingsUrl = '/api/meetings/';
+  private readonly NUMBER_OF_VISIBLE_MEETINGS = 4;
+  private meetings: Meeting[] = [];
+  private visibleLen = this.NUMBER_OF_VISIBLE_MEETINGS;
 
   constructor(private http: HttpClient) {}
 
-  public getMeetings(): Observable<Meeting[]> {
-    // TODO on component destroy keep news (should be in component)
-    // TODO add length constraint
-    return this.http.get<Meeting[]>(this.meetingsUrl);
+  public getMeetings() {
+    if (this.meetings.length !== 0) {
+      return ;
+    }
+
+    this.http.get<Meeting[]>(this.meetingsUrl)
+             .pipe(map((m: Meeting[]) => {
+                this.meetings = m.reverse();
+              }))
+             .toPromise();
+  }
+
+  public getShowingMeetings(): Meeting[] {
+    return this.meetings.slice(0, this.visibleLen);
+  }
+
+  public loadMoreMeetings() {
+    if (this.visibleLen !== this.meetings.length) {
+      this.visibleLen += 1;
+    }
+  }
+
+  public resetShowingLen(): void {
+    this.visibleLen = this.NUMBER_OF_VISIBLE_MEETINGS;
   }
 
   public getMeetingById(id: string): Observable<Meeting> {

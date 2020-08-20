@@ -1,3 +1,7 @@
 <div fxLayout="column" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutGap="50px" fxLayoutGap.xs="20px">
     <app-meeting *ngFor="let meeting of meetings" [meeting]=meeting></app-meeting>
+
+    <div class="clearfix">
+        <a class="btn btn-primary" (click)="loadOlderMeetings()">Starija okupljanja &rarr;</a>
+    </div>
 </div>
