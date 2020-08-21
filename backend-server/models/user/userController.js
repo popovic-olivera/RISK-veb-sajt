@@ -2,28 +2,29 @@ const User = require("./user");
 const File = require("../file/file");
 const UnauthorizedError = require("express-jwt/lib/errors/UnauthorizedError");
 
-// TODO add validation (also edit the User model so that User::validateSync could be used)
 module.exports.register = async (req, res, next) => {
     try {
-        let profilePictureUrl = undefined;
-        if (req.files && req.files['profilePicture']) {
-            const profilePictureFile = await File.fromRequestFile(req.files['profilePicture']);
-            profilePictureUrl = profilePictureFile.path();
+        const user = new User(req.body);
+
+        const error = user.validateSync();
+
+        if (error) {
+            res.status(400).json({
+                message: `Fields [${Object.keys(error.errors)}] are not correct`
+            });
+        } else {
+            if (req.files && req.files['profilePicture']) {
+                const profilePictureFile = await File.fromRequestFile(req.files['profilePicture']);
+                user.profilePictureUrl = profilePictureFile.path(true);
+            }
+
+            user.setPassword(req.body.password);
+
+            await user.save();
+
+            const token = user.generateJwt();
+            res.status(200).json({token});
         }
-
-        const user = new User({
-            email: req.body.email,
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            profilePictureUrl: profilePictureUrl
-        });
-
-        user.setPassword(req.body.password);
-
-        await user.save();
-
-        const token = user.generateJwt();
-        res.status(200).json({token});
     } catch (err) {
         next(err);
     }

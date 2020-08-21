@@ -10,8 +10,12 @@ const fileSchema = new mongoose.Schema({
     owner: mongoose.Schema.Types.ObjectId
 });
 
-fileSchema.methods.path = function () {
-    return path.join("files", `${this._id.toString()}.${this.type}`);
+fileSchema.methods.path = function (url = false) {
+    if (url) {
+        return path.join("http://localhost", "api", "files", `${this._id.toString()}.${this.type}`);
+    } else {
+        return path.join("files", `${this._id.toString()}.${this.type}`);
+    }
 };
 
 fileSchema.methods.store = async function (file) {
