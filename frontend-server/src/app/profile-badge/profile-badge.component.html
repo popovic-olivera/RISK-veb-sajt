@@ -3,9 +3,9 @@
   {{auth.getUserProfile().firstName}} {{auth.getUserProfile().lastName}}
 </button>
 <mat-menu #menu="matMenu">
-  <button mat-button [routerLink]="['/profile']">Otvori profil</button>
+  <button mat-button [routerLink]="['/profil']" [routerLinkActive]="'active-link'">Otvori profil</button>
   <br>
-  <button mat-button [routerLink]="['/profile/settings']">Podešavanja</button>
+  <button mat-button [routerLink]="['/profil/podesavanja']" [routerLinkActive]="'active-link'">Podešavanja</button>
   <br>
   <button mat-button (click)="auth.logout()">Odjavi se</button>
 </mat-menu>

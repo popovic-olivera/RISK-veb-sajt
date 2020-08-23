@@ -22,6 +22,7 @@ import { DatePipe } from '@angular/common';
 import { ProfileBadgeComponent } from './profile-badge/profile-badge.component';
 import { MeetingsModule } from './meetings/meetings.module';
 import { MaterialModule } from './material/material.module';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { MaterialModule } from './material/material.module';
     CreateBlogPostComponent,
     LoginComponent,
     NavbarComponent,
-    ProfileBadgeComponent
+    ProfileBadgeComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
