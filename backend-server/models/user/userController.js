@@ -18,12 +18,18 @@ module.exports.register = async (req, res, next) => {
                 user.profilePictureUrl = profilePictureFile.path(true);
             }
 
-            user.setPassword(req.body.password);
+            if (!req.body.password) {
+                res.status(400).json({
+                    message: "Missing 'password' field."
+                });
+            } else {
+                user.setPassword(req.body.password);
 
-            await user.save();
+                await user.save();
 
-            const token = user.generateJwt();
-            res.status(200).json({token});
+                const token = user.generateJwt();
+                res.status(200).json({token});
+            }
         }
     } catch (err) {
         next(err);

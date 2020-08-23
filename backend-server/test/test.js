@@ -1,5 +1,6 @@
 process.env.NODE_ENV = "test";
 
+const fs = require("fs");
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 const server = require("../main");
@@ -8,6 +9,20 @@ const should = chai.should();
 chai.use(chaiHttp);
 
 describe("BlogPosts", function () {
+
+    const exampleBlogPost = {
+        "date": "2020-07-21T11:17:54.743Z",
+        "tags": [
+            "Tag1",
+            "Tag2"
+        ],
+        "author_id": "5f291a30e7a3e4461aa45bc3",
+        "title": "Postman test2",
+        "header_image": "InvalidURL",
+        "author_image": "InvalidURL",
+        "url_id": "URL",
+        "content": "Content"
+    }
 
     describe("GET /api/blogPosts", function () {
         it("should return status 200", function (done) {
@@ -26,18 +41,7 @@ describe("BlogPosts", function () {
         it("should return status 201", (done) => {
             chai.request(server)
                 .post("/api/blogPosts")
-                .send({
-                    "date": "2020-07-21T11:17:54.743Z",
-                    "tags": [
-                        "Tag1",
-                        "Tag2"
-                    ],
-                    "author_id": "5f291a30e7a3e4461aa45bc3",
-                    "title": "Postman test2",
-                    "header_image": "Test",
-                    "url_id": "URL",
-                    "content": "Content"
-                })
+                .send(exampleBlogPost)
                 .end((err, res) => {
                     // noinspection JSUnresolvedFunction
                     res.should.have.status(201);
@@ -73,18 +77,7 @@ describe("BlogPosts", function () {
         it("should retrieve created blog post", async () => {
             const response = await chai.request(server)
                 .post("/api/blogPosts")
-                .send({
-                    "date": "2020-07-21T11:17:54.743Z",
-                    "tags": [
-                        "Tag1",
-                        "Tag2"
-                    ],
-                    "author_id": "5f291a30e7a3e4461aa45bc3",
-                    "title": "Postman test2",
-                    "header_image": "Test",
-                    "url_id": "URL",
-                    "content": "Content"
-                });
+                .send(exampleBlogPost);
 
             // noinspection JSUnresolvedFunction
             response.should.have.status(201);
@@ -110,18 +103,7 @@ describe("BlogPosts", function () {
 
             const response = await chai.request(server)
                 .post("/api/blogPosts")
-                .send({
-                    "date": "2020-07-21T11:17:54.743Z",
-                    "tags": [
-                        "Tag1",
-                        "Tag2"
-                    ],
-                    "author_id": "5f291a30e7a3e4461aa45bc3",
-                    "title": "Postman test2",
-                    "header_image": "Test",
-                    "url_id": "URL",
-                    "content": "Content"
-                });
+                .send(exampleBlogPost);
 
             // noinspection JSUnresolvedFunction
             response.should.have.status(201);
@@ -144,18 +126,10 @@ describe("BlogPosts", function () {
         it('should fail when required fields are missing', async () => {
             const postReponse = await chai.request(server)
                 .post("/api/blogPosts")
-                .send({
-                    "date": "2020-07-21T11:17:54.743Z",
-                    "tags": [
-                        "Tag1",
-                        "Tag2"
-                    ],
-                    "author_id": "5f291a30e7a3e4461aa45bc3",
-                    "title": "Postman test2",
-                    "header_image": "Test",
-                    "url_id": "URL",
-                    "content": "Content"
-                });
+                .send(exampleBlogPost);
+
+            // noinspection JSUnresolvedFunction
+            postReponse.should.have.status(201);
 
             const id = postReponse.body._id;
 
@@ -208,18 +182,7 @@ describe("BlogPosts", function () {
 
             const postResponse = await chai.request(server)
                 .post("/api/blogPosts")
-                .send({
-                    "date": "2020-07-21T11:17:54.743Z",
-                    "tags": [
-                        "Tag1",
-                        "Tag2"
-                    ],
-                    "author_id": "5f291a30e7a3e4461aa45bc3",
-                    "title": "Postman test2",
-                    "header_image": "Test",
-                    "url_id": "URL",
-                    "content": "Content"
-                });
+                .send(exampleBlogPost);
 
             // noinspection JSUnresolvedFunction
             postResponse.should.have.status(201);
@@ -242,3 +205,30 @@ describe("BlogPosts", function () {
         });
     });
 });
+
+describe("Users", function () {
+    describe("Register with a profile picture", function () {
+        it("Should store a picture", async function () {
+            const registerResponse = await chai.request(server)
+                .post("/api/user/register")
+                .field("email", "test@foo.com")
+                .field("firstName", "TestFirstName")
+                .field("lastName", "TestLastName")
+                .field("password", "asdasdasd")
+                .attach("profilePicture", fs.readFileSync("test/testImage.png"), "profilePicture.png")
+
+            registerResponse.should.have.status(200);
+
+            const token = registerResponse.body.token;
+
+            const profileResponse = await chai.request(server)
+                .get("/api/user/profile")
+                .set("Authorization", `Bearer ${token}`)
+                .send()
+
+            // noinspection JSUnresolvedFunction
+            profileResponse.should.have.status(200);
+
+        })
+    })
+})

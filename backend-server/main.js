@@ -62,6 +62,7 @@ app.use(function (req, res) {
 /* Catch internal errors. When an error occurs inside a middleware, execution automatically jumps to this error-handling
 * middleware. Note that it is recognized as an error handling middleware as it has 4 parameters. */
 app.use((err, req, res, _) => {
+    console.log(err);
     // Expand with other error status codes as necessary
     const status = err.name === "UnauthorizedError" ? 401 : 500;
     res.status(status).send();
