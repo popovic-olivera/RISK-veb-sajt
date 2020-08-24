@@ -51,9 +51,9 @@ export class AuthenticationService {
     await this.router.navigateByUrl('/');
   }
 
-  private fetchProfile(): void {
+  private fetchProfile(id: string): void {
     this.http.get<UserProfile>(
-      'api/user/profile',
+      `api/user/${id}`,
       {
         headers: {
           Authorization: `Bearer ${this.getToken()}`
@@ -65,16 +65,15 @@ export class AuthenticationService {
   }
 
   public register(email: string, password: string) {
-
     this.http.post(`api/user/register`, {email, password}).subscribe((data: TokenResponse) => {
       if (data.token) {
         this.saveToken(data.token);
-        this.fetchProfile();
+        const id = AuthenticationService.extractUserIdFromJwtToken(data.token);
+        this.fetchProfile(id);
       }
       return data;
     });
   }
-
 
   /**
    * Upon successful login, returns true, saves the JWT token and attempts to fetch the user profile as a side-effect.
@@ -93,7 +92,8 @@ export class AuthenticationService {
           const body: any = response.body;
           if (body.token) {
             this.saveToken(body.token);
-            this.fetchProfile();
+            const id = AuthenticationService.extractUserIdFromJwtToken(body.token);
+            this.fetchProfile(id);
             return true;
           } else {
             return false;
@@ -110,6 +110,12 @@ export class AuthenticationService {
     return observable.toPromise();
   }
 
+  private static extractUserIdFromJwtToken(token: string): string {
+      const encodedPayload = token.split('.')[1];
+      const rawPayload = atob(encodedPayload);
+      const payload = JSON.parse(rawPayload);
+      return payload.id;
+  }
 
 
 }

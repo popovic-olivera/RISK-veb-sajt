@@ -39,7 +39,7 @@ module.exports.getBlogPostById = async (req, res, next) => {
 module.exports.createBlogPost = async (req, res, next) => {
     try {
         // noinspection JSUnresolvedVariable
-        if (!req.authData._id) {
+        if (!req.authData.id) {
             res.status(401).json({
                 message: "You need to be authorized to POST a blog post"
             });
@@ -48,7 +48,7 @@ module.exports.createBlogPost = async (req, res, next) => {
             delete req.body.date;
             let blogPost = new BlogPost(req.body);
             // noinspection JSUnresolvedVariable
-            blogPost.author_id = req.authData._id;
+            blogPost.author_id = req.authData.id;
             const error = await blogPost.validateSync();
             if (error) {
                 res.status(400).json({
@@ -82,7 +82,7 @@ module.exports.createBlogPost = async (req, res, next) => {
 module.exports.updateBlogPost = async (req, res, next) => {
     try {
         // noinspection JSUnresolvedVariable
-        if (!req.authData._id) {
+        if (!req.authData.id) {
             res.status(401).json({
                 message: "You need to be authorized to PUT a blog post"
             });
@@ -127,7 +127,7 @@ module.exports.updateBlogPost = async (req, res, next) => {
 module.exports.deleteBlogPost = async (req, res, next) => {
     try {
         // noinspection JSUnresolvedVariable
-        if (!req.authData._id) {
+        if (!req.authData.id) {
             res.status(401).json({
                 message: "You need to be authorized to DELETE a blog post"
             });

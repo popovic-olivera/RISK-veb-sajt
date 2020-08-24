@@ -11,8 +11,6 @@ const crypto = require("crypto");
 const User = require("../models/user/user");
 const BlogPost = require("../models/blog_post/blogPost");
 
-const request = chai.request(server);
-
 describe("BlogPosts", async function () {
 
     // User to test methods which require authentication
@@ -54,7 +52,7 @@ describe("BlogPosts", async function () {
         })
     });
 
-    describe("POST /api/blogPosts", () => {
+    describe("POST /api/blogPosts", function () {
         it("should return status 201", (done) => {
             chai.request(server)
                 .post("/api/blogPosts")
@@ -93,7 +91,7 @@ describe("BlogPosts", async function () {
     });
 
     describe("GET /api/blogPosts/:id", function () {
-        it("should retrieve created blog post", async () => {
+        it("should retrieve created blog post", async function () {
             const blogPost = new BlogPost(generateBlogPost());
             blogPost.author_id = user._id;
             await blogPost.save();
@@ -111,7 +109,7 @@ describe("BlogPosts", async function () {
 
         });
 
-        it("should be able to get the blog post by url-id", async () => {
+        it("should be able to get the blog post by url-id", async function () {
             const blogPost = new BlogPost(generateBlogPost());
             blogPost.author_id = user._id;
             blogPost.url_id = "test-url-id";
@@ -127,7 +125,7 @@ describe("BlogPosts", async function () {
                 })
         });
 
-/*        it("should expand the blog post with syntetic fields", async () => {
+/*        it("should expand the blog post with syntetic fields", async function () {
             const blogPost = new BlogPost(generateBlogPost());
             blogPost.author_id = user._id;
             await blogPost.save();
@@ -137,9 +135,8 @@ describe("BlogPosts", async function () {
         });*/
     });
 
-    describe("PUT /api/blogPosts", () => {
-        it('should edit existing blog post', async () => {
-
+    describe("PUT /api/blogPosts", function () {
+        it('should edit existing blog post', async function () {
             const response = await chai.request(server)
                 .post("/api/blogPosts")
                 .set("Authorization", `Bearer ${token}`)
@@ -164,7 +161,7 @@ describe("BlogPosts", async function () {
 
         });
 
-        it('should fail when required fields are missing', async () => {
+        it('should fail when required fields are missing', async function () {
             const postReponse = await chai.request(server)
                 .post("/api/blogPosts")
                 .set("Authorization", `Bearer ${token}`)
@@ -190,7 +187,7 @@ describe("BlogPosts", async function () {
             putResponse.body.should.have.property("message");
         });
 
-        it("should fail when a field value isn't valid", async () => {
+        it("should fail when a field value isn't valid", async function () {
             const postReponse = await chai.request(server)
                 .post("/api/blogPosts")
                 .set("Authorization", `Bearer ${token}`)
@@ -222,8 +219,8 @@ describe("BlogPosts", async function () {
         });
     });
 
-    describe("DELETE /api/blogPosts", () => {
-        it('should delete existing blog post', async () => {
+    describe("DELETE /api/blogPosts", function () {
+        it('should delete existing blog post', async function () {
 
             const postResponse = await chai.request(server)
                 .post("/api/blogPosts")
@@ -254,8 +251,27 @@ describe("BlogPosts", async function () {
 });
 
 describe("Users", function () {
+
+    describe("GET /api/profile/:id", async function () {
+        it("should retrieve an user with the specified id", async function() {
+
+            const user = await new User({
+                email: "test@test.org",
+                firstName: "Test",
+                lastName: "Test"
+            }).save();
+
+            const response = await chai.request(server)
+                .get(`/api/user/${user._id}`)
+
+            // noinspection JSUnresolvedFunction
+            response.should.have.status(200);
+            response.should.have.property("body");
+        })
+    })
+
     describe("Register with a profile picture", function () {
-        it("Should store a picture", async function () {
+        xit("Should store a picture", async function () {
             const registerResponse = await chai.request(server)
                 .post("/api/user/register")
                 .field("email", "test@foo.com")
@@ -269,11 +285,11 @@ describe("Users", function () {
 
             const token = registerResponse.body.token;
 
+            // FIXME /api/user/profile is deprecated
             const profileResponse = await chai.request(server)
                 .get("/api/user/profile")
                 .set("Authorization", `Bearer ${token}`)
                 .send()
-
             // noinspection JSUnresolvedFunction
             profileResponse.should.have.status(200);
 

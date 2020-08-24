@@ -1,5 +1,6 @@
 const User = require("./user");
 const File = require("../file/file");
+const mongoose = require("mongoose");
 const UnauthorizedError = require("express-jwt/lib/errors/UnauthorizedError");
 
 module.exports.getProfileById = async (req, res, next) => {
@@ -10,13 +11,13 @@ module.exports.getProfileById = async (req, res, next) => {
             });
         } else if (req.authData && req.authData.id === req.params.id) {
             // Logged-in user is requesting his own profile
-            const User = await User.findById(req.params.id).exec();
-            res.status(200).json(User);
+            const user = await User.findById(req.params.id).exec();
+            res.status(200).json(user);
         } else {
             // Profile not requested by its' user — return public information only
             // TODO restrict data to fields which are public
-            const User = await User.findById(req.params.id).exec();
-            res.status(200).json(User);
+            const user = await User.findById(req.params.id).exec();
+            res.status(200).json(user);
         }
     } catch (err) {
         next(err);
@@ -98,7 +99,7 @@ module.exports.updateProfile = async (req, res, next) => {
             res.status(400).json({
                 message: "Invalid id"
             });
-        } else if (!req.authData || req.authData._id !== req.params.id) {
+        } else if (!req.authData || req.authData.id !== req.params.id) {
             res.status(401).json({
                 message: "Only the profile owner can edit their profile"
             });
@@ -132,19 +133,4 @@ module.exports.updateProfile = async (req, res, next) => {
         next(err);
     }
 }
-
-// FIXME deprecated
-module.exports.getProfile = async (req, res, next) => {
-    try {
-        if (!req.authData._id) {
-            next(new UnauthorizedError())
-        } else {
-            const user = await User.findById(req.authData._id).exec();
-            res.status(200).json(user);
-        }
-    } catch (err) {
-        next(err);
-    }
-};
-
 

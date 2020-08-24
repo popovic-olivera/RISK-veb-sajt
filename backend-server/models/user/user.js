@@ -34,10 +34,7 @@ userSchema.methods.generateJwt = function () {
     const expiryDate = parseInt((expiry.getTime() / 1000).toString(), 10);
     // noinspection JSUnresolvedVariable
     const payload = {
-        "_id": this._id,
-        // TODO reduce the payload to only id and expiration date
-        "email": this.email,
-        "name": `${this.firstName} ${this.lastName}`,
+        "id": this._id,
         "exp": expiryDate,
     };
 

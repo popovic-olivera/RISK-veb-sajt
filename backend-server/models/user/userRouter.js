@@ -6,9 +6,6 @@ const router = express.Router();
 
 router.get("/:id", userController.getProfileById);
 
-// FIXME Deprecated, replace with GET /:id
-router.get("/profile", userController.getProfile);
-
 router.post("/register", userController.register);
 
 router.post("/login", userController.login);

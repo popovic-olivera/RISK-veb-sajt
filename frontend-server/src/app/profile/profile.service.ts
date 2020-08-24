@@ -12,7 +12,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class ProfileService extends HttpErrorHandler {
   private profiles: Observable<UserProfile[]>;
-  private readonly profileUrl = 'http://localhost:3000/profil/';
+  private readonly profileUrl = 'http://localhost:4200/api/user/';
 
   constructor(
     private auth: AuthenticationService,

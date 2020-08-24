@@ -46,7 +46,7 @@ app.use(fileMiddleware);
 /* Auth won't stop at missing token, but will rather let the specific middleware decide what should be done in the
 *  case of unauthorized access. The sole purpose of this middleware is to receive tokens, and store their
 *  payload into the "req.authData" object, for example, if the token is successfully received, the following
-*  middleware can read fields like "req.authData._id", but if the token is missing, unauthenticated access is
+*  middleware can read fields like "req.authData.id", but if the token is missing, unauthenticated access is
 *  recognized by missing "req.authData" object. */
 app.use(jwt({
     secret: "MY_SECRET", // FIXME secret should not be within the source code
