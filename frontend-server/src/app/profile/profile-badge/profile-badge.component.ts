@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../authentication.service';
+import { AuthenticationService } from 'src/app/authentication.service';
 
 @Component({
   selector: 'app-profile-badge',

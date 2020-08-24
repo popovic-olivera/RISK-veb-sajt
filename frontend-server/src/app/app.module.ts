@@ -19,10 +19,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DatePipe } from '@angular/common';
-import { ProfileBadgeComponent } from './profile-badge/profile-badge.component';
 import { MeetingsModule } from './meetings/meetings.module';
 import { MaterialModule } from './material/material.module';
-import { ProfileComponent } from './profile/profile.component';
+import { ProfileViewComponent } from './profile/profile-view/profile-view.component';
+import { ProfileBadgeComponent } from './profile/profile-badge/profile-badge.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +38,7 @@ import { ProfileComponent } from './profile/profile.component';
     LoginComponent,
     NavbarComponent,
     ProfileBadgeComponent,
-    ProfileComponent
+    ProfileViewComponent,
   ],
   imports: [
     BrowserModule,
