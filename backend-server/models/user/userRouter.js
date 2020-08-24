@@ -4,13 +4,10 @@ const userController = require("./userController");
 
 const router = express.Router();
 
-const auth = jwt({
-    secret: "MY_SECRET", // FIXME secret should not be within the source code
-    algorithms: ['HS256'],
-    userProperty: "payload" // TODO rename to something more meaningful, like "authData"
-});
+router.get("/:id", userController.getProfileById);
 
-router.get("/profile", auth, userController.getProfile);
+// FIXME Deprecated, replace with GET /:id
+router.get("/profile", userController.getProfile);
 
 router.post("/register", userController.register);
 

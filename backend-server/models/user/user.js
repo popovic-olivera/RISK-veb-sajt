@@ -7,8 +7,10 @@ const userSchema = new mongoose.Schema({
     firstName: {type: String, required: true},
     lastName: {type: String, required: true},
 
+    // TODO separate into "thumbnail" and "full_res" variants
     profilePictureUrl: String,
 
+    // TODO remove these fields from HTTP responses
     passwordHash: String,
     passwordSalt: String
 });
@@ -33,6 +35,7 @@ userSchema.methods.generateJwt = function () {
     // noinspection JSUnresolvedVariable
     const payload = {
         "_id": this._id,
+        // TODO reduce the payload to only id and expiration date
         "email": this.email,
         "name": `${this.firstName} ${this.lastName}`,
         "exp": expiryDate,
