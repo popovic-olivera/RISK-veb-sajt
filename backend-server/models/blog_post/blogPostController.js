@@ -3,7 +3,9 @@ const BlogPost = require("./blogPost");
 
 module.exports.getBlogPosts = async (req, res, next) => {
     try {
-        const blogPosts = await BlogPost.find().exec();
+        let blogPosts = await BlogPost.find().exec();
+        // noinspection JSUnresolvedFunction
+        blogPosts = await Promise.all(blogPosts.map((post) => post.expanded()));
         res.status(200).json(blogPosts);
     } catch (err) {
         next(err);
@@ -12,8 +14,18 @@ module.exports.getBlogPosts = async (req, res, next) => {
 
 module.exports.getBlogPostById = async (req, res, next) => {
     try {
-        const blogPost = await BlogPost.findById(req.params.id).exec();
+        let blogPost;
+        if (mongoose.Types.ObjectId.isValid(req.params.id)) {
+            // It is a valid ObjectId, try to search by id
+            blogPost = await BlogPost.findById(req.params.id).exec();
+        }
+        if (!blogPost) {
+            // Try searching by url-id instead
+            blogPost = await BlogPost.findOne({url_id: req.params.id}).exec();
+
+        }
         if (blogPost) {
+            blogPost = await blogPost.expanded();
             res.status(200).json(blogPost);
         } else {
             res.status(404).send();
@@ -26,15 +38,41 @@ module.exports.getBlogPostById = async (req, res, next) => {
 
 module.exports.createBlogPost = async (req, res, next) => {
     try {
-        const blogPost = new BlogPost(req.body);
-        const error = await blogPost.validateSync();
-        if (error) {
-            res.status(400).json({
-                message: `Fields [${Object.keys(error.errors)}] are not correct`
+        // noinspection JSUnresolvedVariable
+        if (!req.authData._id) {
+            res.status(401).json({
+                message: "You need to be authorized to POST a blog post"
             });
         } else {
-            await blogPost.save();
-            res.status(201).json(blogPost);
+            // Don't forward the date into the new BlogPost - current date will be applied automatically
+            delete req.body.date;
+            let blogPost = new BlogPost(req.body);
+            // noinspection JSUnresolvedVariable
+            blogPost.author_id = req.authData._id;
+            const error = await blogPost.validateSync();
+            if (error) {
+                res.status(400).json({
+                    message: `Fields [${Object.keys(error.errors)}] are not correct`
+                });
+            } else {
+                blogPost.title = blogPost.title.trim();
+                // TODO test this
+                blogPost.url_id = blogPost.title.toLowerCase().replace(/\s/g, "-");
+
+                // Check whether a blog post with the same url_id exists (and thus the similar title)
+                const existing = await BlogPost.findOne({url_id: blogPost.url_id}).exec();
+                // TODO Test this
+                if (existing) {
+                    res.status(400).json({
+                        message: "Blog post with a similar title already exists",
+                        existing: existing._id
+                    })
+                } else {
+                    await blogPost.save();
+                    blogPost = await blogPost.expanded();
+                    res.status(201).json(blogPost);
+                }
+            }
         }
     } catch (err) {
         next(err);
@@ -43,7 +81,12 @@ module.exports.createBlogPost = async (req, res, next) => {
 
 module.exports.updateBlogPost = async (req, res, next) => {
     try {
-        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+        // noinspection JSUnresolvedVariable
+        if (!req.authData._id) {
+            res.status(401).json({
+                message: "You need to be authorized to PUT a blog post"
+            });
+        } else if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
             res.status(400).json({
                 message: `Invalid id in path: '${req.params.id}'`
             });
@@ -64,11 +107,12 @@ module.exports.updateBlogPost = async (req, res, next) => {
                     saved, even when such document didn't exist before. Instead, assumed existing blog post is being
                     updated by the id, and it is checked whether the document existed beforehand.
                 */
-                const blogPost = await BlogPost.findByIdAndUpdate(req.params.id, blogPostFromPayload, {
+                let blogPost = await BlogPost.findByIdAndUpdate(req.params.id, blogPostFromPayload, {
                     useFindAndModify: false,
                     new: true
                 }).exec();
                 if (blogPost) {
+                    blogPost = await blogPost.expanded();
                     res.status(200).json(blogPost);
                 } else {
                     res.status(404).send();
@@ -82,11 +126,17 @@ module.exports.updateBlogPost = async (req, res, next) => {
 
 module.exports.deleteBlogPost = async (req, res, next) => {
     try {
-        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+        // noinspection JSUnresolvedVariable
+        if (!req.authData._id) {
+            res.status(401).json({
+                message: "You need to be authorized to DELETE a blog post"
+            });
+        } else if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
             res.status(400).send();
         } else {
-            const blogPost = await BlogPost.findByIdAndRemove(req.params.id, {useFindAndModify: false}).exec();
+            let blogPost = await BlogPost.findByIdAndRemove(req.params.id, {useFindAndModify: false}).exec();
             if (blogPost) {
+                blogPost = await blogPost.expanded();
                 res.status(200).json(blogPost);
             } else {
                 res.status(404).send();

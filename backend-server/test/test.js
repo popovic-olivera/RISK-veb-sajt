@@ -7,21 +7,38 @@ const server = require("../main");
 // noinspection JSUnusedLocalSymbols
 const should = chai.should();
 chai.use(chaiHttp);
+const crypto = require("crypto");
+const User = require("../models/user/user");
+const BlogPost = require("../models/blog_post/blogPost");
 
-describe("BlogPosts", function () {
+const request = chai.request(server);
 
-    const exampleBlogPost = {
-        "date": "2020-07-21T11:17:54.743Z",
-        "tags": [
-            "Tag1",
-            "Tag2"
-        ],
-        "author_id": "5f291a30e7a3e4461aa45bc3",
-        "title": "Postman test2",
-        "header_image": "InvalidURL",
-        "author_image": "InvalidURL",
-        "url_id": "URL",
-        "content": "Content"
+describe("BlogPosts", async function () {
+
+    // User to test methods which require authentication
+    const user = await new User({
+        email: "test@test.com",
+        firstName: "Test",
+        lastName: "Tester",
+        profilePictureURL: "Invalid URL"
+    }).save();
+    const token = user.generateJwt();
+
+    // To overcome the unique constraint
+    const generateBlogPost = function () {
+
+        const randomString = crypto.randomBytes(5).toString("hex");
+        const exampleBlogPost = {
+            "tags": [
+                "Tag1",
+                "Tag2"
+            ],
+            "title": `Mocha test ${randomString}`,
+            "header_image": "InvalidURL",
+            "content": "Content"
+        }
+
+        return exampleBlogPost;
     }
 
     describe("GET /api/blogPosts", function () {
@@ -41,7 +58,8 @@ describe("BlogPosts", function () {
         it("should return status 201", (done) => {
             chai.request(server)
                 .post("/api/blogPosts")
-                .send(exampleBlogPost)
+                .set("Authorization", `Bearer ${token}`)
+                .send(generateBlogPost())
                 .end((err, res) => {
                     // noinspection JSUnresolvedFunction
                     res.should.have.status(201);
@@ -54,6 +72,7 @@ describe("BlogPosts", function () {
             // Title is missing from the payload
             chai.request(server)
                 .post("/api/blogPosts")
+                .set("Authorization", `Bearer ${token}`)
                 .send({
                     "date": "2020-07-21T11:17:54.743Z",
                     "tags": [
@@ -75,27 +94,47 @@ describe("BlogPosts", function () {
 
     describe("GET /api/blogPosts/:id", function () {
         it("should retrieve created blog post", async () => {
-            const response = await chai.request(server)
-                .post("/api/blogPosts")
-                .send(exampleBlogPost);
-
-            // noinspection JSUnresolvedFunction
-            response.should.have.status(201);
-            response.body.should.have.property("_id");
-            const id = response.body._id;
+            const blogPost = new BlogPost(generateBlogPost());
+            blogPost.author_id = user._id;
+            await blogPost.save();
 
             chai.request(server)
-                .get(`/api/blogPosts/${id}`)
+                .get(`/api/blogPosts/${blogPost._id}`)
                 .send()
                 .end((err, res) => {
                     // noinspection JSUnresolvedFunction
                     res.should.have.status(200);
                     res.should.have.property("body");
                     res.body.should.have.property("_id");
-                    res.body._id.should.be.equal(id);
+                    res.body._id.toString().should.be.equal(blogPost._id.toString());
                 });
 
-        })
+        });
+
+        it("should be able to get the blog post by url-id", async () => {
+            const blogPost = new BlogPost(generateBlogPost());
+            blogPost.author_id = user._id;
+            blogPost.url_id = "test-url-id";
+            await blogPost.save();
+
+            chai.request(server)
+                .get(`/api/blogPosts/${blogPost.url_id}`)
+                .send()
+                .end((err, res) => {
+                    // noinspection JSUnresolvedFunction
+                    res.should.have.status(200);
+                    res.body.url_id.should.be.equal(blogPost.url_id);
+                })
+        });
+
+/*        it("should expand the blog post with syntetic fields", async () => {
+            const blogPost = new BlogPost(generateBlogPost());
+            blogPost.author_id = user._id;
+            await blogPost.save();
+
+            chai.request(server)
+                .get(`/api/blogPosts/$`)
+        });*/
     });
 
     describe("PUT /api/blogPosts", () => {
@@ -103,7 +142,8 @@ describe("BlogPosts", function () {
 
             const response = await chai.request(server)
                 .post("/api/blogPosts")
-                .send(exampleBlogPost);
+                .set("Authorization", `Bearer ${token}`)
+                .send(generateBlogPost());
 
             // noinspection JSUnresolvedFunction
             response.should.have.status(201);
@@ -114,6 +154,7 @@ describe("BlogPosts", function () {
 
             const putResponse = await chai.request(server)
                 .put(`/api/blogPosts/${responseBody._id}`)
+                .set("Authorization", `Bearer ${token}`)
                 .send(responseBody)
 
             // noinspection JSUnresolvedFunction
@@ -126,7 +167,8 @@ describe("BlogPosts", function () {
         it('should fail when required fields are missing', async () => {
             const postReponse = await chai.request(server)
                 .post("/api/blogPosts")
-                .send(exampleBlogPost);
+                .set("Authorization", `Bearer ${token}`)
+                .send(generateBlogPost());
 
             // noinspection JSUnresolvedFunction
             postReponse.should.have.status(201);
@@ -140,6 +182,7 @@ describe("BlogPosts", function () {
 
             const putResponse = await chai.request(server)
                 .put(`/api/blogPosts/${id}`)
+                .set("Authorization", `Bearer ${token}`)
                 .send(blogPost);
 
             // noinspection JSUnresolvedFunction
@@ -150,6 +193,7 @@ describe("BlogPosts", function () {
         it("should fail when a field value isn't valid", async () => {
             const postReponse = await chai.request(server)
                 .post("/api/blogPosts")
+                .set("Authorization", `Bearer ${token}`)
                 .send({
                     "date": "2020-07-21T11:17:54.743Z",
                     "tags": [
@@ -169,6 +213,7 @@ describe("BlogPosts", function () {
 
             const putResponse = await chai.request(server)
                 .put(`/api/blogPosts/${blogPost._id}`)
+                .set("Authorization", `Bearer ${token}`)
                 .send(blogPost);
 
             // noinspection JSUnresolvedFunction
@@ -182,7 +227,8 @@ describe("BlogPosts", function () {
 
             const postResponse = await chai.request(server)
                 .post("/api/blogPosts")
-                .send(exampleBlogPost);
+                .set("Authorization", `Bearer ${token}`)
+                .send(generateBlogPost());
 
             // noinspection JSUnresolvedFunction
             postResponse.should.have.status(201);
@@ -192,6 +238,7 @@ describe("BlogPosts", function () {
 
             await chai.request(server)
                 .delete(`/api/blogPosts/${id}`)
+                .set("Authorization", `Bearer ${token}`)
                 .send()
 
             chai.request(server)
@@ -217,6 +264,7 @@ describe("Users", function () {
                 .field("password", "asdasdasd")
                 .attach("profilePicture", fs.readFileSync("test/testImage.png"), "profilePicture.png")
 
+            // noinspection JSUnresolvedFunction
             registerResponse.should.have.status(200);
 
             const token = registerResponse.body.token;

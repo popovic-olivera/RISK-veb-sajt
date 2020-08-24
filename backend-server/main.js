@@ -68,8 +68,12 @@ app.use((err, req, res, _) => {
     res.status(status).send();
 });
 
-const port = process.env.NODE_ENV === "test" ? 3001 : 3000;
-
-const server = app.listen(port);
+let server;
+if (process.env.NODE_ENV === "test") {
+    // Random free port is automatically assigned
+    server = app.listen();
+} else {
+    server = app.listen(3000);
+}
 
 module.exports = server;

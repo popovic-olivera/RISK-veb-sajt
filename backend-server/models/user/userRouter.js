@@ -7,7 +7,7 @@ const router = express.Router();
 const auth = jwt({
     secret: "MY_SECRET", // FIXME secret should not be within the source code
     algorithms: ['HS256'],
-    userProperty: "payload"
+    userProperty: "payload" // TODO rename to something more meaningful, like "authData"
 });
 
 router.get("/profile", auth, userController.getProfile);
