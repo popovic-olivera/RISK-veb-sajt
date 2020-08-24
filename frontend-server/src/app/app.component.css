@@ -1,3 +1,8 @@
+.content {
+  margin-right: calc(5%);
+  margin-left: calc(5%);
+}
+
 .sidenav-container {
   height: 100%;
 }
