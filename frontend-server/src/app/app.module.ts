@@ -23,6 +23,7 @@ import { MeetingsModule } from './meetings/meetings.module';
 import { MaterialModule } from './material/material.module';
 import { ProfileViewComponent } from './profile/profile-view/profile-view.component';
 import { ProfileBadgeComponent } from './profile/profile-badge/profile-badge.component';
+import { ProfileSettingsComponent } from './profile/profile-settings/profile-settings.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ProfileBadgeComponent } from './profile/profile-badge/profile-badge.com
     NavbarComponent,
     ProfileBadgeComponent,
     ProfileViewComponent,
+    ProfileSettingsComponent,
   ],
   imports: [
     BrowserModule,

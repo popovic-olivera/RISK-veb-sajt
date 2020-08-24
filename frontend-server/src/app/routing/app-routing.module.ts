@@ -8,6 +8,7 @@ import { BlogListComponent } from '../blog/blog-list/blog-list.component';
 import { GalleryComponent } from '../gallery/gallery.component';
 import { LoginComponent } from '../login/login.component';
 import { ProfileViewComponent } from '../profile/profile-view/profile-view.component';
+import { ProfileSettingsComponent } from '../profile/profile-settings/profile-settings.component';
 
 
 const routes: Routes = [
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path: 'blog', component: BlogListComponent},
   { path: 'galerija', component: GalleryComponent},
   { path: 'prijava', component: LoginComponent },
-  { path: 'profil', component: ProfileViewComponent }
+  { path: 'profil/podesavanja', component: ProfileSettingsComponent },
+  { path: 'profil/:profileId', component: ProfileViewComponent },
 ];
 
 @NgModule({

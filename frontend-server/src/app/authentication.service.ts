@@ -3,16 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
-
-export interface UserProfile {
-  _id: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  profilePictureUrl: string;
-  exp: number;
-  iat: number;
-}
+import { UserProfile } from './profile/user-profile.model';
 
 interface TokenResponse {
   token: string;
