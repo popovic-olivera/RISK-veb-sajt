@@ -2,6 +2,7 @@ const express = require("express");
 
 const blogPostController = require("./blogPostController");
 
+// TODO test unauthorized access
 const router = express.Router();
 router.get("/", blogPostController.getBlogPosts);
 router.get("/:id", blogPostController.getBlogPostById);

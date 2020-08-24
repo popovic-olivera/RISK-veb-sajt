@@ -3,7 +3,8 @@ const {urlencoded, json} = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const fileUpload = require("express-fileupload");
-const fileMiddleware = require("./models/file/fileMiddleware")
+const fileMiddleware = require("./models/file/fileMiddleware");
+const jwt = require("express-jwt");
 
 async function loadMongoDB() {
 
@@ -42,10 +43,24 @@ app.use(urlencoded({extended: false}));
 app.use(fileUpload());
 app.use(fileMiddleware);
 
+/* Auth won't stop at missing token, but will rather let the specific middleware decide what should be done in the
+*  case of unauthorized access. The sole purpose of this middleware is to receive tokens, and store their
+*  payload into the "req.authData" object, for example, if the token is successfully received, the following
+*  middleware can read fields like "req.authData._id", but if the token is missing, unauthenticated access is
+*  recognized by missing "req.authData" object. */
+app.use(jwt({
+    secret: "MY_SECRET", // FIXME secret should not be within the source code
+    algorithms: ['HS256'],
+    userProperty: "authData",
+    credentialsRequired: false,
+    // TODO add token expiration
+}));
+
 const blogPostRoutes = require("./models/blog_post/blogPostRouter");
 app.use("/api/blogPosts", blogPostRoutes);
 
 const userRoutes = require("./models/user/userRouter");
+// TODO replace with "users"
 app.use("/api/user", userRoutes);
 
 const fileRoutes = require("./models/file/fileRouter");
@@ -68,8 +83,12 @@ app.use((err, req, res, _) => {
     res.status(status).send();
 });
 
-const port = process.env.NODE_ENV === "test" ? 3001 : 3000;
-
-const server = app.listen(port);
+let server;
+if (process.env.NODE_ENV === "test") {
+    // Random free port is automatically assigned
+    server = app.listen();
+} else {
+    server = app.listen(3000);
+}
 
 module.exports = server;
