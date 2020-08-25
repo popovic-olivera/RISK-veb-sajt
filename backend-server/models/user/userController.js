@@ -1,7 +1,6 @@
 const User = require("./user");
 const File = require("../file/file");
 const mongoose = require("mongoose");
-const UnauthorizedError = require("express-jwt/lib/errors/UnauthorizedError");
 
 module.exports.getProfileById = async (req, res, next) => {
     try {
