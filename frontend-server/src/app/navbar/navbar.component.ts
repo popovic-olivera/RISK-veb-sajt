@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Observable } from 'rxjs';
+import { ThemingService } from '../theming/theming.service';
 
 @Component({
   selector: 'app-navbar',
@@ -18,9 +19,7 @@ export class NavbarComponent implements OnInit {
   @Input()
   isHandset: Observable<boolean>;
 
-  constructor(public dialog: MatDialog, public auth: AuthenticationService) {
-
-  }
+  constructor(public dialog: MatDialog, public auth: AuthenticationService, public themingService: ThemingService) { }
 
   ngOnInit(): void {
   }

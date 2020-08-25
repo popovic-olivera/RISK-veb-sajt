@@ -9,11 +9,18 @@ $app-light-theme: mat-light-theme($app-primary, $app-accent);
 // TODO explore whether the dark theme should have a custom warning color, like 'deep-orange' instead of red.
 $app-dark-theme: mat-dark-theme($app-primary, $app-accent);
 
+/* To use theme resources in components, create mixins in their stylesheets, import them here, and include them
+ * in both light and dark media queries (see import below for an example of a mixin) */
+@import 'app/profile/profile-badge/profile-badge.component';
+
 @media (prefers-color-scheme: light) {
   @include angular-material-theme($app-light-theme);
+  @include badge-theme($app-light-theme);
 }
 
 @media (prefers-color-scheme: dark) {
   @include angular-material-theme($app-dark-theme);
+  @include badge-theme($app-dark-theme);
 }
+
 

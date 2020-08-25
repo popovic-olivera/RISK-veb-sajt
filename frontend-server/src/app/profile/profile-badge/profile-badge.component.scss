@@ -1,0 +1,26 @@
+@import '~@angular/material/theming';
+
+@mixin badge-theme($theme) {
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  #badge-container {
+
+    background-color: map-get($background, background);
+    padding-left: 5px;
+    padding-bottom: 3px;
+    border-radius: 30px;
+    outline-width: 0;
+    outline-color: transparent;
+
+    img {
+      border-radius: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+  }
+
+  .mat-menu-content button {
+    color: map-get($foreground, text);
+  }
+}
