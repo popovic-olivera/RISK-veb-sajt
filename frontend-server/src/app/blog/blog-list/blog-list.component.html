@@ -1,5 +1,5 @@
-<div class="emulated-flex-gap" fxLayout='row wrap' fxFlexAlign="space-evenly" fxLayout.lt-md="column" fxLayoutGap="30px grid">
-  <div fxFlex="0 1 calc(33.3%)" *ngFor="let post of blogPosts | async">
+<div appBlogLayout fxLayout="row grid" fxFlex.lt-md="column" fxFlexAlign="space-evenly" fxLayoutGap="30px grid">
+  <div fxFlex="{{isProfile ? '0 1 calc(50%)' : '0 1 calc(33.3%)' }}" *ngFor="let post of blogPosts | async">
     <mat-card fxFlex style="padding: 0px;">
       <a class="nav-link" [routerLink]="['/okupljanja']">
         <img mat-card-image src="{{ post.header_image }}" alt="Slika clanka">

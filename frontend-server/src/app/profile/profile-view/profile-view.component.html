@@ -1,1 +1,14 @@
-<p>profile-view works!</p>
+<div fxLayout='row' fxFlexAlign="space-evenly" fxLayout.lt-md="column" fxLayoutGap="70px grid">
+  <div fxFlex="0 1 calc(20%)">
+    <img [src]="profile.profilePictureUrl" style="width: 18vw; height: 18vw; border-radius: 50%;"/>
+    <div style="padding-top:10px; font-size: 1.8vw;">
+      {{ profile.firstName }} {{ profile.lastName }}
+    </div>
+  </div>
+  <div fxFlex="0 1 calc(60%)">
+    <app-blog-list></app-blog-list>
+  </div>
+  <div fxFlex="0 1 calc(20%)">
+    <p>Bio: </p>
+  </div>
+</div>

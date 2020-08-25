@@ -1,26 +1,33 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ProfileService } from '../profile.service';
 import { map, switchMap } from 'rxjs/operators';
 import { UserProfile } from '../user-profile.model';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-profile-view',
   templateUrl: './profile-view.component.html',
   styleUrls: ['./profile-view.component.css']
 })
-export class ProfileViewComponent implements OnDestroy {
-  private profile: UserProfile;
+export class ProfileViewComponent implements OnInit, OnDestroy {
+  public profile: UserProfile;
   private activeSubscriptions: Subscription[];
+  message: string;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private data: DataService
   ) {
     this.activeSubscriptions = [];
     this.findProfileById();
+  }
+
+  ngOnInit() {
+    this.data.changeMessage('profile-view');
   }
 
   private findProfileById() {
