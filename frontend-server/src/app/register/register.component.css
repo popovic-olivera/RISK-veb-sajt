@@ -1,0 +1,16 @@
+#form-container {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.toolbar {
+  background-color: transparent;
+}
+
+.field {
+  display: block
+}
+
+.text-primary:hover {
+  cursor: pointer;
+}

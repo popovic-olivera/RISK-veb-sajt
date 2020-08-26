@@ -1,0 +1,45 @@
+<div id="form-container">
+    <mat-toolbar class="toolbar">
+        <h1>Registracija</h1>
+     </mat-toolbar>
+    <mat-card-content>
+        <form>
+            <mat-form-field appearance="outline" class="field">
+                <mat-label>Imejl adresa</mat-label>
+                <input matInput type="email" name="email" placeholder={{defaultUser.email}} [formControl]="email" required>
+                <mat-error *ngIf="email.invalid">{{emailErrorMessage()}}</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" class="field">
+                <mat-label>Ime</mat-label>
+                <input matInput name="name" placeholder={{defaultUser.name}} [formControl]="name" required>
+                <mat-error *ngIf="name.invalid">Ovo polje je obavezno</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" class="field">
+                <mat-label>Prezime</mat-label>
+                <input matInput name="surname" placeholder={{defaultUser.surname}} [formControl]="surname" required>
+                <mat-error *ngIf="surname.invalid">Ovo polje je obavezno</mat-error>
+            </mat-form-field>
+
+            <mat-card-subtitle>Lozinka treba da sadrži najmanje jedno veliko slovo, jednu cifru i da sadrži najmanje 8 karaktera</mat-card-subtitle>
+
+            <mat-form-field appearance="outline" class="field">
+                <mat-label>Lozinka</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" placeholder={{defaultUser.password}} [formControl]="password" required>
+                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <mat-error *ngIf="password.invalid">{{passwordErrorMessage()}}</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" class="field">
+                <mat-label>Potvrdi lozinku</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" placeholder={{defaultUser.password}} [formControl]="passwordRepeat" required>
+                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <mat-error *ngIf="passwordRepeat.invalid">Lozinke se ne poklapaju</mat-error>
+            </mat-form-field>
+        </form>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button (click)="register()" [disabled]="!registerEnabled()">Registruj se</button>
+    </mat-card-actions>
+</div>

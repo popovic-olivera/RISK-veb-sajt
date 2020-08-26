@@ -25,6 +25,7 @@ import { ProfileViewComponent } from './profile/profile-view/profile-view.compon
 import { ProfileBadgeComponent } from './profile/profile-badge/profile-badge.component';
 import { ProfileSettingsComponent } from './profile/profile-settings/profile-settings.component';
 import { BlogLayoutDirective } from './blog-layout.directive';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { BlogLayoutDirective } from './blog-layout.directive';
     ProfileViewComponent,
     ProfileSettingsComponent,
     BlogLayoutDirective,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../authentication.service';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { FormControl, Validators } from '@angular/forms';
+import { RegisterComponent } from '../register/register.component';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import { FormControl, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<LoginComponent>, public auth: AuthenticationService) {}
+  constructor(public dialogRef: MatDialogRef<LoginComponent>, public auth: AuthenticationService, public dialog: MatDialog) {}
 
   public email = new FormControl(null, [Validators.required, Validators.email]);
   public password = new FormControl(null, [Validators.required]);
@@ -46,5 +47,10 @@ export class LoginComponent implements OnInit {
 
   loginEnabled(): boolean {
     return this.email.valid && this.password.valid;
+  }
+
+  openRegisterDialog() {
+    this.dialogRef.close();
+    this.dialog.open(RegisterComponent);
   }
 }
