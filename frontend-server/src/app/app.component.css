@@ -29,3 +29,18 @@ a:link, a:visited, a:active {
 a:hover {
   color: #00aeef;
 }
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.ft-social-list {
+  display: flex;
+  justify-content: center;
+}
+
+.ft-social-list li {
+  margin: 0.5rem;
+  font-size: 1.25rem;
+}
