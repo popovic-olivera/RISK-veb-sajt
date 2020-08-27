@@ -5,6 +5,7 @@
 
 .toolbar {
   background-color: transparent;
+  margin-bottom: 5%;
 }
 
 .field {
@@ -13,4 +14,8 @@
 
 .text-primary:hover {
   cursor: pointer;
+}
+
+.toolbar h1 {
+  font-size: larger;
 }

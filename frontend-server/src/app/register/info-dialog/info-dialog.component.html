@@ -1,0 +1,24 @@
+<div *ngIf="data.successfulRegistration; else registrationFailed">
+    <h1 mat-dialog-title>Registracija uspešna!</h1>
+    <div mat-dialog-content style="margin-bottom: 5%">
+        Uspešno ste kreirali nalog! 
+        Hvala što ste nam se pridružili!
+    </div>
+    
+    <div style="float: right">Srdačan pozdrav,</div>
+    <br/>
+    <div style="float: right">RISK tim</div>
+</div>
+
+<ng-template #registrationFailed>
+    <h1 mat-dialog-title>Registracija nije uspela...</h1>
+    <div mat-dialog-content style="margin-bottom: 5%">
+        Izgleda da postoji korisnik sa datom imejl adresom u bazi. <br/>
+        Ne možete da se setite lozinke?
+        <a mat-button color="primary" class="">Promeni lozinku</a>
+    </div>
+</ng-template>
+
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close color="primary">Zatvori</button>
+</div>

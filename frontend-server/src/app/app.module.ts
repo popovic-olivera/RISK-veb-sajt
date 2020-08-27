@@ -28,6 +28,7 @@ import { BlogLayoutDirective } from './blog-layout.directive';
 import { RegisterComponent } from './register/register.component';
 import { MarkdownModule } from 'ngx-markdown';
 import { NgxFileHelpersModule } from 'ngx-file-helpers';
+import { InfoDialogComponent } from './register/info-dialog/info-dialog.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { NgxFileHelpersModule } from 'ngx-file-helpers';
     ProfileViewComponent,
     ProfileSettingsComponent,
     BlogLayoutDirective,
-    RegisterComponent
+    RegisterComponent,
+    InfoDialogComponent
   ],
   imports: [
     BrowserModule,
