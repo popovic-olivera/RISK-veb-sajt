@@ -1,48 +1,51 @@
 footer {
   margin-top: 50px;
 }
+
 ul {
   list-style: none;
   padding-left: 0;
 }
-footer a {
-  text-decoration: none;
-}
-a:hover {
-  text-decoration: underline;
-}
+
 .ft-main {
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
   display: flex;
   flex-wrap: wrap;
 }
+
 .ft-main-item {
   padding-right: 1.25rem;
   padding-bottom: 1.25rem;
   min-width: 12.5rem;
 }
+
 .ft-social {
   padding-bottom: 1.25rem;
 }
+
 .ft-social-list {
   display: flex;
   justify-content: center;
   border-top: 1px #777 solid;
   padding-top: 1.25rem;
 }
+
 .ft-social-list li {
   margin: 0.5rem;
   font-size: 1.25rem;
 }
+
 .ft-legal {
   padding: 0.9375rem 0;
 }
+
 .ft-legal-list {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
 }
+
 .ft-legal-list li {
   white-space: nowrap;
 }

@@ -21,17 +21,9 @@
   z-index: 1;
 }
 
-a:link {
-  color: #00aeef;
+a:link, a:visited, a:active {
+  color: rgb(55, 118, 155);
   text-decoration: none;
-}
-
-a:visited {
-  color: darkgrey;
-}
-
-a:active {
-  color: darkgrey;
 }
 
 a:hover {

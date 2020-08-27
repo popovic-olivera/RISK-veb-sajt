@@ -8,6 +8,7 @@ export interface BlogPost {
   date: Date;
   header_image: string;
   url_id: string;
+  desc: string;
   content: string;
   tags: [string];
   comments: [Comment];

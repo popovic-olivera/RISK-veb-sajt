@@ -6,6 +6,7 @@ const blogPostSchema = new mongoose.Schema({
     author_id: {type: mongoose.Schema.Types.ObjectId, required: true},
     date: {type: Date, default: Date.now(), required: true},
     header_image: {type: String, required: true},
+    desc: {type: String, required: true},
     content: {type: String, required: true},
 
     url_id: {type: String, unique: true},
