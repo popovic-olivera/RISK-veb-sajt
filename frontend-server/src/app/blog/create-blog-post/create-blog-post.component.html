@@ -1,1 +1,26 @@
-<p>create-blog-post works!</p>
+<div class="main-content" fxLayout="column">
+
+  <form>
+    <mat-form-field appearance="outline">
+      <mat-label>Naslov</mat-label>
+      <input type="text" matInput>
+    </mat-form-field>
+  </form>
+  <h5>Slika zaglavlja</h5>
+  <div fxLayout="row" fxLayoutAlign=" start">
+    <button mat-raised-button ngxFilePicker accept="image/*" (filePick)="onFilePicked($event)">Izaberi sliku</button>
+    <mat-list dense>
+      <mat-list-item [class.checklist-disabled]="ratioInfo.statusLevel == 'NONE'" [class.checklist-ok]="ratioInfo.statusLevel == 'OK'" [class.checklist-warn]="ratioInfo.statusLevel == 'WARNING'" [class.checklist-error]="ratioInfo.statusLevel == 'ERROR'"><mat-icon>{{getIconName(ratioInfo.statusLevel)}}</mat-icon> {{ratioInfo.message}} </mat-list-item>
+      <mat-list-item [class.checklist-disabled]="resolutionInfo.statusLevel == 'NONE'" [class.checklist-ok]="resolutionInfo.statusLevel == 'OK'" [class.checklist-warn]="resolutionInfo.statusLevel == 'WARNING'" [class.checklist-error]="resolutionInfo.statusLevel == 'ERROR'"> <mat-icon>{{getIconName(resolutionInfo.statusLevel)}}</mat-icon> {{resolutionInfo.message}} </mat-list-item>
+    </mat-list>
+    <img [src]="file.content" height="200" *ngIf="file" alt="Pregled slike zaglavlja"/>
+  </div>
+  <form>
+    <mat-form-field appearance="outline">
+      <mat-label>Sadržaj</mat-label>
+      <textarea [(ngModel)]="content" name="content" matInput cdkTextareaAutosize></textarea>
+    </mat-form-field>
+  </form>
+
+  <markdown [data]="content"></markdown>
+</div>

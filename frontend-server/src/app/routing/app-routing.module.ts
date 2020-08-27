@@ -9,6 +9,7 @@ import { GalleryComponent } from '../gallery/gallery.component';
 import { LoginComponent } from '../login/login.component';
 import { ProfileViewComponent } from '../profile/profile-view/profile-view.component';
 import { ProfileSettingsComponent } from '../profile/profile-settings/profile-settings.component';
+import { CreateBlogPostComponent } from '../blog/create-blog-post/create-blog-post.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'organizacija', component: OrganizationComponent},
   { path: 'projekti', component: ProjectsComponent},
   { path: 'blog', component: BlogListComponent},
+  { path: 'blog/novo', component: CreateBlogPostComponent},
   { path: 'galerija', component: GalleryComponent},
   { path: 'prijava', component: LoginComponent },
   { path: 'profil/podesavanja', component: ProfileSettingsComponent },

@@ -1,0 +1,36 @@
+.main-content {
+  display: flex;
+}
+
+.main-content form {
+  width: 100%;
+}
+
+.main-content form mat-form-field {
+  width: 100%;
+}
+
+.main-content form mat-form-field textarea {
+  min-height: 50vh;
+  max-height: 80vh;
+}
+
+.main-content markdown {
+  width: 100%;
+}
+
+.checklist-ok {
+  color: green;
+}
+
+.checklist-warn {
+  color: orange;
+}
+
+.checklist-error {
+  color: red;
+}
+
+.checklist-disabled {
+  color: rgba(0, 0, 0, 0.5);
+}

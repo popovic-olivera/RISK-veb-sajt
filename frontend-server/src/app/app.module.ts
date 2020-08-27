@@ -26,6 +26,9 @@ import { ProfileBadgeComponent } from './profile/profile-badge/profile-badge.com
 import { ProfileSettingsComponent } from './profile/profile-settings/profile-settings.component';
 import { BlogLayoutDirective } from './blog-layout.directive';
 import { RegisterComponent } from './register/register.component';
+import { MarkdownModule } from 'ngx-markdown';
+import { NgxFileHelpersModule } from 'ngx-file-helpers';
+
 
 @NgModule({
   declarations: [
@@ -56,7 +59,9 @@ import { RegisterComponent } from './register/register.component';
     LayoutModule,
     FlexLayoutModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+    MarkdownModule.forRoot(),
+    NgxFileHelpersModule,
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
