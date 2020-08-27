@@ -25,6 +25,10 @@ export class RegisterComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<RegisterComponent>, private dialog: MatDialog, private auth: AuthenticationService) {}
 
   ngOnInit(): void {
+    this.dialog.open(InfoDialogComponent, {
+      data: {successfulRegistration: false}
+    });
+
     this.registrationForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
       firstName: new FormControl(null, [Validators.required]),

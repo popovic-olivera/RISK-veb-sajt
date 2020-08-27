@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { RestorePasswordComponent } from 'src/app/restore-password/restore-password.component';
 
 @Component({
   selector: 'app-info-dialog',
@@ -10,9 +11,13 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class InfoDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<InfoDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any) { }
+              @Inject(MAT_DIALOG_DATA) public data: any, public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
 
+  onClick() {
+    this.dialogRef.close();
+    this.dialog.open(RestorePasswordComponent);
+  }
 }

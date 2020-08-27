@@ -3,6 +3,7 @@ import { AuthenticationService } from '../authentication.service';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { FormControl, Validators } from '@angular/forms';
 import { RegisterComponent } from '../register/register.component';
+import { RestorePasswordComponent } from '../restore-password/restore-password.component';
 
 @Component({
   selector: 'app-login',
@@ -52,5 +53,10 @@ export class LoginComponent implements OnInit {
   openRegisterDialog() {
     this.dialogRef.close();
     this.dialog.open(RegisterComponent);
+  }
+
+  openRestorePasswordDialog() {
+    this.dialogRef.close();
+    this.dialog.open(RestorePasswordComponent);
   }
 }

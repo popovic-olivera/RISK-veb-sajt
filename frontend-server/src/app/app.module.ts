@@ -29,6 +29,7 @@ import { RegisterComponent } from './register/register.component';
 import { MarkdownModule } from 'ngx-markdown';
 import { NgxFileHelpersModule } from 'ngx-file-helpers';
 import { InfoDialogComponent } from './register/info-dialog/info-dialog.component';
+import { RestorePasswordComponent } from './restore-password/restore-password.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { InfoDialogComponent } from './register/info-dialog/info-dialog.componen
     ProfileSettingsComponent,
     BlogLayoutDirective,
     RegisterComponent,
-    InfoDialogComponent
+    InfoDialogComponent,
+    RestorePasswordComponent
   ],
   imports: [
     BrowserModule,
