@@ -22,6 +22,15 @@
                 <mat-error *ngIf="lastName.invalid">Ovo polje je obavezno</mat-error>
             </mat-form-field>
 
+            <div>
+                <button mat-button color="primary" (click)="fileInput.click()" type="button">
+                    <mat-icon>file_upload</mat-icon>
+                    Učitaj profilnu sliku
+                </button>
+                <input #fileInput type="file" style="display:none;" (change)="onFileChanged($event)"/>
+            </div>
+                
+            <br/>
             <mat-card-subtitle>Lozinka treba da sadrži najmanje jedno veliko slovo, jednu cifru i da sadrži najmanje 8 karaktera</mat-card-subtitle>
 
             <mat-form-field appearance="outline" class="field">
@@ -38,7 +47,7 @@
                 <mat-error *ngIf="confirmPassword.invalid">{{confirmErrorMessage()}}</mat-error>
             </mat-form-field>
 
-            <button mat-raised-button type="submit" [disabled]="!registerEnabled()">Registruj se</button>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!registerEnabled()">Registruj se</button>
         </form>
     </mat-card-content>
 </div>

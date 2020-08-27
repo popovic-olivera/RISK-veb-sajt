@@ -64,7 +64,7 @@ export class AuthenticationService {
     });
   }
 
-  public register(newUser: Map<string, string>) {
+  public register(newUser: FormData) {
     const success = this.http.post(`api/user/register`, newUser, {observe: 'response'}).pipe(
       map((response: any) => {
         if (response.status === 200) {

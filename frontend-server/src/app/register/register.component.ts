@@ -17,6 +17,8 @@ export class RegisterComponent implements OnInit {
                         password: 'p@$$word123'};
 
   public hide = true;
+
+  private selectedImage: File;
                       
   constructor(public dialogRef: MatDialogRef<RegisterComponent>, private auth: AuthenticationService) {}
 
@@ -95,9 +97,21 @@ export class RegisterComponent implements OnInit {
     return this.registrationForm.valid;
   }
 
+  onFileChanged(event) {
+    this.selectedImage = event.target.files[0];
+  }
+
   async onSubmit() {
-    const newUser = this.registrationForm.value;
-    const loginSuccessful = await this.auth.register(newUser);
+    const json = this.registrationForm.getRawValue();
+    
+    // convert to form data in order to send media
+    const formData = new FormData();
+
+    Object.keys(json).forEach(key => formData.append(key, json[key]));
+
+    formData.append('profilePicture', this.selectedImage);
+
+    const loginSuccessful = await this.auth.register(formData);
     
     if (loginSuccessful) {
       this.dialogRef.close();
