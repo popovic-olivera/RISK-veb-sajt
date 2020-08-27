@@ -1,4 +1,6 @@
 .avatar-image {
   background-size: cover;
 }
-
+.mat-card-image:first-child {
+  margin-top: 0;
+}

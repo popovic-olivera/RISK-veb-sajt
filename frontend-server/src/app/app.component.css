@@ -20,3 +20,20 @@
   top: 0;
   z-index: 1;
 }
+
+a:link {
+  color: #00aeef;
+  text-decoration: none;
+}
+
+a:visited {
+  color: darkgrey;
+}
+
+a:active {
+  color: darkgrey;
+}
+
+a:hover {
+  color: #00aeef;
+}

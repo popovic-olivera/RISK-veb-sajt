@@ -1,14 +1,23 @@
-<div fxLayout='row' fxFlexAlign="space-evenly" fxLayout.lt-md="column" fxLayoutGap="70px grid">
-  <div fxFlex="0 1 calc(20%)">
+<div style="align-items: flex-start;" fxLayout='row' fxFlexAlign="space-evenly" fxLayout.lt-md="column">
+  <div class="sticky" fxFlex="0 1 calc(20%)">
     <img [src]="profile.profilePictureUrl" style="width: 18vw; height: 18vw; border-radius: 50%;"/>
-    <div style="padding-top:10px; font-size: 1.8vw;">
+    <div style="padding-top: 14px; font-size: 24px; letter-spacing: 1px; font-weight: 500;">
       {{ profile.firstName }} {{ profile.lastName }}
+      <p class="text" style="font-style: oblique; padding-bottom: 15px; letter-spacing: 2px; border-bottom: 1px solid lightgrey;">CS student</p>
     </div>
+    <ul style="font-size: 18px; font-weight: bold; letter-spacing: 5px;">
+      <li>
+        <a class="link" [routerLink]="['/okupljanja']">Tag1</a>
+      </li>
+      <li>
+        <a class="link" [routerLink]="['/okupljanja']">Tag2</a>
+      </li>
+    </ul>
   </div>
-  <div fxFlex="0 1 calc(60%)">
+  <div fxFlex="0 1 calc(60%)" style="margin: 0px 100px;">
     <app-blog-list></app-blog-list>
   </div>
-  <div fxFlex="0 1 calc(20%)">
-    <p>Bio: </p>
+  <div class="sticky" fxFlex="0 1 calc(20%)">
+    <p class="text" style="letter-spacing: 4px; font-weight: 500; color: darkgray;">Biografija</p>
   </div>
 </div>
