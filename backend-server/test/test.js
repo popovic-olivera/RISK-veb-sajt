@@ -271,7 +271,7 @@ describe("Users", function () {
     })
 
     describe("Register with a profile picture", function () {
-        xit("Should store a picture", async function () {
+        it("Should store a picture", async function () {
             const registerResponse = await chai.request(server)
                 .post("/api/user/register")
                 .field("email", "test@foo.com")
@@ -285,13 +285,15 @@ describe("Users", function () {
 
             const token = registerResponse.body.token;
 
-            // FIXME /api/user/profile is deprecated
-            const profileResponse = await chai.request(server)
-                .get("/api/user/profile")
-                .set("Authorization", `Bearer ${token}`)
-                .send()
-            // noinspection JSUnresolvedFunction
-            profileResponse.should.have.status(200);
+            const encryptedPayload = token.split(".")[1];
+            const payload = JSON.parse(Buffer.from(encryptedPayload, 'base64').toString())
+            const id = payload.id;
+
+            const createdUser = await User.findById(id).exec();
+
+            console.log(createdUser.profilePictureUrl);
+            createdUser.should.not.be.undefined;
+            createdUser.should.have.property("profilePictureUrl");
 
         })
     })

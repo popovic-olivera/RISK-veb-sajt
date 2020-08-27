@@ -11,12 +11,20 @@ module.exports.getProfileById = async (req, res, next) => {
         } else if (req.authData && req.authData.id === req.params.id) {
             // Logged-in user is requesting his own profile
             const user = await User.findById(req.params.id).exec();
-            res.status(200).json(user);
+            if (!user) {
+                res.status(404).send();
+            } else {
+                res.status(200).json(user);
+            }
         } else {
             // Profile not requested by its' user — return public information only
             // TODO restrict data to fields which are public
             const user = await User.findById(req.params.id).exec();
-            res.status(200).json(user);
+            if (!user) {
+                res.status(404).send();
+            } else {
+                res.status(200).json(user);
+            }
         }
     } catch (err) {
         next(err);

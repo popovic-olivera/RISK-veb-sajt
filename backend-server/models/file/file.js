@@ -11,10 +11,11 @@ const fileSchema = new mongoose.Schema({
 });
 
 fileSchema.methods.path = function (url = false) {
+    const filepath = path.join("files", `${this._id.toString()}.${this.type}`);
     if (url) {
-        return path.join("http://localhost", "api", "files", `${this._id.toString()}.${this.type}`);
+        return "http://localhost:4200/api/" + filepath;
     } else {
-        return path.join("files", `${this._id.toString()}.${this.type}`);
+        return filepath;
     }
 };
 
