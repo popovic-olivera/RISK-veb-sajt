@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup, AbstractControl } from '@angular/forms';
+import { AuthenticationService } from '../authentication.service';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-register',
@@ -7,49 +9,60 @@ import { FormControl, Validators, FormGroup, AbstractControl } from '@angular/fo
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  private registrationForm: FormGroup;
-  public defaultUser = {email: 'ai12345@alas.matf.bg.ac.rs', 
-                        name: 'Petar',
-                        surname: 'Petrović',
-                        password: 'p@$$word123'}
-  public hide = true;
+  public registrationForm: FormGroup;
 
-  constructor() { }
+  public defaultUser = {email: 'ai12345@alas.matf.bg.ac.rs', 
+                        firstName: 'Petar',
+                        lastName: 'Petrović',
+                        password: 'p@$$word123'};
+
+  public hide = true;
+                      
+  constructor(public dialogRef: MatDialogRef<RegisterComponent>, private auth: AuthenticationService) {}
 
   ngOnInit(): void {
     this.registrationForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
-      name: new FormControl(null, [Validators.required]),
-      surname: new FormControl(null, [Validators.required]),
+      firstName: new FormControl(null, [Validators.required]),
+      lastName: new FormControl(null, [Validators.required]),
       password: new FormControl(null, [Validators.required, this.passwordValidator]),
-      passwordRepeat: new FormControl(null, [Validators.required, this.passwordsEqual])
-    })
+      confirmPassword: new FormControl(null, [Validators.required])
+    }, this.passwordsEqual);
   }
 
   get email() { return this.registrationForm.get('email'); }
 
-  get name() { return this.registrationForm.get('name'); }
+  get firstName() { return this.registrationForm.get('firstName'); }
 
-  get surname() { return this.registrationForm.get('surname'); }
+  get lastName() { return this.registrationForm.get('lastName'); }
 
   get password() { return this.registrationForm.get('password'); }
 
-  get passwordRepeat() { return this.registrationForm.get('passwordRepeat'); }
+  get confirmPassword() { return this.registrationForm.get('confirmPassword'); }
 
   passwordValidator(control: AbstractControl): { [key: string]: boolean } | null {
     
-    if ((control.value !== null && control.value.length <= 8) || !/[A-Z]/.test(control.value) || !/[0-9]/.test(control.value)) {
+    if ((control.value && control.value.length < 8) || !/[A-Z]/.test(control.value) || !/[0-9]/.test(control.value)) {
       return {'wrongValue': true};
     }
 
     return null;
   }
 
-  passwordsEqual(control: AbstractControl): { [key: string]: boolean } | null {
+  passwordsEqual(form: FormGroup): { [key: string]: boolean } | null {
     
-    // TODO check passwords equality
+    const pass = form.get('password').value;
+    const confirmPass = form.get('confirmPassword').value
 
-    return null;
+    if (pass && confirmPass) {
+      if (pass !== confirmPass) {
+        form.get('confirmPassword').setErrors({
+          notMatching: true
+        })
+      }
+    }
+
+    return null;   
   }
 
   emailErrorMessage(): string {
@@ -70,11 +83,26 @@ export class RegisterComponent implements OnInit {
     }
   }
 
+  confirmErrorMessage(): string {
+    if (this.confirmPassword.hasError('required')) {
+      return 'Ovo je obavezno polje';
+    } else {
+      return 'Lozinke se ne poklapaju';
+    }
+  }
+
   registerEnabled(): boolean {
     return this.registrationForm.valid;
   }
 
-  register() {
-    // TODO enable writing to database
+  async onSubmit() {
+    const newUser = this.registrationForm.value;
+    const loginSuccessful = await this.auth.register(newUser);
+    
+    if (loginSuccessful) {
+      this.dialogRef.close();
+    } else {
+      alert('Registracija nije uspela. Postoji korisnik sa datom imejl adresom u bazi!');
+    }
   }
 }

@@ -64,15 +64,29 @@ export class AuthenticationService {
     });
   }
 
-  public register(email: string, password: string) {
-    this.http.post(`api/user/register`, {email, password}).subscribe((data: TokenResponse) => {
-      if (data.token) {
-        this.saveToken(data.token);
-        const id = AuthenticationService.extractUserIdFromJwtToken(data.token);
-        this.fetchProfile(id);
-      }
-      return data;
-    });
+  public register(newUser: Map<string, string>) {
+    const success = this.http.post(`api/user/register`, newUser, {observe: 'response'}).pipe(
+      map((response: any) => {
+        if (response.status === 200) {
+          if (response.body.token) {
+            const token = response.body.token;
+            this.saveToken(token);
+            const id = AuthenticationService.extractUserIdFromJwtToken(token);
+            this.fetchProfile(id);
+
+            return true;
+          } else {
+            return false;
+          }
+        } else {
+          return false;
+        }
+      }),
+      catchError(() => {
+        return of(false);
+      }));
+    
+      return success.toPromise();
   }
 
   /**
