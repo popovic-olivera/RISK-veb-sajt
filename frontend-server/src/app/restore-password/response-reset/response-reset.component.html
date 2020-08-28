@@ -1,0 +1,17 @@
+<div class="container" style="text-align: center;">
+    <div class="row" *ngIf="currentState=='Wait'">
+        <div class="col-md-12">
+            <h2>Molimo sačekajte</h2>
+        </div>
+    </div>
+    <div class="row" *ngIf="currentState=='NotVerified'">
+        <div class="col-md-12">
+            <h2>URL nije validan (token za promenu je istekao)...</h2>
+        </div>
+    </div>
+    <div class="row" *ngIf="currentState=='Verified'">
+        <div class="col-md-12">
+            <h2>Potvrda je u redu, nastavite sa promenom lozinke.</h2>
+        </div>
+    </div>
+</div>

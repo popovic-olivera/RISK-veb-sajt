@@ -40,7 +40,7 @@ module.exports.resetPassword = async (req, res, next) => {
             secure: false,
             auth: {
                 user: 'olivera.popovic97@gmail.com',
-                pass: 'paunovicka97'
+                pass: 'MATF1997'
             }
         });
 
@@ -50,7 +50,7 @@ module.exports.resetPassword = async (req, res, next) => {
             subject: 'RISK obnova lozinke',
             text: 'Poštovani, \n' + 'Primili ste ovaj imejl iz razloga što ste Vi (ili neko drugi) zatražili oporavak i promenu lozinke Vašeg profila na platformi organizacije RISK.\n\n'
             + 'Molimo Vas da ispratite sledeći link da završite i potvrdite proces: \n\n' +
-            'http://localhost:4200/api/user/valid-password-token/' + resetToken.resetToken + '\n\n' +
+            'http://localhost:4200/promena-lozinke/' + resetToken.resetToken + '\n\n' +
             'Ako niste Vi zatražili ovu promenu, ignorišite ovaj imejl i Vaša lozinka će ostati nepromenjena. \n'
             + 'Srdačan pozdrav,\n' + 'RISK tim'
         };

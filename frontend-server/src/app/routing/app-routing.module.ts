@@ -10,6 +10,7 @@ import { LoginComponent } from '../login/login.component';
 import { ProfileViewComponent } from '../profile/profile-view/profile-view.component';
 import { ProfileSettingsComponent } from '../profile/profile-settings/profile-settings.component';
 import { CreateBlogPostComponent } from '../blog/create-blog-post/create-blog-post.component';
+import { ResponseResetComponent } from '../restore-password/response-reset/response-reset.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'prijava', component: LoginComponent },
   { path: 'profil/podesavanja', component: ProfileSettingsComponent },
   { path: 'profil/:profileId', component: ProfileViewComponent },
+  { path: 'promena-lozinke/:token', component: ResponseResetComponent},
 ];
 
 @NgModule({

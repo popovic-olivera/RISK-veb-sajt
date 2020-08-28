@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthenticationService } from '../authentication.service';
-import { passwordValidator, passwordsEqual } from '../register/custom.validators';
 
 @Component({
   selector: 'app-restore-password',
@@ -40,6 +39,14 @@ export class RestorePasswordComponent implements OnInit {
   }
 
   async onSubmit() {
-    // TODO restore password in database
+    const userEmail = this.resetPasswordForm.value.email;
+    const success = await this.auth.resetPassword(userEmail);
+
+    if (success) {
+      alert('Poslat Vam je mejl za promenu lozinke');
+    }
+    else {
+      alert('Promena nije uspela...Proverite da li ste dobro uneli imejl adresu!');
+    }
   }
 }

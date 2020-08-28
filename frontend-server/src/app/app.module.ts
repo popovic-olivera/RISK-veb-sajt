@@ -30,6 +30,8 @@ import { MarkdownModule } from 'ngx-markdown';
 import { NgxFileHelpersModule } from 'ngx-file-helpers';
 import { InfoDialogComponent } from './register/info-dialog/info-dialog.component';
 import { RestorePasswordComponent } from './restore-password/restore-password.component';
+import { ResponseResetComponent } from './restore-password/response-reset/response-reset.component';
+import { ResponseResetDialogComponent } from './restore-password/response-reset/response-reset-dialog/response-reset-dialog.component';
 
 
 @NgModule({
@@ -51,7 +53,9 @@ import { RestorePasswordComponent } from './restore-password/restore-password.co
     BlogLayoutDirective,
     RegisterComponent,
     InfoDialogComponent,
-    RestorePasswordComponent
+    RestorePasswordComponent,
+    ResponseResetComponent,
+    ResponseResetDialogComponent
   ],
   imports: [
     BrowserModule,
