@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthenticationService } from '../authentication.service';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-restore-password',
@@ -12,7 +13,7 @@ export class RestorePasswordComponent implements OnInit {
   public resetPasswordForm: FormGroup;
   public hidePassword = true;
 
-  constructor(private auth: AuthenticationService) { }
+  constructor(private auth: AuthenticationService, public dialogRef: MatDialogRef<RestorePasswordComponent>) { }
 
   ngOnInit(): void {
     this.resetPasswordForm = new FormGroup({
@@ -43,10 +44,12 @@ export class RestorePasswordComponent implements OnInit {
     const success = await this.auth.resetPassword(userEmail);
 
     if (success) {
-      alert('Poslat Vam je mejl za promenu lozinke');
+      alert('Poslat Vam je mejl sa uputstvom za promenu lozinke.');
     }
     else {
       alert('Promena nije uspela...Proverite da li ste dobro uneli imejl adresu!');
     }
+
+    this.dialogRef.close();
   }
 }

@@ -57,9 +57,11 @@ export class ResponseResetDialogComponent implements OnInit {
     const success = await this.auth.newPassword(newPass, this.data.resetToken);
 
     if (success) {
-      alert('Uspesno promenjena lozinka');
+      alert('Uspešno je promenjena lozinka. Prijavite se da nastavite.');
     } else {
-      alert('Promena nije uspela');
+      alert('Promena nije uspela...');
     }
+    
+    this.dialogRef.close();
   }
 }

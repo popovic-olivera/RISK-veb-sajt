@@ -13,11 +13,13 @@ module.exports.resetPassword = async (req, res, next) => {
 
         const user = await User.findOne({ email: req.body.email });
         if (!user) {
-            return res.status(409).json({ message: 'Email does not exist' });
+            return res.status(409).json({ 
+                message: 'Email does not exist' 
+            });
         }
 
         const resetToken = new PasswordResetToken({
-            _userId: user._id,
+            _id: user._id,
             resetToken: crypto.randomBytes(16).toString('hex')
         });
 
@@ -30,7 +32,7 @@ module.exports.resetPassword = async (req, res, next) => {
         });
 
         PasswordResetToken.find({
-            _userId: user._id,
+            _id: user._id,
             resetToken: { $ne: resetToken.resetToken }
         }).remove().exec();
 
@@ -93,7 +95,7 @@ module.exports.validPasswordToken = async (req, res, next) => {
         }
 
         User.findOneAndUpdate({
-            _id: user._userId
+            _id: user._id
         }).then(() => {
             res.status(200).json({
                 message: 'Token verified successfully.'
@@ -118,7 +120,7 @@ module.exports.newPassword = async (req, res, next) => {
                 });
             }
 
-            User.findOne({ _id: userToken._userId }, (err, user, next) => {
+            User.findOne({ _id: userToken._id }, (err, user, next) => {
                 if (!user) {
                     return res.status(409).json({
                         message: 'User does not exist'
@@ -128,6 +130,11 @@ module.exports.newPassword = async (req, res, next) => {
                 user.setPassword(req.body.newPassword);
 
                 user.save();
+
+                console.log(userToken.resetToken);
+                PasswordResetToken.deleteOne({
+                    resetToken: userToken.resetToken
+                }).exec();
 
                 const token = user.generateJwt();
                 res.status(200).json({token});

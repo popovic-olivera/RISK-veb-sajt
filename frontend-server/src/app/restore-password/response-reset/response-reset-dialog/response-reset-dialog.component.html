@@ -22,7 +22,7 @@
                 <mat-error *ngIf="confirmPassword.invalid">{{confirmErrorMessage()}}</mat-error>
             </mat-form-field>
 
-            <button mat-raised-button mat-dialog-close color="primary" type="submit" [disabled]="!resetEnabled()">Promeni lozinku</button>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!resetEnabled()">Promeni lozinku</button>
         </form>
     </mat-card-content>
 </div>
