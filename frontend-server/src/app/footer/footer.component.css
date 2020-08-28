@@ -12,12 +12,10 @@ ul {
   padding-bottom: 1.25rem;
   display: flex;
   flex-wrap: wrap;
-  border-bottom: 1px #777 solid;
 }
 
 .ft-main-item {
   padding-right: 1.25rem;
-  padding-bottom: 1.25rem;
   min-width: 12.5rem;
 }
 
@@ -25,15 +23,12 @@ ul {
   display: flex;
   justify-content: center;
   padding-top: 1.25rem;
+  border-top: 1px #777 solid;
 }
 
 .ft-social-list li {
   margin: 0.5rem;
   font-size: 1.25rem;
-}
-
-.ft-legal {
-  padding: 0.9375rem 0;
 }
 
 .ft-legal-list {
