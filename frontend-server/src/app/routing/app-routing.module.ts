@@ -11,6 +11,7 @@ import { ProfileViewComponent } from '../profile/profile-view/profile-view.compo
 import { ProfileSettingsComponent } from '../profile/profile-settings/profile-settings.component';
 import { CreateBlogPostComponent } from '../blog/create-blog-post/create-blog-post.component';
 import { ResponseResetComponent } from '../restore-password/response-reset/response-reset.component';
+import { BlogPostComponent } from '../blog/blog-post/blog-post.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'projekti', component: ProjectsComponent},
   { path: 'blog', component: BlogListComponent},
   { path: 'blog/novo', component: CreateBlogPostComponent},
+  { path: 'blog/:id', component: BlogPostComponent},
   { path: 'galerija', component: GalleryComponent},
   { path: 'prijava', component: LoginComponent },
   { path: 'profil/podesavanja', component: ProfileSettingsComponent },

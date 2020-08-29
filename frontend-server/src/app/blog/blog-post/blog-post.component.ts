@@ -41,4 +41,9 @@ export class BlogPostComponent implements OnDestroy {
     });
   }
 
+  authorHasBadges(): boolean {
+    // TODO if the user has a title like "administrator", "moderator" etc., the badge should be shown alongside their
+    //  name.
+    return false;
+  }
 }

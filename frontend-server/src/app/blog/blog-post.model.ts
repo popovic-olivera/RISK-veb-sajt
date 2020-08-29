@@ -5,6 +5,8 @@ export interface BlogPost {
   title: string;
   author_id: string;
   author_image: string;
+  author_first_name: string;
+  author_last_name: string;
   date: Date;
   header_image: string;
   url_id: string;

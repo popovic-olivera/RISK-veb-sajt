@@ -1,1 +1,16 @@
-<p>blog-post works!</p>
+<div *ngIf="blogPost" fxLayout="column" fxLayoutAlign=" center">
+  <img [src]="blogPost.header_image" alt="Slika zaglavlja" class="header-image">
+  <mat-card ngClass.lt-lg="content-lt-md" ngClass.gt-md="content-gt-md">
+    <mat-card-title>{{blogPost.title}}</mat-card-title>
+    <div fxLayout="row" fxLayoutAlign=" start" style="margin-bottom: 2%; margin-top: 2%">
+      <img [src]="blogPost.author_image" alt="Slika autora" class="author-image" />
+      <div fxLayout="column">
+        <div fxLayout="row" fxLayoutAlign=" center">
+          {{blogPost.author_first_name}} {{blogPost.author_last_name}}<mat-icon *ngIf="authorHasBadges()" inline="true">star</mat-icon>
+        </div>
+        <small>{{blogPost.date | date:'longDate'}}</small>
+      </div>
+    </div>
+    <markdown [data]="blogPost.content"></markdown>
+  </mat-card>
+</div>
