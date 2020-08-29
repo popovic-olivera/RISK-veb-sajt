@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { Meeting } from './meeting.model';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,14 +10,14 @@ import { map } from 'rxjs/operators';
 
 export class MeetingsService {
   private readonly meetingsUrl = '/api/meetings/';
-  private readonly NUMBER_OF_VISIBLE_MEETINGS = 4;
+  private readonly NUMBER_OF_VISIBLE_MEETINGS = 2;
   private meetings: Meeting[] = [];
   private visibleLen = this.NUMBER_OF_VISIBLE_MEETINGS;
 
   constructor(private http: HttpClient) {}
 
-  public getMeetings(reload = false) {
-    if (this.meetings.length !== 0 && !reload) {
+  public initMeetings() {
+    if (this.meetings.length !== 0) {
       return ;
     }
 
@@ -28,35 +28,57 @@ export class MeetingsService {
              .toPromise();
   }
 
-  public getShowingMeetings(): Meeting[] {
+  public getVisibleMeetings(): Meeting[] {
     return this.meetings.slice(0, this.visibleLen);
   }
 
-  public loadMoreMeetings() {
+  public showOlderMeetings() {
     if (this.visibleLen !== this.meetings.length) {
       this.visibleLen += 1;
     }
   }
 
-  public resetShowingLen(): void {
+  public resetVisibleLen(): void {
     this.visibleLen = this.NUMBER_OF_VISIBLE_MEETINGS;
   }
 
-  public getMeetingById(id: string): Observable<Meeting> {
-    return this.http.get<Meeting>(this.meetingsUrl + id);
+  public async addMeeting(newMeeting: Meeting) {
+    const addedMeeting = await this.http.post<Meeting>(this.meetingsUrl, newMeeting).toPromise();
+
+    if (addedMeeting) {
+      this.meetings.unshift(addedMeeting);
+      this.visibleLen += 1;
+    }
   }
 
-  public addMeeting(newMeeting: Meeting) {
-    this.http.post<Meeting>(this.meetingsUrl, newMeeting).toPromise();
-    this.getMeetings(true); // TODO This works, but should be improved
-  }
-
-  public updateMeeting(updatedMeeting: Meeting) {
+  // TODO
+  public updateMeeting(updatedMeeting: Meeting): void  {
     this.http.put<Meeting>(this.meetingsUrl + updatedMeeting._id, updatedMeeting).toPromise();
   }
 
-  public deleteMeeting(id: string) {
-    this.http.delete<Meeting>(this.meetingsUrl + id).toPromise();
-    this.getMeetings(true); // TODO This works, but should be improved
+  public deleteFromDatabase(id: string): Promise<boolean> {
+    const success = this.http.delete<Meeting>(this.meetingsUrl + id, {observe: 'response'}).pipe(
+      map( response => {
+        if (response.status === 200) {
+          return true;
+        }
+
+        return false;
+      }),
+      catchError(() => {
+        return of(false);
+      }));
+
+    return success.toPromise();
+  }
+
+  public async deleteMeeting(id: string) {
+    const success = await this.deleteFromDatabase(id);
+
+    if (success) {
+      const index = this.meetings.findIndex(m => m._id === id);
+      this.meetings.splice(index, 1);
+      this.visibleLen -= 1;
+    }
   }
 }

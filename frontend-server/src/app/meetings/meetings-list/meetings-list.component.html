@@ -4,6 +4,6 @@
     <app-meeting (emitMeetingToDelete)="deleteMeeting($event)" *ngFor="let meeting of meetings" [meeting]=meeting></app-meeting>
 
     <div class="clearfix">
-        <a class="btn btn-primary float-right" (click)="loadOlderMeetings()">Starija okupljanja &rarr;</a>
+        <a class="btn btn-primary float-right" (click)="showOlderMeetings()">Starija okupljanja &rarr;</a>
     </div>
 </div>

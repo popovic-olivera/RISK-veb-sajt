@@ -13,15 +13,15 @@ export class MeetingsListComponent implements OnInit {
   constructor(private meetingsService: MeetingsService) {}
 
   ngOnInit(): void {
-    this.meetingsService.getMeetings(); 
+    this.meetingsService.initMeetings(); 
   }
 
   get meetings(): Meeting[] {
-    return this.meetingsService.getShowingMeetings();
+    return this.meetingsService.getVisibleMeetings();
   }
 
-  public loadOlderMeetings() {
-    this.meetingsService.loadMoreMeetings();
+  public showOlderMeetings() {
+    this.meetingsService.showOlderMeetings();
   }
 
   public deleteMeeting(id: string) {
@@ -29,6 +29,6 @@ export class MeetingsListComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.meetingsService.resetShowingLen();
+    this.meetingsService.resetVisibleLen();
   }
 }
