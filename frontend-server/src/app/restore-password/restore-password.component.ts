@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthenticationService } from '../authentication.service';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { processError } from '../register/error.process.message';
+import { MessageDialogComponent } from './message-dialog/message-dialog.component';
 
 @Component({
   selector: 'app-restore-password',
@@ -13,7 +15,8 @@ export class RestorePasswordComponent implements OnInit {
   public resetPasswordForm: FormGroup;
   public hidePassword = true;
 
-  constructor(private auth: AuthenticationService, public dialogRef: MatDialogRef<RestorePasswordComponent>) { }
+  constructor(private auth: AuthenticationService, private dialog: MatDialog, 
+              public dialogRef: MatDialogRef<RestorePasswordComponent>) { }
 
   ngOnInit(): void {
     this.resetPasswordForm = new FormGroup({
@@ -24,15 +27,7 @@ export class RestorePasswordComponent implements OnInit {
   get email() { return this.resetPasswordForm.get('email'); }
 
   emailErrorMessage(): string {
-    if (this.email.hasError('required')) {
-      return 'Ovo je obavezno polje';
-    } 
-    else if (this.email.hasError('email')) {
-      return 'Ovo nije ispravna imejl adresa';
-    } 
-    else {
-      return 'Došlo je do greške';
-    }
+    return processError(this.email);
   }
 
   resetEnabled(): boolean {
@@ -44,12 +39,15 @@ export class RestorePasswordComponent implements OnInit {
     const success = await this.auth.resetPassword(userEmail);
 
     if (success) {
-      alert('Poslat Vam je mejl sa uputstvom za promenu lozinke.');
+      this.dialog.open(MessageDialogComponent, {
+        data: {resetSuccessful: true}
+      });
+      this.dialogRef.close();
     }
     else {
-      alert('Promena nije uspela...Proverite da li ste dobro uneli imejl adresu!');
+      this.dialog.open(MessageDialogComponent, {
+        data: {resetFailed: true}
+      });
     }
-
-    this.dialogRef.close();
   }
 }

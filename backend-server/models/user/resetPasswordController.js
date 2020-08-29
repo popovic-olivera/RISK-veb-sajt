@@ -7,14 +7,14 @@ module.exports.resetPassword = async (req, res, next) => {
     try {
         if (!req.body.email) {
             return res.status(500).json({
-                message: 'Email is required' 
+                message: 'Email is required'
             });
         }
 
         const user = await User.findOne({ email: req.body.email });
         if (!user) {
-            return res.status(409).json({ 
-                message: 'Email does not exist' 
+            return res.status(409).json({
+                message: 'Email does not exist'
             });
         }
 
@@ -53,7 +53,7 @@ module.exports.resetPassword = async (req, res, next) => {
             text: 'Poštovani, \n' + 'Primili ste ovaj imejl iz razloga što ste Vi (ili neko drugi) zatražili oporavak i promenu lozinke Vašeg profila na platformi organizacije RISK.\n\n'
             + 'Molimo Vas da ispratite sledeći link da završite i potvrdite proces: \n\n' +
             'http://localhost:4200/promena-lozinke/' + resetToken.resetToken + '\n\n' +
-            'Ako niste Vi zatražili ovu promenu, ignorišite ovaj imejl i Vaša lozinka će ostati nepromenjena. \n'
+            'Ako niste Vi zatražili ovu promenu, ignorišite ovaj imejl i Vaša lozinka će ostati nepromenjena. \n\n'
             + 'Srdačan pozdrav,\n' + 'RISK tim'
         };
 
@@ -62,11 +62,11 @@ module.exports.resetPassword = async (req, res, next) => {
                 res.status(500).json({
                     message: 'Email was not sent'
                 });
-            
+
                 return console.log(error);
             }
             else {
-                res.status(200).json({ 
+                res.status(200).json({
                     message: 'Email sent successfully'
                 });
             }
@@ -94,7 +94,7 @@ module.exports.validPasswordToken = async (req, res, next) => {
             });
         }
 
-        User.findOneAndUpdate({
+        User.findOne({
             _id: user._id
         }).then(() => {
             res.status(200).json({
@@ -131,7 +131,6 @@ module.exports.newPassword = async (req, res, next) => {
 
                 user.save();
 
-                console.log(userToken.resetToken);
                 PasswordResetToken.deleteOne({
                     resetToken: userToken.resetToken
                 }).exec();

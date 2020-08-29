@@ -2,3 +2,16 @@
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
+.toolbar {
+  background-color: transparent;
+  margin-bottom: 5%;
+}
+
+.toolbar h1 {
+  font-size: larger;
+}
+
+.field {
+  display: block
+}

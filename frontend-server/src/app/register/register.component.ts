@@ -4,6 +4,7 @@ import { AuthenticationService } from '../authentication.service';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { InfoDialogComponent } from './info-dialog/info-dialog.component';
 import { passwordValidator, passwordsEqual } from './custom.validators';
+import { processError } from './error.process.message';
 
 @Component({
   selector: 'app-register',
@@ -22,16 +23,17 @@ export class RegisterComponent implements OnInit {
   public hidePassword = true;
   public selectedImage: File;
                       
-  constructor(public dialogRef: MatDialogRef<RegisterComponent>, private dialog: MatDialog, private auth: AuthenticationService) {}
+  constructor(public dialogRef: MatDialogRef<RegisterComponent>, private dialog: MatDialog, 
+              private auth: AuthenticationService) {}
 
   ngOnInit(): void {
     this.registrationForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
-      firstName: new FormControl(null, [Validators.required]),
-      lastName: new FormControl(null, [Validators.required]),
-      password: new FormControl(null, [Validators.required, passwordValidator]),
-      confirmPassword: new FormControl(null, [Validators.required])
-    }, passwordsEqual);
+      firstName: new FormControl(null, Validators.required),
+      lastName: new FormControl(null, Validators.required),
+      password: new FormControl(null, Validators.required),
+      confirmPassword: new FormControl(null, Validators.required)
+    }, [passwordValidator, passwordsEqual]);
   }
 
   get email() { return this.registrationForm.get('email'); }
@@ -41,36 +43,15 @@ export class RegisterComponent implements OnInit {
   get confirmPassword() { return this.registrationForm.get('confirmPassword'); }
 
   emailErrorMessage(): string {
-    if (this.email.hasError('required')) {
-      return 'Ovo je obavezno polje';
-    } 
-    else if (this.email.hasError('email')) {
-      return 'Ovo nije ispravna imejl adresa';
-    } 
-    else {
-      return 'Došlo je do greške';
-    }
+    return processError(this.email);
   }
 
   passwordErrorMessage(): string {
-    if (this.password.hasError('required')) {
-      return 'Ovo je obavezno polje';
-    } 
-    else {
-      return 'Ovo nije ispravan format lozinke';
-    }
+    return processError(this.password);
   }
 
   confirmErrorMessage(): string {
-    if (this.confirmPassword.hasError('required')) {
-      return 'Ovo je obavezno polje';
-    } 
-    else if (this.confirmPassword.hasError('notMatching')) {
-      return 'Lozinke se ne poklapaju';
-    }
-    else {
-      return 'Došlo je do greške';
-    }
+    return processError(this.confirmPassword);
   }
 
   registerEnabled(): boolean {
@@ -81,7 +62,7 @@ export class RegisterComponent implements OnInit {
     this.selectedImage = (event.target as HTMLInputElement).files[0];
   }
 
-  async onSubmit() {
+  async onRegister() {
     const jsonData = this.registrationForm.getRawValue();
     
     // convert to form data in order to send media
@@ -99,6 +80,7 @@ export class RegisterComponent implements OnInit {
       });
     } 
     else {
+      this.dialogRef.close();
       this.dialog.open(InfoDialogComponent, {
         data: {successfulRegistration: false}
       });

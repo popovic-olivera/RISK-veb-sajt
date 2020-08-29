@@ -1,31 +1,32 @@
 <div id="form-container">
-  <mat-card-title>Prijavi se</mat-card-title>
-  <br>
-  <br>
-  <mat-form-field appearance="outline">
-    <mat-label >Imejl adresa</mat-label>
-      <input matInput type="email" name="email" placeholder="ai12345@alas.matf.bg.ac.rs" [formControl]="email" required>
-    <mat-error *ngIf="email.invalid">{{emailErrorMessage()}}</mat-error>
-  </mat-form-field>
-  <br>
-  <mat-form-field appearance="outline">
-    <mat-label>Lozinka</mat-label>
-    <input matInput type="password" placeholder="p@$$word123" [formControl]="password" required>
-    <mat-error *ngIf="password.invalid">Ovo je obavezno polje</mat-error>
-  </mat-form-field>
-  <br>
-  <button mat-raised-button (click)="login()" [disabled]="!loginEnabled()">Prijavi se</button>
-  <br>
+  <mat-toolbar class="toolbar">
+    <h1>Prijavi se</h1>
+  </mat-toolbar>
+
+  
+  <form (ngSubmit)="login()">
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Imejl adresa</mat-label>
+        <input matInput type="email" name="email" placeholder="ai12345@alas.matf.bg.ac.rs" [formControl]="email" required>
+      <mat-error *ngIf="email.invalid">{{emailErrorMessage()}}</mat-error>
+    </mat-form-field>
+    
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Lozinka</mat-label>
+      <input matInput type="password" placeholder="p@$$word123" [formControl]="password" required>
+      <mat-error *ngIf="password.invalid">Ovo je obavezno polje</mat-error>
+    </mat-form-field>
+    
+    <button mat-raised-button [disabled]="!loginEnabled()">Prijavi se</button>
+  </form>
   <br>
   <div *ngIf="unsuccessfulLoginResponse">
-    <mat-error *ngIf="unsuccessfulLoginResponse" class="mat-small">Neuspelo prijavlivanje</mat-error>
+    <mat-error *ngIf="unsuccessfulLoginResponse" class="mat-small">Prijavljivanje nije uspelo</mat-error>
     <br>
   </div>
   <mat-divider></mat-divider>
   <mat-list>
-    <!-- TODO make these links functional (create appropriate Components) -->
     <mat-list-item><button mat-button color="primary" (click)="openRegisterDialog()">Registruj se</button></mat-list-item>
     <mat-list-item><button mat-button color="primary" (click)="openRestorePasswordDialog()">Zaboravljena lozinka?</button></mat-list-item>
   </mat-list>
-
 </div>
