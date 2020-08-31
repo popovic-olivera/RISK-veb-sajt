@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Renderer2, OnInit } from '@angular/core';
+import { Directive, OnInit } from '@angular/core';
 import { DataService } from './data.service';
 
 @Directive({
@@ -7,10 +7,7 @@ import { DataService } from './data.service';
 export class BlogLayoutDirective implements OnInit {
   message: string;
 
-  constructor(
-    private elem: ElementRef,
-    private renderer: Renderer2,
-    private data: DataService) { }
+  constructor(private data: DataService) { }
 
   ngOnInit() {
     this.data.currentMessage.subscribe(message => this.message = message);

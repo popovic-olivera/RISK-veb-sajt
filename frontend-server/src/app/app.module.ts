@@ -55,7 +55,7 @@ import { MessageDialogComponent } from './restore-password/message-dialog/messag
     RestorePasswordComponent,
     ResponseResetComponent,
     ResponseResetDialogComponent,
-    MessageDialogComponent
+    MessageDialogComponent,
   ],
   imports: [
     BrowserModule,
