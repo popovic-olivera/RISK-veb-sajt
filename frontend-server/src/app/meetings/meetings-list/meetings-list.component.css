@@ -1,0 +1,24 @@
+.carousel-item {
+    position: relative;
+    display: inline-block;
+    min-height: 60vh;
+    max-height: 60vh;
+}
+
+.carousel-item img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+@media only screen and (orientation: portrait) {
+    .carousel-item {
+        min-height: 50vh;
+        max-height: 50vh;
+    }
+
+    .carousel-item img {
+        height: 100%;
+    }
+}

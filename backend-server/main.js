@@ -5,6 +5,7 @@ const cors = require("cors");
 const fileUpload = require("express-fileupload");
 const fileMiddleware = require("./models/file/fileMiddleware");
 const jwt = require("express-jwt");
+const path = require("path");
 
 async function loadMongoDB() {
 
@@ -41,6 +42,7 @@ app.use(cors());
 app.use(json());
 app.use(urlencoded({extended: false}));
 app.use(fileUpload());
+app.use(express.static(path.join(__dirname, 'public')))
 app.use(fileMiddleware);
 
 /* Auth won't stop at missing token, but will rather let the specific middleware decide what should be done in the
@@ -68,6 +70,9 @@ app.use("/api/files", fileRoutes);
 
 const meetingRoutes = require("./models/meeting/meetingRouter");
 app.use("/api/meetings", meetingRoutes);
+
+const imagesRoutes = require("./models/images/imagesRoutes");
+app.use("/api/images", imagesRoutes);
 
 // Catch unknown (and unsupported) requests
 app.use(function (req, res) {

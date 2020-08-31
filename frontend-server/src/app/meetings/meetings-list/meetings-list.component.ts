@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MeetingsService } from '../meetings.service';
 import { Meeting } from '../meeting.model';
+import { Image } from '../meeting-images/images.model';
+import { ImagesService } from '../meeting-images/images.service';
 
 @Component({
   selector: 'app-meetings-list',
@@ -9,11 +11,18 @@ import { Meeting } from '../meeting.model';
 })
 
 export class MeetingsListComponent implements OnInit {
+  public images: Image[];
 
-  constructor(private meetingsService: MeetingsService) {}
+  constructor(private meetingsService: MeetingsService,
+              private imagesService: ImagesService) {}
 
   ngOnInit(): void {
     this.meetingsService.initMeetings(); 
+    this.initImages();
+  }
+
+  async initImages() {
+    this.images = await this.imagesService.getMeetingImages();
   }
 
   get meetings(): Meeting[] {

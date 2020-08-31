@@ -5,6 +5,8 @@ import { MeetingsListComponent } from './meetings-list/meetings-list.component';
 import { CreateMeetingComponent } from './create-meeting/create-meeting.component';
 import { MaterialModule } from '../material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { CarouselModule, WavesModule } from 'angular-bootstrap-md';
+
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
   imports: [
     CommonModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    CarouselModule,
+    WavesModule
   ]
 })
 

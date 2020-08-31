@@ -1,6 +1,12 @@
 <div class="container" fxLayout="column" fxLayout.xs="column" fxLayoutGap="50px" fxLayoutGap.xs="20px">
-    <app-create-meeting></app-create-meeting>
+    <!-- <app-create-meeting></app-create-meeting> -->
     
+    <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
+        <mdb-carousel-item *ngFor="let img of images">
+            <img class="w-100" src={{img.imageUrl}} alt={{img.imageName}}>
+        </mdb-carousel-item>
+    </mdb-carousel>
+
     <app-meeting (emitMeetingToDelete)="deleteMeeting($event)" *ngFor="let meeting of meetings" [meeting]=meeting></app-meeting>
 
     <div class="clearfix">

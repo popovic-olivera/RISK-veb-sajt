@@ -1,5 +1,4 @@
 const express = require("express");
-
 const meetingController = require("./meetingController");
 
 const router = express.Router();

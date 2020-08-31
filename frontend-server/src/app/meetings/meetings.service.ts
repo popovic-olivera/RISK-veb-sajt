@@ -10,7 +10,7 @@ import { of } from 'rxjs';
 
 export class MeetingsService {
   private readonly meetingsUrl = '/api/meetings/';
-  private readonly NUMBER_OF_VISIBLE_MEETINGS = 2;
+  private readonly NUMBER_OF_VISIBLE_MEETINGS = 4;
   private meetings: Meeting[] = [];
   private visibleLen = this.NUMBER_OF_VISIBLE_MEETINGS;
 
