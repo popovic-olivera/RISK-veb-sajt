@@ -1,22 +1,76 @@
-<mat-card> <!--TODO this component should be visible only to RISK members-->
-    <mat-card-title>Dodaj novo okupljanje</mat-card-title>
+<mat-card class="card container"> <!--TODO this component should be visible only to RISK members-->
+    <mat-card-title class="title">Dodaj novo okupljanje</mat-card-title>
 
-    <mat-form-field appearance="outline" class="input">
-        <mat-label>Unesite naslov održanog predavanja</mat-label>
-        <input matInput placeholder="Naslov predavanja" #heading>
-        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-    </mat-form-field>
+    <form [formGroup]="createMeetingForm" style="text-align:center;" (ngSubmit)="onSaveMeeting()">
+        <div class="row">
+            <div class="column">
+                <mat-form-field appearance="outline" class="input">
+                    <mat-label>Unesite naslov održanog predavanja</mat-label>
+                    <input matInput name="title" placeholder="Naslov predavanja" [formControl]="title" required>
+                    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                    <mat-error *ngIf="title.invalid">Ovo polje je obavezno</mat-error>
+                </mat-form-field>
+            
+                <mat-form-field appearance="outline" class="input">
+                    <mat-label>Unesite autora</mat-label>
+                    <input matInput name="author_id" placeholder="Petar Petrović" [formControl]="author_id" required>
+                    <mat-icon matSuffix>face</mat-icon>
+                    <mat-error *ngIf="author_id.invalid">Ovo polje je obavezno</mat-error>
+                </mat-form-field>
 
-    <mat-form-field appearance="outline" class="input">
-        <mat-label>Unesite opis predavanja</mat-label>
-        <textarea matInput placeholder="Kratak opis predavanja" #desc></textarea>
-    </mat-form-field>
+                <mat-form-field appearance="outline" class="input">
+                    <mat-label>Unesite opis predavanja</mat-label>
+                    <textarea matInput name="description" placeholder="Kratak opis predavanja" [formControl]="description" required></textarea>
+                    <mat-error *ngIf="description.invalid">Ovo polje je obavezno</mat-error>
+                </mat-form-field>
 
-    <mat-form-field appearance="outline" class="input">
-        <mat-label>Unesite link do GitHub repozitorijuma sa kodom</mat-label>
-        <input matInput placeholder="Link do repozitorijuma" #github>
-        <mat-icon matSuffix>computer</mat-icon>
-    </mat-form-field>
+                <mat-form-field appearance="outline" class="input">
+                    <mat-label>Unesite datum održavanja</mat-label>
+                    <input matInput name="date" [matDatepicker]="picker" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <!-- <mat-error *ngIf="date.invalid">Ovo polje je obavezno</mat-error> -->
+                </mat-form-field>
+            
+                <mat-form-field appearance="outline" class="input">
+                    <mat-label>Unesite link do GitHub repozitorijuma sa kodom</mat-label>
+                    <input matInput name="githubRepoUrl" placeholder="Link do repozitorijuma">
+                    <mat-icon matSuffix>computer</mat-icon>
+                </mat-form-field>
+            </div>
+            <div class="column">
+                <mat-form-field appearance="outline" class="input">
+                    <mat-label>Unesite ključne reči</mat-label>
+                    <textarea matInput name="tags" placeholder="Nekoliko reči koje opisuju predavanje"></textarea>
+                    <!-- <mat-error *ngIf="tags.invalid">Ovo polje je obavezno</mat-error> -->
+                </mat-form-field>
 
-    <button mat-raised-button (click)="saveMeeting(heading.value, desc.value, github.value)" [disabled]="!saveEnabled(heading.value, desc.value, github.value)">Sačuvaj</button>
+                <mat-form-field appearance="outline" class="input">
+                    <mat-label>Unesite link postera predavanja</mat-label>
+                    <input matInput name="posterUrl" placeholder="Link do repozitorijuma">
+                    <mat-icon matSuffix>image</mat-icon>
+                </mat-form-field>
+            
+                <mat-form-field appearance="outline" class="input">
+                    <mat-label>Unesite link prezentacije sa predavanja</mat-label>
+                    <input matInput name="presentationUrl" placeholder="Prezentacija sa predavanja">
+                    <mat-icon matSuffix>slideshow</mat-icon>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="input">
+                    <mat-label>Unesite link snimka predavanja</mat-label>
+                    <input matInput name="videoUrl" placeholder="Link do video snimka">
+                    <mat-icon matSuffix>videocam</mat-icon>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="input">
+                    <mat-label>Unesite link do ankete o utiscima</mat-label>
+                    <input matInput name="surveyUrl" placeholder="Link do ankete o utiscima">
+                    <mat-icon matSuffix>analytics</mat-icon>
+                </mat-form-field>
+            </div>
+        </div>
+        
+        <button mat-raised-button color="primary" class="btn-lg" type="submit" [disabled]="!saveMeetingEnabled()">Sačuvaj</button>
+    </form>
 </mat-card>

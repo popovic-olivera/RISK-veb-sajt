@@ -6,6 +6,7 @@ import { CreateMeetingComponent } from './create-meeting/create-meeting.componen
 import { MaterialModule } from '../material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CarouselModule, WavesModule } from 'angular-bootstrap-md';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -19,7 +20,9 @@ import { CarouselModule, WavesModule } from 'angular-bootstrap-md';
     MaterialModule,
     FlexLayoutModule,
     CarouselModule,
-    WavesModule
+    WavesModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 

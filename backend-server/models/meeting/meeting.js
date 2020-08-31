@@ -2,19 +2,16 @@ const mongoose = require('mongoose');
 
 const meetingSchema = new mongoose.Schema({
     title: {type: String, required: true},
-    author_id: {type: mongoose.Schema.Types.ObjectId},
-    date: {type: Date, default: Date.now()},
+    author_id: {type: String, required: true},
     description: {type: String, required: true},
+    date: {type: Date},
+    tags: [String],
 
     posterUrl: {type: String},
     githubRepoUrl: {type: String},
     presentationUrl: {type: String},
-    photosUrl: {type: String},
     videoUrl: {type: String},
     surveyUrl: {type: String},
-
-    tags: [String],
-    comments: [{author_id: mongoose.Schema.Types.ObjectId, date: Date, content: String}]
 });
 
 const meetingsModel = mongoose.model('meetings', meetingSchema);
