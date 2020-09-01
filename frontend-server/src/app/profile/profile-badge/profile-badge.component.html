@@ -4,7 +4,7 @@
     {{auth.getUserProfile().firstName}} {{auth.getUserProfile().lastName}}
   </span>
 </button>
-<mat-menu #menu="matMenu">
+<mat-menu #menu="matMenu" xPosition="before">
   <button mat-button [routerLink]="['/profil', this.auth.getUserProfile()._id]">Otvori profil</button>
   <br>
   <button mat-button [routerLink]="['/profil/podesavanja']">Podešavanja</button>

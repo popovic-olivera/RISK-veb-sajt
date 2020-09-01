@@ -17,7 +17,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.initStyle();
 
-    if (window.innerWidth < 960) {
+    if (window.innerWidth < 600) {
       this.setSmall();
     } else {
       this.setLarge();
@@ -28,7 +28,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   onResize(event) {
     this.initStyle();
 
-    if (event.target.innerWidth < 960) {
+    if (event.target.innerWidth < 600) {
       this.setSmall();
     } else {
       this.setLarge();
@@ -37,13 +37,15 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
 
   setSmall(): void {
     this.elLeft.forEach(left => {
-      this.renderer.setStyle(left.nativeElement.querySelector('mat-card'), 'border-radius', '50% / 30%');
+      this.renderer.setStyle(left.nativeElement, 'padding-right', '0px');
+      this.renderer.setStyle(left.nativeElement.querySelector('mat-card'), 'border-radius', '50% / 35%');
       this.renderer.setStyle(left.nativeElement.querySelector('mat-card'), 'border-bottom-left-radius', '0px');
       this.renderer.setStyle(left.nativeElement.querySelector('mat-card'), 'border-bottom-right-radius', '0px');
     });
 
     this.elRight.forEach(right => {
-      this.renderer.setStyle(right.nativeElement.querySelector('mat-card'), 'border-radius', '50% / 30%');
+      this.renderer.setStyle(right.nativeElement, 'padding-left', '0px');
+      this.renderer.setStyle(right.nativeElement.querySelector('mat-card'), 'border-radius', '50% / 35%');
       this.renderer.setStyle(right.nativeElement.querySelector('mat-card'), 'border-top-left-radius', '0px');
       this.renderer.setStyle(right.nativeElement.querySelector('mat-card'), 'border-top-right-radius', '0px');
     });
@@ -51,12 +53,16 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
 
   setLarge(): void {
     this.elLeft.forEach(left => {
+      this.renderer.setStyle(left.nativeElement, 'padding-bottom', '30px');
+      this.renderer.setStyle(left.nativeElement, 'padding-right', '15px');
       this.renderer.setStyle(left.nativeElement.querySelector('mat-card'), 'border-radius', '25% / 50%');
       this.renderer.setStyle(left.nativeElement.querySelector('mat-card'), 'border-bottom-right-radius', '0px');
       this.renderer.setStyle(left.nativeElement.querySelector('mat-card'), 'border-top-right-radius', '0px');
     });
 
     this.elRight.forEach(right => {
+      this.renderer.setStyle(right.nativeElement, 'padding-bottom', '30px');
+      this.renderer.setStyle(right.nativeElement, 'padding-left', '15px');
       this.renderer.setStyle(right.nativeElement.querySelector('mat-card'), 'border-radius', '25% / 50%');
       this.renderer.setStyle(right.nativeElement.querySelector('mat-card'), 'border-bottom-left-radius', '0px');
       this.renderer.setStyle(right.nativeElement.querySelector('mat-card'), 'border-top-left-radius', '0px');
@@ -64,13 +70,17 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   }
 
   initStyle(): void {
-    this.elRight.forEach(right => {
-      this.renderer.removeAttribute(right.nativeElement.querySelector('mat-card'), 'style');
-      this.renderer.setStyle(right.nativeElement.querySelector('mat-card'), 'padding', '0px');
-    });
     this.elLeft.forEach(left => {
+      this.renderer.setStyle(left.nativeElement, 'padding-bottom', '30px');
+      this.renderer.setStyle(left.nativeElement, 'padding-right', '15px');
       this.renderer.removeAttribute(left.nativeElement.querySelector('mat-card'), 'style');
       this.renderer.setStyle(left.nativeElement.querySelector('mat-card'), 'padding', '0px');
+    });
+    this.elRight.forEach(right => {
+      this.renderer.setStyle(right.nativeElement, 'padding-bottom', '30px');
+      this.renderer.setStyle(right.nativeElement, 'padding-left', '15px');
+      this.renderer.removeAttribute(right.nativeElement.querySelector('mat-card'), 'style');
+      this.renderer.setStyle(right.nativeElement.querySelector('mat-card'), 'padding', '0px');
     });
   }
 
