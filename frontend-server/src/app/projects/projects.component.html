@@ -1,114 +1,52 @@
 <div (window:resize)="onResize($event)" fxLayout="row grid" fxLayout.lt-md="column" fxFlexAlign="space-evenly">
-  <div #cardLeft fxFlex="0 1 calc(50%)" fxFlex.sm="0 1 calc(100%)" fxFlex.md="0 1 calc(100%)" fxFlex.gt-md="0 1 calc(50%)">
+  <div #elem fxFlex="0 1 calc(50%)" fxFlex.sm="0 1 calc(100%)" fxFlex.md="0 1 calc(100%)" fxFlex.gt-md="0 1 calc(50%)"
+    *ngFor="let project of projects; let i = index; trackBy: trackById;" [attr.data-index] = "i"
+    ngStyle.lt-sm="padding-right: '0px'; padding-bottom: '30px';"
+    ngStyle.gt-xs="padding-left: '15px'; padding-right: '15px'; padding-bottom: '30px';">
     <mat-card>
-      <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="15px">
-        <div fxFlex="0 1 calc(50%)">
-          <a style="max-width: 100%;" href="https://github.com/riskmatf/beardog">
-            <img style="padding: 0; border-radius: 50%;" src="assets/beardog.png">
+      <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="15px"
+        *ngIf="i % 2 === 0">
+        <div class="first" fxFlex="0 1 calc(50%)">
+          <a style="max-width: 100%; min-width: 100%;" href="{{ project.link }}">
+            <img style="padding: 0; border-radius: 50%;" src="{{ project.img }}">
           </a>
         </div>
-        <div fxFlex="0 1 calc(50%)" fxFlexAlign="center" style="text-align: center;">
-          <a style="display: inline-block;" href="https://github.com/riskmatf/beardog">
-            <mat-card-title style="padding-top: 15px;">BearDog</mat-card-title>
+        <div class="second" fxFlex="0 1 calc(50%)" fxFlexAlign="center" style="text-align: center;">
+          <a style="display: inline-block;" href="{{ project.link }}">
+            <mat-card-title style="padding-top: 15px;">{{ project.name }}</mat-card-title>
           </a>
           <mat-card-content style="word-wrap: break-word; margin: 0px 10px;">
-            <p style="font-size: 16px;">Alat namenjen generisanju LaTeX dokumenata iz beardog sintakse. Beardog sintaksa je sintaksa insprisana sintaksama poput jinja2, blade, twigg i omogućava pisanje LaTeX dokumenata korišćenjem šablona, promenljivih, petlji i slično.</p>
+            <p style="font-size: 16px;">{{ project.desc }}</p>
           </mat-card-content>
           <div style="border-bottom: 1px #777 solid; margin: 10px 0px;"></div>
           <div>
             <h5>Učesnici</h5>
             <ul>
-              <li>Nemanja Mićović</li>
-              <li>Peđa Trifunov</li>
+              <li *ngFor="let contr of project.contributors">{{ contr.name }}</li>
             </ul>
           </div>
         </div>
       </div>
-    </mat-card>
-  </div>
-
-  <div #cardRight fxFlex="0 1 calc(50%)" fxFlex.sm="0 1 calc(100%)" fxFlex.md="0 1 calc(100%)" fxFlex.gt-md="0 1 calc(50%)">
-    <mat-card>
-      <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="15px">
-        <div fxFlex="0 1 calc(50%)" fxFlexAlign="center" style="text-align: center;">
-          <a style="display: inline-block;" href="https://github.com/riskmatf/vrmatf">
-            <mat-card-title style="padding-top: 15px;">VR MATF</mat-card-title>
+      <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="15px"
+        *ngIf="i % 2 !== 0">
+        <div class="second" fxFlex="0 1 calc(50%)" fxFlexAlign="center" style="text-align: center;">
+          <a style="display: inline-block;" href="{{ project.link }}">
+            <mat-card-title style="padding-top: 15px;">{{ project.name }}</mat-card-title>
           </a>
           <mat-card-content style="word-wrap: break-word; margin: 0px 10px;">
-            <p style="font-size: 16px;">VR aplikacija bazirana na Cardboard SDK koja se koristi za vizuelizaciju nekih zanimljivih algoritama ili pojava iz oblasti računarstva.</p>
+            <p style="font-size: 16px;">{{ project.desc }}</p>
           </mat-card-content>
           <div style="border-bottom: 1px #777 solid; margin: 10px 0px;"></div>
           <div>
             <h5>Učesnici</h5>
             <ul>
-              <li>Nemanja Mićović</li>
-              <li>Peđa Trifunov</li>
-              <li>Vuk Novaković</li>
+              <li *ngFor="let contr of project.contributors">{{ contr.name }}</li>
             </ul>
           </div>
         </div>
-        <div fxFlex="0 1 calc(50%)">
-          <a style="max-width: 100%;" href="https://github.com/riskmatf/vrmatf">
-            <img style="padding: 0; border-radius: 50%;" src="assets/vrmatf.png">
-          </a>
-        </div>
-      </div>
-    </mat-card>
-  </div>
-
-  <div #cardLeft fxFlex="0 1 calc(50%)" fxFlex.sm="0 1 calc(100%)" fxFlex.md="0 1 calc(100%)" fxFlex.gt-md="0 1 calc(50%)">
-    <mat-card>
-      <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="15px">
-        <div fxFlex="0 1 calc(50%)">
-          <a style="max-width: 100%;" href="https://github.com/riskmatf/riskmatf.github.io">
-            <img style="padding: 0; border-radius: 50%;" src="assets/risk-square-logo.png">
-          </a>
-        </div>
-        <div fxFlex="0 1 calc(50%)" fxFlexAlign="center" style="text-align: center;">
-          <a style="display: inline-block;" href="https://github.com/riskmatf/riskmatf.github.io">
-            <mat-card-title style="padding-top: 15px;">RISK zvanična stranica</mat-card-title>
-          </a>
-          <mat-card-content style="word-wrap: break-word; margin: 0px 10px;">
-            <p style="font-size: 16px;">Veb strana posvećena organizaciji RISK. Bazirana na alatu Jekyll i aktivno održavana od strane RISK zajednice.</p>
-          </mat-card-content>
-          <div style="border-bottom: 1px #777 solid; margin: 10px 0px;"></div>
-          <div>
-            <h5>Učesnici</h5>
-            <ul>
-              <li>Nemanja Mićović</li>
-              <li>Stevan Nestorović</li>
-              <li>Peđa Trifunov</li>
-              <li>Vuk Novaković</li>
-              <li>Aleksandar Stefanović</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </mat-card>
-  </div>
-
-  <div #cardRight fxFlex="0 1 calc(50%)" fxFlex.sm="0 1 calc(100%)" fxFlex.md="0 1 calc(100%)" fxFlex.gt-md="0 1 calc(50%)">
-    <mat-card>
-      <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="15px">
-        <div fxFlex="0 1 calc(50%)" fxFlexAlign="center" style="text-align: center;">
-          <a style="display: inline-block;" href="https://github.com/riskmatf/risk-media">
-            <mat-card-title style="padding-top: 15px;">RISK medijski sadržaj</mat-card-title>
-          </a>
-          <mat-card-content style="word-wrap: break-word; margin: 0px 10px;">
-            <p style="font-size: 16px;">Repozitorijum posvećen skladištenju raznog medijskog sadržaja organizacije RISK. Ohrabruju se svi da doprinesu! :)</p>
-          </mat-card-content>
-          <div style="border-bottom: 1px #777 solid; margin: 10px 0px;"></div>
-          <div>
-            <h5>Učesnici</h5>
-            <ul>
-              <li>Nemanja Mićović</li>
-              <li>Peđa Trifunov</li>
-            </ul>
-          </div>
-        </div>
-        <div fxFlex="0 1 calc(50%)">
-          <a style="max-width: 100%;" href="https://github.com/riskmatf/risk-media">
-            <img style="padding: 0; border-radius: 50%;" src="assets/risk-square-logo.png">
+        <div class="first" fxFlex="0 1 calc(50%)">
+          <a style="max-width: 100%; min-width: 100%;" href="{{ project.link }}">
+            <img style="padding: 0; border-radius: 50%;" src="{{ project.img }}">
           </a>
         </div>
       </div>
