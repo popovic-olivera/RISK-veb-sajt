@@ -1,6 +1,8 @@
 <button id="badge-container" mat-flat-button [matMenuTriggerFor]="menu">
   <img [src]="auth.getUserProfile().profilePictureUrl"/>
-  {{auth.getUserProfile().firstName}} {{auth.getUserProfile().lastName}}
+  <span fxShow="true" fxHide.xs="true">
+    {{auth.getUserProfile().firstName}} {{auth.getUserProfile().lastName}}
+  </span>
 </button>
 <mat-menu #menu="matMenu">
   <button mat-button [routerLink]="['/profil', this.auth.getUserProfile()._id]">Otvori profil</button>

@@ -1,17 +1,19 @@
-<mat-toolbar class="navbar">
-  <button *ngIf="(isHandset | async)" mat-icon-button class="example-icon" (click)="drawer.toggle()" id="nav-button">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <a [routerLink]="'/'"><img [src]="themingService.prefersDarkTheme ? 'assets/risk_logo_dark.png' : 'assets/risk_logo.png'" style="width: 100px" alt="RISK logo"></a>
-  <span style="flex: 0.02 1 auto;"></span>
-  <div *ngIf="!(isHandset | async)">
-    <button mat-button [routerLink]="['/okupljanja']" [routerLinkActive]="'active-link'">Okupljanja</button>
-    <button mat-button [routerLink]="['/organizacija']" [routerLinkActive]="'active-link'">Organizacija</button>
-    <button mat-button [routerLink]="['/projekti']" [routerLinkActive]="'active-link'">Projekti</button>
-    <button mat-button [routerLink]="['/blog']" [routerLinkActive]="'active-link'">Blog</button>
-  </div>
+<div style="height: 100hv;">
+  <mat-toolbar>
+    <button *ngIf="(isHandset | async)" mat-icon-button class="example-icon" (click)="drawer.toggle()" id="nav-button">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <a [routerLink]="'/'"><img [src]="themingService.prefersDarkTheme ? 'assets/risk_logo_dark.png' : 'assets/risk_logo.png'" style="width: 100px" alt="RISK logo"></a>
+    <span style="flex: 0.02 1 auto;"></span>
+    <div *ngIf="!(isHandset | async)">
+      <button mat-button [routerLink]="['/okupljanja']" [routerLinkActive]="'active-link'">Okupljanja</button>
+      <button mat-button [routerLink]="['/organizacija']" [routerLinkActive]="'active-link'">Organizacija</button>
+      <button mat-button [routerLink]="['/projekti']" [routerLinkActive]="'active-link'">Projekti</button>
+      <button mat-button [routerLink]="['/blog']" [routerLinkActive]="'active-link'">Blog</button>
+    </div>
 
-  <span style="flex: 1 1 auto;"></span>
-  <app-profile-badge *ngIf="auth.getUserProfile()"></app-profile-badge>
-  <button *ngIf="!auth.getUserProfile()" mat-button (click)="displayLogin()">Prijavi se</button>
-</mat-toolbar>
+    <span style="flex: 1 1 auto;"></span>
+    <app-profile-badge *ngIf="auth.getUserProfile()"></app-profile-badge>
+    <button *ngIf="!auth.getUserProfile()" mat-button (click)="displayLogin()">Prijavi se</button>
+  </mat-toolbar>
+</div>

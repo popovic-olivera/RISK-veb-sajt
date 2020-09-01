@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, Subscription } from 'rxjs';
 import { map, shareReplay, filter } from 'rxjs/operators';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { ThemingService } from './theming/theming.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,7 @@ import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 export class AppComponent implements OnInit {
   title = 'frontend-server';
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe('(max-width: 767px)')
     .pipe(
       map(result => result.matches),
       shareReplay()
@@ -20,7 +21,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private breakpointObserver: BreakpointObserver) {}
+    private breakpointObserver: BreakpointObserver,
+    public themingService: ThemingService) {}
 
   ngOnInit() {
     this.router.events.pipe(

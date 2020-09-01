@@ -1,6 +1,8 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport mode="over" opened="false">
-    <mat-toolbar>Menu</mat-toolbar>
+    <mat-toolbar>
+      <img [src]="themingService.prefersDarkTheme ? 'assets/risk_logo_dark.png' : 'assets/risk_logo.png'" style="width: 100px" alt="RISK logo">
+    </mat-toolbar>
     <mat-nav-list>
       <a mat-list-item [routerLink]="['/okupljanja']" [routerLinkActive]="'active-link'" (click)="drawer.close()">Okupljanja</a>
       <a mat-list-item [routerLink]="['/organizacija']" [routerLinkActive]="'active-link'" (click)="drawer.close()">Organizacija</a>
