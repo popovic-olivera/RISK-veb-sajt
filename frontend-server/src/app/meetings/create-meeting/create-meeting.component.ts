@@ -49,10 +49,12 @@ export class CreateMeetingComponent implements OnInit {
       jsonData["author_id"] = this.selectedUser._id;
     }
     
-    jsonData["tags"] = jsonData["tags"].split(",")
+    if (jsonData["tags"]) {
+      jsonData["tags"] = jsonData["tags"].split(",")
                                        .map((word: string) => word.trim())
                                        .filter((word: string) => word !== "");
-
+    }
+    
     this.meetingsService.addMeeting(jsonData);
   }
 

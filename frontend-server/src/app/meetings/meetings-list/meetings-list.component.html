@@ -1,16 +1,14 @@
-<div class="container" fxLayout="column" fxLayout.xs="column" fxLayoutGap="50px" fxLayoutGap.xs="20px">
+<div fxLayout="column" fxLayout.xs="column" fxLayoutGap="50px" fxLayoutGap.xs="20px">
     
-    <mdb-carousel class="carousel slide carousel-fade" style="z-index: -1;" [animation]="'fade'">
+    <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
         <mdb-carousel-item *ngFor="let img of images">
-            <img class="w-100" src={{img.imageUrl}} alt={{img.imageName}}>
+            <img class="d-block w-100" src={{img.imageUrl}} alt={{img.imageName}}>
         </mdb-carousel-item>
     </mdb-carousel>
 
-    <app-create-meeting></app-create-meeting>
+    <app-create-meeting fxFlexAlign="center" id="createMeeting"></app-create-meeting>
 
-    <app-meeting (emitMeetingToDelete)="deleteMeeting($event)" *ngFor="let meeting of meetings" [meeting]=meeting></app-meeting>
+    <app-meeting fxFlexAlign="center" class="meeting" (emitMeetingToDelete)="deleteMeeting($event)" *ngFor="let meeting of meetings" [meeting]=meeting></app-meeting>
 
-    <div class="clearfix">
-        <a class="btn btn-primary float-right" (click)="showOlderMeetings()">Starija okupljanja &rarr;</a>
-    </div>
+    <a class="btn btn-primary" fxFlexAlign="center" (click)="showOlderMeetings()">Starija okupljanja &rarr;</a>
 </div>

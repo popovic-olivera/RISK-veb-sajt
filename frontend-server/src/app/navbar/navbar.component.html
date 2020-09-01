@@ -1,5 +1,4 @@
-<div style="height: 100hv;">
-  <mat-toolbar>
+<mat-toolbar class="navbar">
     <button *ngIf="(isHandset | async)" mat-icon-button class="example-icon" (click)="drawer.toggle()" id="nav-button">
       <mat-icon>menu</mat-icon>
     </button>
@@ -19,3 +18,4 @@
   <app-profile-badge *ngIf="auth.getUserProfile()"></app-profile-badge>
   <button *ngIf="!auth.getUserProfile()" mat-button (click)="displayLogin()">Prijavi se</button>
 </mat-toolbar>
+
