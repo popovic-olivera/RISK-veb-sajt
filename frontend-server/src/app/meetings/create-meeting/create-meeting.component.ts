@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MeetingsService } from '../meetings.service';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { UserProfile } from 'src/app/profile/user-profile.model';
+import { FilterUsersService } from 'src/app/services/filter-users.service';
 
 @Component({
   selector: 'app-create-meeting',
@@ -14,7 +15,8 @@ export class CreateMeetingComponent implements OnInit {
   public users: UserProfile[];
   public selectedUser: UserProfile;
 
-  constructor(private meetingsService: MeetingsService) { }
+  constructor(private meetingsService: MeetingsService, 
+              private filterService: FilterUsersService) { }
 
   ngOnInit(): void {
     this.createMeetingForm = new FormGroup({
@@ -42,7 +44,11 @@ export class CreateMeetingComponent implements OnInit {
 
   public onSaveMeeting() {
     const jsonData = this.createMeetingForm.getRawValue();
-    jsonData["author_id"] = this.selectedUser._id;
+
+    if (this.selectedUser) {
+      jsonData["author_id"] = this.selectedUser._id;
+    }
+    
     jsonData["tags"] = jsonData["tags"].split(",")
                                        .map((word: string) => word.trim())
                                        .filter((word: string) => word !== "");
@@ -52,7 +58,7 @@ export class CreateMeetingComponent implements OnInit {
 
   public async filterUsers(name: string) {
     if (name !== "") {
-      this.users = await this.meetingsService.getFilteredUsers(name);
+      this.users = await this.filterService.getFilteredUsers(name);
     }
   }
 

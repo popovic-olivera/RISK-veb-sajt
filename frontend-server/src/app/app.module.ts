@@ -32,6 +32,7 @@ import { RestorePasswordComponent } from './restore-password/restore-password.co
 import { ResponseResetComponent } from './restore-password/response-reset/response-reset.component';
 import { ResponseResetDialogComponent } from './restore-password/response-reset/response-reset-dialog/response-reset-dialog.component';
 import { MessageDialogComponent } from './restore-password/message-dialog/message-dialog.component';
+import { FindUserComponent } from './find-user/find-user.component';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import { MessageDialogComponent } from './restore-password/message-dialog/messag
     ResponseResetComponent,
     ResponseResetDialogComponent,
     MessageDialogComponent,
+    FindUserComponent,
   ],
   imports: [
     BrowserModule,

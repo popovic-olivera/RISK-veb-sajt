@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from 'src/app/authentication.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ResponseResetDialogComponent } from './response-reset-dialog/response-reset-dialog.component';

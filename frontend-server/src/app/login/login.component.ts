@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../authentication.service';
+import { AuthenticationService } from '../services/authentication.service';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { FormControl, Validators } from '@angular/forms';
 import { RegisterComponent } from '../register/register.component';

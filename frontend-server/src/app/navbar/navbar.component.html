@@ -12,8 +12,10 @@
       <button mat-button [routerLink]="['/blog']" [routerLinkActive]="'active-link'">Blog</button>
     </div>
 
-    <span style="flex: 1 1 auto;"></span>
-    <app-profile-badge *ngIf="auth.getUserProfile()"></app-profile-badge>
-    <button *ngIf="!auth.getUserProfile()" mat-button (click)="displayLogin()">Prijavi se</button>
-  </mat-toolbar>
-</div>
+  <span style="flex: 1 1 auto;"></span>
+  <app-find-user style="width: 20%"></app-find-user>
+
+  <span style="flex: 0.2 1 auto;"></span>
+  <app-profile-badge *ngIf="auth.getUserProfile()"></app-profile-badge>
+  <button *ngIf="!auth.getUserProfile()" mat-button (click)="displayLogin()">Prijavi se</button>
+</mat-toolbar>

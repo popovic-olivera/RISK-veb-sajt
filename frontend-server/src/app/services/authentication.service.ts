@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { catchError, map } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
-import { UserProfile } from './profile/user-profile.model';
+import { UserProfile } from '../profile/user-profile.model';
 
 interface TokenResponse {
   token: string;

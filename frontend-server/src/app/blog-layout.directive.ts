@@ -1,5 +1,5 @@
 import { Directive, OnInit } from '@angular/core';
-import { DataService } from './data.service';
+import { DataService } from './services/data.service';
 
 @Directive({
   selector: '[appBlogLayout]'

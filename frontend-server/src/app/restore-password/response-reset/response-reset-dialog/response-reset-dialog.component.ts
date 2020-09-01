@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { passwordValidator, passwordsEqual } from 'src/app/register/custom.validators';
-import { AuthenticationService } from 'src/app/authentication.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { processError } from 'src/app/register/error.process.message';
 import { MessageDialogComponent } from '../../message-dialog/message-dialog.component';

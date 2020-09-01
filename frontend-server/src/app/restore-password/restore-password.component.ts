@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AuthenticationService } from '../authentication.service';
+import { AuthenticationService } from '../services/authentication.service';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { processError } from '../register/error.process.message';
 import { MessageDialogComponent } from './message-dialog/message-dialog.component';

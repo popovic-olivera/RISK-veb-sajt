@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { ProfileService } from '../profile.service';
 import { map, switchMap } from 'rxjs/operators';
 import { UserProfile } from '../user-profile.model';
-import { DataService } from 'src/app/data.service';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-profile-view',

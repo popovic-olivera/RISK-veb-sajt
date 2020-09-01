@@ -1,0 +1,9 @@
+.search { 
+    width: 100%;
+    margin-top: 5%;
+    font-size: 15px;
+  }
+  
+.search mat-icon {
+    margin-right: 10px;
+}

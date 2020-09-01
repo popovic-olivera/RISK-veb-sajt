@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BlogPost } from '../blog-post.model';
 import { BlogService } from '../blog.service';
-import { DataService } from 'src/app/data.service';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-blog-list',
