@@ -2,7 +2,7 @@
     <mat-card-header>
         <div mat-card-avatar class="header-image" style="background-image: url('assets/generic_user.jpeg');"></div>
         <mat-card-title style="font-size: x-large;">{{meeting.title}}</mat-card-title>
-        <mat-card-subtitle>Autor: Nepoznat</mat-card-subtitle> <!--TODO add lecturer-->
+        <mat-card-subtitle>Autor: {{meeting.author_id}}</mat-card-subtitle> <!--TODO add lecturer-->
         <mat-card-subtitle>{{ meeting.date | date: 'longDate'}}</mat-card-subtitle>
     </mat-card-header>
     <hr>

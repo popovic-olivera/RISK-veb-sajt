@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Meeting } from './meeting.model';
 import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { UserProfile } from '../profile/user-profile.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ import { of } from 'rxjs';
 
 export class MeetingsService {
   private readonly meetingsUrl = '/api/meetings/';
+  private readonly filterUsersUrl = '/api/user/filter';
   private readonly NUMBER_OF_VISIBLE_MEETINGS = 4;
   private meetings: Meeting[] = [];
   private visibleLen = this.NUMBER_OF_VISIBLE_MEETINGS;
@@ -80,5 +82,9 @@ export class MeetingsService {
       this.meetings.splice(index, 1);
       this.visibleLen -= 1;
     }
+  }
+
+  public getFilteredUsers(name: string): Promise<UserProfile[]> {
+    return this.http.post<UserProfile[]>(this.filterUsersUrl, {"name": name}).toPromise();
   }
 }

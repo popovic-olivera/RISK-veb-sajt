@@ -11,11 +11,18 @@
                     <mat-error *ngIf="title.invalid">Ovo polje je obavezno</mat-error>
                 </mat-form-field>
             
+                <mat-card-subtitle>Ako ima profil odaberite ga iz padajuće liste, inače unesite ime i prezime</mat-card-subtitle>
                 <mat-form-field appearance="outline" class="input">
                     <mat-label>Unesite autora</mat-label>
-                    <input matInput name="author_id" placeholder="Petar Petrović" [formControl]="author_id" required>
+                    <input matInput name="author_name" placeholder="Petar Petrović" [formControl]="author_name" [matAutocomplete]="auto" (keyup)="filterUsers(author.value)" #author required>
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let user of users" (click)="onSelectionChanged(user)">
+                          <img class="profileImage rounded-circle" aria-hidden [src]="user.profilePictureUrl" height="25">
+                          <span>{{user.firstName}} {{user.lastName}}</span>
+                        </mat-option>
+                    </mat-autocomplete>
                     <mat-icon matSuffix>face</mat-icon>
-                    <mat-error *ngIf="author_id.invalid">Ovo polje je obavezno</mat-error>
+                    <mat-error *ngIf="author_name.invalid">Ovo polje je obavezno</mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="input">
@@ -25,47 +32,47 @@
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="input">
-                    <mat-label>Unesite datum održavanja</mat-label>
-                    <input matInput name="date" [matDatepicker]="picker" required>
+                    <mat-label>Odaberite datum održavanja</mat-label>
+                    <input matInput name="date" [matDatepicker]="picker" [formControl]="date" required>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                    <!-- <mat-error *ngIf="date.invalid">Ovo polje je obavezno</mat-error> -->
+                    <mat-datepicker disabled="false" #picker></mat-datepicker>
+                    <mat-error *ngIf="date.invalid">Ovo polje je obavezno</mat-error>
                 </mat-form-field>
             
                 <mat-form-field appearance="outline" class="input">
                     <mat-label>Unesite link do GitHub repozitorijuma sa kodom</mat-label>
-                    <input matInput name="githubRepoUrl" placeholder="Link do repozitorijuma">
+                    <input matInput name="githubRepoUrl" placeholder="Link do repozitorijuma" [formControl]="createMeetingForm.get('githubRepoUrl')">
                     <mat-icon matSuffix>computer</mat-icon>
                 </mat-form-field>
             </div>
             <div class="column">
                 <mat-form-field appearance="outline" class="input">
-                    <mat-label>Unesite ključne reči</mat-label>
-                    <textarea matInput name="tags" placeholder="Nekoliko reči koje opisuju predavanje"></textarea>
-                    <!-- <mat-error *ngIf="tags.invalid">Ovo polje je obavezno</mat-error> -->
+                    <mat-label>Unesite link postera predavanja</mat-label>
+                    <input matInput name="posterUrl" placeholder="Link do repozitorijuma" [formControl]="createMeetingForm.get('posterUrl')">
+                    <mat-icon matSuffix>image</mat-icon>
                 </mat-form-field>
 
+                <mat-card-subtitle>Unesite reči tako da budu razdvojene zarezima</mat-card-subtitle>
                 <mat-form-field appearance="outline" class="input">
-                    <mat-label>Unesite link postera predavanja</mat-label>
-                    <input matInput name="posterUrl" placeholder="Link do repozitorijuma">
-                    <mat-icon matSuffix>image</mat-icon>
+                    <mat-label>Unesite ključne reči</mat-label>
+                    <textarea matInput name="tags" placeholder="Ključ1, ključ2 ..." [formControl]="createMeetingForm.get('tags')"></textarea>
                 </mat-form-field>
             
                 <mat-form-field appearance="outline" class="input">
                     <mat-label>Unesite link prezentacije sa predavanja</mat-label>
-                    <input matInput name="presentationUrl" placeholder="Prezentacija sa predavanja">
+                    <input matInput name="presentationUrl" placeholder="Prezentacija sa predavanja" [formControl]="createMeetingForm.get('presentationUrl')">
                     <mat-icon matSuffix>slideshow</mat-icon>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="input">
                     <mat-label>Unesite link snimka predavanja</mat-label>
-                    <input matInput name="videoUrl" placeholder="Link do video snimka">
+                    <input matInput name="videoUrl" placeholder="Link do video snimka" [formControl]="createMeetingForm.get('videoUrl')">
                     <mat-icon matSuffix>videocam</mat-icon>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="input">
                     <mat-label>Unesite link do ankete o utiscima</mat-label>
-                    <input matInput name="surveyUrl" placeholder="Link do ankete o utiscima">
+                    <input matInput name="surveyUrl" placeholder="Link do ankete o utiscima" [formControl]="createMeetingForm.get('surveyUrl')">
                     <mat-icon matSuffix>analytics</mat-icon>
                 </mat-form-field>
             </div>

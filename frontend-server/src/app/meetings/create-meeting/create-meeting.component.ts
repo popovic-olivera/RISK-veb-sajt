@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MeetingsService } from '../meetings.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { UserProfile } from 'src/app/profile/user-profile.model';
 
 @Component({
   selector: 'app-create-meeting',
@@ -10,26 +11,30 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 export class CreateMeetingComponent implements OnInit {
   public createMeetingForm: FormGroup;
+  public users: UserProfile[];
+  public selectedUser: UserProfile;
 
   constructor(private meetingsService: MeetingsService) { }
 
   ngOnInit(): void {
     this.createMeetingForm = new FormGroup({
       title: new FormControl(null, Validators.required),
-      author_id: new FormControl(null, Validators.required),
+      author_name: new FormControl(null, Validators.required),
       description: new FormControl(null, Validators.required),
-      // date: new FormControl(null, Validators.required),
-      // tags: new FormControl(null, []),
-      // githubRepoUrl: new FormControl(null, [])
+      date: new FormControl({value: null, disabled: true}, Validators.required),
+      githubRepoUrl: new FormControl(null, []),
+      tags: new FormControl(null, []),
+      posterUrl: new FormControl(null, Validators.required),
+      presentationUrl: new FormControl(null, []),
+      videoUrl: new FormControl(null, []),
+      surveyUrl: new FormControl(null, [])
     });
   }
 
   get title() { return this.createMeetingForm.get('title'); }
-  get author_id() { return this.createMeetingForm.get('author_id'); }
+  get author_name() { return this.createMeetingForm.get('author_name'); }
   get description() { return this.createMeetingForm.get('description'); }
   get date() { return this.createMeetingForm.get('date'); }
-  // get tags() { return this.createMeetingForm.get('tags'); }
-  // get githubRepoUrl() { return this.createMeetingForm.get('githubRepoUrl'); }
 
   public saveMeetingEnabled(): boolean {
     return this.createMeetingForm.valid;
@@ -37,8 +42,24 @@ export class CreateMeetingComponent implements OnInit {
 
   public onSaveMeeting() {
     const jsonData = this.createMeetingForm.getRawValue();
-    console.log(jsonData);
-    
+    jsonData["author_id"] = this.selectedUser._id;
+    jsonData["tags"] = jsonData["tags"].split(",")
+                                       .map((word: string) => word.trim())
+                                       .filter((word: string) => word !== "");
+
     this.meetingsService.addMeeting(jsonData);
+  }
+
+  public async filterUsers(name: string) {
+    if (name !== "") {
+      this.users = await this.meetingsService.getFilteredUsers(name);
+    }
+  }
+
+  public onSelectionChanged(user: UserProfile) {
+    const authorName = this.author_name;
+
+    authorName.setValue(user.firstName + " " + user.lastName);
+    this.selectedUser = user;
   }
 }

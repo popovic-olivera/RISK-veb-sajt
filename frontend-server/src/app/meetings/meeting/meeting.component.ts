@@ -27,8 +27,8 @@ export class MeetingComponent implements OnInit {
                   [this.meeting.surveyUrl, 'Utisci'],
                   [this.meeting.videoUrl, 'Video']];
 
-    this.buttons = urls.filter((url) => { return url[0] !== undefined; })
-                       .map((url) => { return new Button(url[0], url[1]); });
+    // this.buttons = urls.filter((url) => { return url[0] !== null; })
+    //                    .map((url) => { return new Button(url[0], url[1]); });
   }
 
   public onDeleteMeeting() {

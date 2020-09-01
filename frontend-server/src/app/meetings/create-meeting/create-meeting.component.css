@@ -18,3 +18,8 @@
     display: block;
     margin: 5%;
 }
+
+.profileImage {
+    vertical-align: middle;
+    margin-right: 8px;
+}

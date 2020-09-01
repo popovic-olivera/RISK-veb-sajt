@@ -140,3 +140,37 @@ module.exports.updateProfile = async (req, res, next) => {
         next(err);
     }
 }
+
+module.exports.filterUsers = async (req, res, next) => {
+    try {
+        const name = req.body.name;
+
+        if (!name) {
+            res.status(400).json({
+                message: "Missing 'name' parameter"
+            });
+        }
+
+        const words = name.split(" ");
+        const filterFirstName = words[0];
+        const filterLastName = words.slice(1).join(" ");
+        let users;
+
+        if (filterLastName) {
+            users = await User.find({
+                firstName: {$regex: filterFirstName},
+                lastName: {$regex: filterLastName}
+            }).exec();
+        } else {
+            users = await User.find({
+                firstName: {$regex: filterFirstName}
+            }).exec();
+        }
+
+        res.status(200).json(users);
+    } catch(err) {
+        next(err);
+    }
+
+}
+

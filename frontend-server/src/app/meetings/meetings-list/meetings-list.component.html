@@ -1,6 +1,6 @@
 <div class="container" fxLayout="column" fxLayout.xs="column" fxLayoutGap="50px" fxLayoutGap.xs="20px">
     
-    <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
+    <mdb-carousel class="carousel slide carousel-fade" style="z-index: -1;" [animation]="'fade'">
         <mdb-carousel-item *ngFor="let img of images">
             <img class="w-100" src={{img.imageUrl}} alt={{img.imageName}}>
         </mdb-carousel-item>
