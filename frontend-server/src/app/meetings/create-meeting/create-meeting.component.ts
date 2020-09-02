@@ -21,7 +21,7 @@ export class CreateMeetingComponent implements OnInit {
   ngOnInit(): void {
     this.createMeetingForm = new FormGroup({
       title: new FormControl(null, Validators.required),
-      author_name: new FormControl(null, Validators.required),
+      authorName: new FormControl(null, Validators.required),
       description: new FormControl(null, Validators.required),
       date: new FormControl(null, Validators.required),
       githubRepoUrl: new FormControl(null, []),
@@ -34,7 +34,7 @@ export class CreateMeetingComponent implements OnInit {
   }
 
   get title() { return this.createMeetingForm.get('title'); }
-  get author_name() { return this.createMeetingForm.get('author_name'); }
+  get authorName() { return this.createMeetingForm.get('authorName'); }
   get description() { return this.createMeetingForm.get('description'); }
   get date() { return this.createMeetingForm.get('date'); }
 
@@ -49,7 +49,7 @@ export class CreateMeetingComponent implements OnInit {
   }
 
   public onSelectionChanged(user: UserProfile) {
-    const authorName = this.author_name;
+    const authorName = this.authorName;
 
     authorName.setValue(user.firstName + " " + user.lastName);
     this.selectedUser = user;
@@ -59,7 +59,8 @@ export class CreateMeetingComponent implements OnInit {
     const jsonData = this.createMeetingForm.getRawValue();
 
     if (this.selectedUser) {
-      jsonData["author_id"] = this.selectedUser._id;
+      jsonData["authorID"] = this.selectedUser._id;
+      jsonData["authorImage"] = this.selectedUser.profilePictureUrl;
     }
     
     if (jsonData["tags"]) {

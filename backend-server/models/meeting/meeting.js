@@ -2,8 +2,9 @@ const mongoose = require('mongoose');
 
 const meetingSchema = new mongoose.Schema({
     title: {type: String, required: true},
-    author_name: {type: String, required: true},
-    author_id: {type: String},
+    authorName: {type: String, required: true},
+    authorID: {type: String},
+    authorImage: {type: String},
     description: {type: String, required: true},
     date: {type: Date, required: true},
     tags: [String],

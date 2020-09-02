@@ -7,13 +7,15 @@ import { MaterialModule } from '../material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CarouselModule, WavesModule } from 'angular-bootstrap-md';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SerbianDatePipe } from './serbian-date.pipe';
 
 
 @NgModule({
   declarations: [
     MeetingComponent,
     MeetingsListComponent,
-    CreateMeetingComponent
+    CreateMeetingComponent,
+    SerbianDatePipe
   ],
   imports: [
     CommonModule,

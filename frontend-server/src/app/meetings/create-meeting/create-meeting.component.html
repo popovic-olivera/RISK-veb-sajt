@@ -14,7 +14,7 @@
                 <mat-card-subtitle>Ako ima profil odaberite ga iz padajuće liste, inače unesite ime i prezime</mat-card-subtitle>
                 <mat-form-field appearance="outline" class="input">
                     <mat-label>Unesite autora</mat-label>
-                    <input matInput name="author_name" placeholder="Petar Petrović" [formControl]="author_name" [matAutocomplete]="auto" (keyup)="filterUsers(author.value)" #author required>
+                    <input matInput name="authorName" placeholder="Petar Petrović" [formControl]="authorName" [matAutocomplete]="auto" (keyup)="filterUsers(author.value)" #author required>
                     <mat-autocomplete #auto="matAutocomplete">
                         <mat-option *ngFor="let user of users" (click)="onSelectionChanged(user)">
                           <img class="profileImage rounded-circle" aria-hidden [src]="user.profilePictureUrl" height="25">
@@ -22,7 +22,7 @@
                         </mat-option>
                     </mat-autocomplete>
                     <mat-icon matSuffix>face</mat-icon>
-                    <mat-error *ngIf="author_name.invalid">Ovo polje je obavezno</mat-error>
+                    <mat-error *ngIf="authorName.invalid">Ovo polje je obavezno</mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="input">

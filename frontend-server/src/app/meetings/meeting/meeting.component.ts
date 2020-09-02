@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output } from '@angular/core';
 import { Meeting } from '../meeting.model';
 import { Button } from './button.model';
 import { EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-meeting',
@@ -17,18 +18,24 @@ export class MeetingComponent implements OnInit {
   @Output()
   public emitMeetingToDelete: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
-    const urls = [[this.meeting.githubRepoUrl, 'Kod'],
-                  [this.meeting.photosUrl, 'Slike'],
-                  [this.meeting.posterUrl, 'Poster'],
-                  [this.meeting.presentationUrl, 'Prezentacija'],
-                  [this.meeting.surveyUrl, 'Utisci'],
-                  [this.meeting.videoUrl, 'Video']];
+    if (!this.meeting.authorImage) {
+      this.meeting.authorImage = 'assets/generic_user.jpeg';
+    }
 
-    // this.buttons = urls.filter((url) => { return url[0] !== null; })
-    //                    .map((url) => { return new Button(url[0], url[1]); });
+    const urls = [[this.meeting.githubRepoUrl, 'githubRepoUrl'],
+                  [this.meeting.surveyUrl, 'surveyUrl'],
+                  [this.meeting.videoUrl, 'videoUrl'],
+                  [this.meeting.presentationUrl, 'presentationUrl']];
+                  
+    this.buttons = urls.filter((url) => { if (url[0] !== null) return true; })
+                       .map((url) => { return new Button(url[0], url[1]); });
+  }
+
+  public goToAuthorPage() {
+    this.router.navigate(['/profil', this.meeting.authorID]);
   }
 
   public onDeleteMeeting() {

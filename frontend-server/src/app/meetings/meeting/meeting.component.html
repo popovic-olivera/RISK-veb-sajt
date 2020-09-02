@@ -1,22 +1,25 @@
-<mat-card class="card">
-    <mat-card-header>
-        <div mat-card-avatar class="header-image" style="background-image: url('assets/generic_user.jpeg');"></div>
-        <mat-card-title style="font-size: x-large;">{{meeting.title}}</mat-card-title>
-        <mat-card-subtitle>Autor: {{meeting.author_id}}</mat-card-subtitle> <!--TODO add lecturer-->
-        <mat-card-subtitle>{{ meeting.date | date: 'longDate'}}</mat-card-subtitle>
-    </mat-card-header>
-    <hr>
-    <mat-card-content style="font-size: large;">
-        <p>{{meeting.description}}</p>
-    </mat-card-content>
-    <mat-card-actions>
-        <a mat-raised-button *ngFor="let btn of buttons" href="{{btn.url}}" target="_blank" class="{{btn.color}}">
-            <i class="{{btn.icon}}"></i> {{btn.text}}
-        </a>
-
-        <!--TODO this button should be visible only to RISK members-->
-        <a mat-raised-button style="float: right;" (click)="onDeleteMeeting()">
-            <i class="fa fa-trash"></i> Obriši okupljanje
-        </a>
-    </mat-card-actions>
+<mat-card class="card" fxLayout="row" fxLayoutGap="30px" fxLayout.lt-md="column">
+    <div class="first" fxLayout="column" fxFlex="2 1 auto">
+        <mat-card-header fxFlex="0 1 auto" class="header">
+            <div (click)="goToAuthorPage()" mat-card-avatar class="header-image" style="background-image: url({{meeting.authorImage}});" id="profileImage"></div>
+            <mat-card-title style="font-size: x-large;">{{meeting.title}}</mat-card-title>
+            <mat-card-subtitle class="link" (click)="goToAuthorPage()">Autor: {{meeting.authorName}}</mat-card-subtitle>
+            <mat-card-subtitle>{{ meeting.date | serbianDate}}</mat-card-subtitle>
+        </mat-card-header>
+        
+        <mat-card-content style="font-size: large;" fxFlex="2 1 auto">
+            <p>{{meeting.description}}</p>
+        </mat-card-content>
+        <mat-card-actions fxFlex="0 1 auto" fxLayout="row" fxFlexAlign="space-evenly">
+            <a fxFlex mat-raised-button *ngFor="let btn of buttons" href="{{btn.url}}" target="_blank" class="{{btn.color}}">
+                <i class="{{btn.icon}}"></i> {{btn.text}}
+            </a>
+    
+            <!--TODO this button should be visible only to RISK members-->
+            <!-- <a mat-raised-button (click)="onDeleteMeeting()">
+                <i class="fa fa-trash"></i> Obriši okupljanje
+            </a> -->
+        </mat-card-actions>
+    </div>
+    <img class="poster second" fxFlex="1 1 auto" src="http://localhost:3000/images/posters/android.png" alt="poster" />
 </mat-card>

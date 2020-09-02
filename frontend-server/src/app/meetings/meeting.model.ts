@@ -4,9 +4,10 @@ export class Meeting {
 
     constructor(public _id: string,
                 public title: string,
-                public author_name: string,
-                public author_id: string,
-                public date: Date,
+                public authorName: string,
+                public authorID: string,
+                public authorImage: string,
+                public date: string,
                 public description: string,
                 public githubRepoUrl: string,
                 public posterUrl: string,
