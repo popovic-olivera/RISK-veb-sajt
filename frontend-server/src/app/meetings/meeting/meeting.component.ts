@@ -3,6 +3,7 @@ import { Meeting } from '../meeting.model';
 import { Button } from './button.model';
 import { EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-meeting',
@@ -18,7 +19,7 @@ export class MeetingComponent implements OnInit {
   @Output()
   public emitMeetingToDelete: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, public auth: AuthenticationService) { }
 
   ngOnInit(): void {
     if (!this.meeting.authorImage) {

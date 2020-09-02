@@ -15,10 +15,9 @@
                 <i class="{{btn.icon}}"></i> {{btn.text}}
             </a>
     
-            <!--TODO this button should be visible only to RISK members-->
-            <!-- <a mat-raised-button (click)="onDeleteMeeting()">
+            <a *ngIf="auth.getUserProfile() && auth.isUserAdmin()" fxFlex mat-raised-button (click)="onDeleteMeeting()">
                 <i class="fa fa-trash"></i> Obriši okupljanje
-            </a> -->
+            </a>
         </mat-card-actions>
     </div>
     <img class="poster second" fxFlex="1 1 auto" src="http://localhost:3000/images/posters/android.png" alt="poster" />

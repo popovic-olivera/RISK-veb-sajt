@@ -3,6 +3,7 @@ export interface UserProfile {
   email: string;
   firstName: string;
   lastName: string;
+  administrator: boolean,
   profilePictureUrl: string;
   exp: number;
   iat: number;

@@ -3,6 +3,7 @@ import { MeetingsService } from '../meetings.service';
 import { Meeting } from '../meeting.model';
 import { Image } from '../meeting-images/images.model';
 import { ImagesService } from '../meeting-images/images.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-meetings-list',
@@ -15,7 +16,8 @@ export class MeetingsListComponent implements OnInit {
   private filterValue: string;
 
   constructor(private meetingsService: MeetingsService,
-              private imagesService: ImagesService) {}
+              private imagesService: ImagesService,
+              public auth: AuthenticationService) {}
 
   ngOnInit(): void {
     this.meetingsService.initMeetings(); 

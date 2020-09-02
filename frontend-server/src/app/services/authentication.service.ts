@@ -43,6 +43,10 @@ export class AuthenticationService {
     return this.userProfile;
   }
 
+  public isUserAdmin(): boolean {
+    return this.userProfile.administrator;
+  }
+
   public async logout() {
     this.token = undefined;
     this.userProfile = undefined;
