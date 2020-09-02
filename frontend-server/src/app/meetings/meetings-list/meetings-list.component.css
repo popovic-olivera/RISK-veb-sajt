@@ -16,7 +16,7 @@
     margin: auto;
 }
 
-#createMeeting, .meeting {
+#createMeeting, .meeting, mat-form-field{
     width: 70%;
 }
 
@@ -30,7 +30,7 @@
         height: 100%;
     }
 
-    #createMeeting, .meeting  {
+    #createMeeting, .meeting, mat-form-field  {
         width: 100%;
     }
 }

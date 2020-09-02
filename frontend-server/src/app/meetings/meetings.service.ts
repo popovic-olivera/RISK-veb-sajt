@@ -16,16 +16,13 @@ export class MeetingsService {
 
   constructor(private http: HttpClient) {}
 
-  public initMeetings() {
+  public async initMeetings() {
     if (this.meetings.length !== 0) {
       return ;
     }
 
-    this.http.get<Meeting[]>(this.meetingsUrl)
-             .pipe(map((m: Meeting[]) => {
-                this.meetings = m.reverse();
-              }))
-             .toPromise();
+    this.meetings = await this.http.get<Meeting[]>(this.meetingsUrl).toPromise();
+    this.meetings = this.meetings.reverse();
   }
 
   public getVisibleMeetings(): Meeting[] {

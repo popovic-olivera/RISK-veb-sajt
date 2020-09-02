@@ -23,7 +23,7 @@ export class CreateMeetingComponent implements OnInit {
       title: new FormControl(null, Validators.required),
       author_name: new FormControl(null, Validators.required),
       description: new FormControl(null, Validators.required),
-      date: new FormControl({value: null, disabled: true}, Validators.required),
+      date: new FormControl(null, Validators.required),
       githubRepoUrl: new FormControl(null, []),
       tags: new FormControl(null, []),
       posterUrl: new FormControl(null, Validators.required),
@@ -42,6 +42,19 @@ export class CreateMeetingComponent implements OnInit {
     return this.createMeetingForm.valid;
   }
 
+  public async filterUsers(name: string) {
+    if (name !== "") {
+      this.users = await this.filterService.getFilteredUsers(name);
+    }
+  }
+
+  public onSelectionChanged(user: UserProfile) {
+    const authorName = this.author_name;
+
+    authorName.setValue(user.firstName + " " + user.lastName);
+    this.selectedUser = user;
+  }
+
   public onSaveMeeting() {
     const jsonData = this.createMeetingForm.getRawValue();
 
@@ -56,18 +69,6 @@ export class CreateMeetingComponent implements OnInit {
     }
     
     this.meetingsService.addMeeting(jsonData);
-  }
-
-  public async filterUsers(name: string) {
-    if (name !== "") {
-      this.users = await this.filterService.getFilteredUsers(name);
-    }
-  }
-
-  public onSelectionChanged(user: UserProfile) {
-    const authorName = this.author_name;
-
-    authorName.setValue(user.firstName + " " + user.lastName);
-    this.selectedUser = user;
+    this.createMeetingForm.reset();
   }
 }

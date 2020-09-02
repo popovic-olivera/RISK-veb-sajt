@@ -6,7 +6,13 @@
         </mdb-carousel-item>
     </mdb-carousel>
 
-    <app-create-meeting fxFlexAlign="center" id="createMeeting"></app-create-meeting>
+    <!-- <app-create-meeting fxFlexAlign="center" id="createMeeting"></app-create-meeting> -->
+
+    <mat-form-field appearance="outline" fxFlexAlign="center">
+        <mat-label style="margin-left: 1%">Pretraga okupljanja</mat-label>
+        <input style="margin-left: 1%" matInput type="search" placeholder="Npr. Predavanje" (keyup)="onInputChange($event)">
+        <mat-icon matPrefix>search</mat-icon>
+    </mat-form-field>
 
     <app-meeting fxFlexAlign="center" class="meeting" (emitMeetingToDelete)="deleteMeeting($event)" *ngFor="let meeting of meetings" [meeting]=meeting></app-meeting>
 

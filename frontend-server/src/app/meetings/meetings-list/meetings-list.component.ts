@@ -12,6 +12,7 @@ import { ImagesService } from '../meeting-images/images.service';
 
 export class MeetingsListComponent implements OnInit {
   public images: Image[];
+  private filterValue: string;
 
   constructor(private meetingsService: MeetingsService,
               private imagesService: ImagesService) {}
@@ -26,7 +27,19 @@ export class MeetingsListComponent implements OnInit {
   }
 
   get meetings(): Meeting[] {
-    return this.meetingsService.getVisibleMeetings();
+    let meetings =  this.meetingsService.getVisibleMeetings();
+
+    if (this.filterValue) {
+      const key = this.filterValue.toLowerCase();
+
+      meetings = meetings.filter( (meeting: Meeting) => {
+        return meeting.title.toLowerCase().includes(key) ||
+        meeting.tags.map( (word: string) => { return word.toLowerCase(); })
+                    .filter( (word: string) => { return word.includes(key); } ).length > 0;
+      });
+    }
+
+    return meetings;
   }
 
   public showOlderMeetings() {
@@ -35,6 +48,10 @@ export class MeetingsListComponent implements OnInit {
 
   public deleteMeeting(id: string) {
     this.meetingsService.deleteMeeting(id);
+  }
+
+  public onInputChange(event: Event): void {
+    this.filterValue = (event.target as HTMLInputElement).value.trim();
   }
 
   ngOnDestroy() {

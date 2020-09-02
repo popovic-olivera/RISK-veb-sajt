@@ -6,7 +6,7 @@ module.exports.getMeetingImages = async (req, res, next) => {
     try {
       const rootDir = path.dirname(require.main.filename);
       const imagesDir = path.join(rootDir, 'public/images/meetings');
-      const images = fs.readdirSync(imagesDir);
+      const images = shuffle(fs.readdirSync(imagesDir));
 
       const imageArray = [];
 
@@ -19,4 +19,17 @@ module.exports.getMeetingImages = async (req, res, next) => {
     } catch (err) {
       next(err);
     }
+}
+
+function shuffle(array) {
+
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * i);
+
+        const tmp = array[i];
+        array[i] = array[j];
+        array[j] = tmp;
+    }
+
+    return array;
 }
