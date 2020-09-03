@@ -7,7 +7,7 @@ import { DataService } from 'src/app/services/data.service';
 @Component({
   selector: 'app-blog-list',
   templateUrl: './blog-list.component.html',
-  styleUrls: ['./blog-list.component.css']
+  styleUrls: ['./blog-list.component.css', '../../app.component.css']
 })
 export class BlogListComponent implements OnInit {
   public blogPosts: Observable<BlogPost[]>;

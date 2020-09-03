@@ -20,6 +20,36 @@ a {
 .sticky {
   position: -webkit-sticky;
   position: sticky;
-  top: 7.1rem;
-  height: 450px;
+  top: 6.2rem;
+  height: 555px;
+}
+
+.btn-grad {
+  background: linear-gradient(147deg, #00aeef, #37769b, #552e9e, #929b9e);
+  background-size: 600% 600%;
+  color: whitesmoke;
+
+  -webkit-animation: AnimationName 8s ease infinite;
+  -moz-animation: AnimationName 8s ease infinite;
+  animation: AnimationName 8s ease infinite;
+}
+
+@-webkit-keyframes AnimationName {
+  0%{background-position:0% 23%}
+  50%{background-position:100% 78%}
+  100%{background-position:0% 23%}
+}
+@-moz-keyframes AnimationName {
+  0%{background-position:0% 23%}
+  50%{background-position:100% 78%}
+  100%{background-position:0% 23%}
+}
+@keyframes AnimationName {
+  0%{background-position:0% 23%}
+  50%{background-position:100% 78%}
+  100%{background-position:0% 23%}
+}
+
+th {
+  font-weight: 500 !important;
 }
