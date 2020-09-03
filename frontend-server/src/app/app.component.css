@@ -1,6 +1,5 @@
 .content {
-  margin-right: calc(5%);
-  margin-left: calc(5%);
+  margin: 0 5vw;
 }
 
 .sidenav-container {

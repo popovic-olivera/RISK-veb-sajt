@@ -1,6 +1,6 @@
 <button id="badge-container" mat-flat-button [matMenuTriggerFor]="menu">
   <img [src]="auth.getUserProfile().profilePictureUrl"/>
-  <span fxShow="true" fxHide.xs="true">
+  <span fxShow="true" fxHide.lt-md="true">
     {{auth.getUserProfile().firstName}} {{auth.getUserProfile().lastName}}
   </span>
 </button>

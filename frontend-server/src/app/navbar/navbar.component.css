@@ -1,10 +1,11 @@
 .navbar {
-  margin-bottom: 50px;
+  margin-bottom: 5vh;
   position: sticky;
   top: 0;
-  z-index: 2;
+  z-index: 100;
   vertical-align: middle;
-  height: 10vh;
+  height: 8vh;
+  min-height: 60px !important;
 }
 
 .mat-button {
