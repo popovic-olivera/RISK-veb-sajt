@@ -154,16 +154,23 @@ module.exports.filterUsers = async (req, res, next) => {
         const words = name.split(" ");
         const filterFirstName = words[0];
         const filterLastName = words.slice(1).join(" ");
-        let users;
+        let users = [];
 
         if (filterLastName) {
             users = await User.find({
-                firstName: {$regex: filterFirstName},
-                lastName: {$regex: filterLastName}
+                firstName: new RegExp('^'+filterFirstName, "i"),
+                lastName: new RegExp('^'+filterLastName, "i")
             }).exec();
         } else {
             users = await User.find({
-                firstName: {$regex: filterFirstName}
+                firstName: new RegExp('^'+filterFirstName, "i")
+            }).exec();
+        }
+
+        // maybe user entered last name first
+        if (users.length === 0 && !filterLastName) {
+            users = await User.find({
+                lastName: new RegExp('^'+filterFirstName, "i")
             }).exec();
         }
 
