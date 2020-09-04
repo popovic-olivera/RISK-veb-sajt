@@ -26,17 +26,17 @@
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="input">
-                    <mat-label>Unesite opis predavanja</mat-label>
-                    <textarea matInput name="description" placeholder="Kratak opis predavanja" [formControl]="description" required></textarea>
-                    <mat-error *ngIf="description.invalid">Ovo polje je obavezno</mat-error>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="input">
                     <mat-label>Odaberite datum održavanja</mat-label>
-                    <input matInput name="date" [matDatepicker]="picker" [formControl]="date" required>
+                    <input matInput name="date" [matDatepicker]="picker" [formControl]="date" readonly required>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker disabled="false" #picker></mat-datepicker>
                     <mat-error *ngIf="date.invalid">Ovo polje je obavezno</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="input">
+                    <mat-label>Unesite opis predavanja</mat-label>
+                    <textarea matInput name="description" placeholder="Kratak opis predavanja" [formControl]="description" required></textarea>
+                    <mat-error *ngIf="description.invalid">Ovo polje je obavezno</mat-error>
                 </mat-form-field>
             
                 <mat-form-field appearance="outline" class="input">
@@ -47,27 +47,15 @@
             </div>
             <div class="column">
                 <mat-form-field appearance="outline" class="input">
-                    <mat-label>Unesite link postera predavanja</mat-label>
-                    <input matInput name="posterUrl" placeholder="Link do repozitorijuma" [formControl]="createMeetingForm.get('posterUrl')" required>
-                    <mat-icon matSuffix>image</mat-icon>
-                </mat-form-field>
-
-                <mat-card-subtitle>Unesite reči tako da budu razdvojene zarezima</mat-card-subtitle>
-                <mat-form-field appearance="outline" class="input">
-                    <mat-label>Unesite ključne reči</mat-label>
-                    <textarea matInput name="tags" placeholder="Ključ1, ključ2 ..." [formControl]="createMeetingForm.get('tags')"></textarea>
-                </mat-form-field>
-            
-                <mat-form-field appearance="outline" class="input">
-                    <mat-label>Unesite link prezentacije sa predavanja</mat-label>
-                    <input matInput name="presentationUrl" placeholder="Prezentacija sa predavanja" [formControl]="createMeetingForm.get('presentationUrl')">
-                    <mat-icon matSuffix>slideshow</mat-icon>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="input">
                     <mat-label>Unesite link snimka predavanja</mat-label>
                     <input matInput name="videoUrl" placeholder="Link do video snimka" [formControl]="createMeetingForm.get('videoUrl')">
                     <mat-icon matSuffix>videocam</mat-icon>
+                </mat-form-field>
+
+                <mat-card-subtitle>Unesite reči tako da budu razdvojene zarezima (veličina slova nije bitna)</mat-card-subtitle>
+                <mat-form-field appearance="outline" class="input">
+                    <mat-label>Unesite ključne reči</mat-label>
+                    <input matInput name="tags" placeholder="Ključ1, ključ2 ..." [formControl]="createMeetingForm.get('tags')">
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="input">
@@ -75,6 +63,39 @@
                     <input matInput name="surveyUrl" placeholder="Link do ankete o utiscima" [formControl]="createMeetingForm.get('surveyUrl')">
                     <mat-icon matSuffix>analytics</mat-icon>
                 </mat-form-field>
+
+                <div>
+                    <button mat-button color="primary" (click)="posterInput.click()" type="button" class="load">
+                        <mat-icon>file_upload</mat-icon>
+                        Učitajte poster
+                    </button>
+                    <input #posterInput type="file" style="display:none;" (change)="onPosterInput($event)"/>
+                    <div style="display: inline-block; margin-left: 5%;">
+                        <mat-card-subtitle *ngIf="posterImage">Odabrana slika: {{posterImage.name}}</mat-card-subtitle>
+                    </div>
+                </div>
+
+                <div>
+                    <button mat-button color="primary" (click)="presentationInput.click()" type="button" class="load">
+                        <mat-icon>file_upload</mat-icon>
+                        Učitajte prezentaciju
+                    </button>
+                    <input #presentationInput type="file" style="display:none;" (change)="onPresentationInput($event)"/>
+                    <div style="display: inline-block; margin-left: 5%;">
+                        <mat-card-subtitle *ngIf="presentation">Odabrana slika: {{presentation.name}}</mat-card-subtitle>
+                    </div>
+                </div>
+
+                <div>
+                    <button mat-button color="primary" (click)="imageInput.click()" type="button" class="load">
+                        <mat-icon>file_upload</mat-icon>
+                        Učitajte sliku
+                    </button>
+                    <input #imageInput type="file" style="display:none;" (change)="onImageInput($event)"/>
+                    <div style="display: inline-block; margin-left: 5%;">
+                        <mat-card-subtitle *ngIf="image">Odabrana slika: {{image.name}}</mat-card-subtitle>
+                    </div>
+                </div>
             </div>
         </div>
         

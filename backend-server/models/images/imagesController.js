@@ -5,15 +5,18 @@ const fs = require('fs');
 module.exports.getMeetingImages = async (req, res, next) => {
     try {
       const rootDir = path.dirname(require.main.filename);
-      const imagesDir = path.join(rootDir, 'public/images/meetings');
-      const images = shuffle(fs.readdirSync(imagesDir));
+      const imagesDir = path.join(rootDir, 'public/meetings');
 
       const imageArray = [];
 
-      images.forEach(image => imageArray.push({
-        "imageName": image,
-        "imageUrl": 'http://localhost:3000/images/meetings/' + image
-      }));
+      if (fs.existsSync(imagesDir)) {
+        const images = shuffle(fs.readdirSync(imagesDir));
+
+        images.forEach(image => imageArray.push({
+          "imageName": image,
+          "imageUrl": 'http://localhost:4200/api/public/meetings/' + image
+        }));
+      }
 
       res.status(200).json(imageArray);
     } catch (err) {

@@ -36,7 +36,9 @@ export class MeetingComponent implements OnInit {
   }
 
   public goToAuthorPage() {
-    this.router.navigate(['/profil', this.meeting.authorID]);
+    if (this.meeting.authorID) {
+      this.router.navigate(['/profil', this.meeting.authorID]);
+    }
   }
 
   public onDeleteMeeting() {

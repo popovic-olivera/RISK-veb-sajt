@@ -44,7 +44,7 @@ module.exports.register = async (req, res, next) => {
             });
         } else {
             if (req.files && req.files['profilePicture']) {
-                const profilePictureFile = await File.fromRequestFile(req.files['profilePicture']);
+                const profilePictureFile = await File.fromRequestFile(req.files['profilePicture'], 'public/profileImages');
                 user.profilePictureUrl = profilePictureFile.path(true);
             }
 

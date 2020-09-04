@@ -1,19 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { MeetingsService } from '../meetings.service';
-import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserProfile } from 'src/app/profile/user-profile.model';
 import { FilterUsersService } from 'src/app/services/filter-users.service';
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+import { AppDateAdapter, APP_DATE_FORMATS} from './format.datepicker';
 
 @Component({
   selector: 'app-create-meeting',
   templateUrl: './create-meeting.component.html',
-  styleUrls: ['./create-meeting.component.css']
+  styleUrls: ['./create-meeting.component.css'],
+  providers: [
+    { provide: DateAdapter, useClass: AppDateAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS }
+  ]
 })
 
 export class CreateMeetingComponent implements OnInit {
   public createMeetingForm: FormGroup;
   public users: UserProfile[];
+
   public selectedUser: UserProfile;
+  public image: File;
+  public posterImage: File;
+  public presentation: File;
 
   constructor(private meetingsService: MeetingsService, 
               private filterService: FilterUsersService) { }
@@ -26,8 +36,6 @@ export class CreateMeetingComponent implements OnInit {
       date: new FormControl(null, Validators.required),
       githubRepoUrl: new FormControl(null, []),
       tags: new FormControl(null, []),
-      posterUrl: new FormControl(null, Validators.required),
-      presentationUrl: new FormControl(null, []),
       videoUrl: new FormControl(null, []),
       surveyUrl: new FormControl(null, [])
     });
@@ -38,8 +46,16 @@ export class CreateMeetingComponent implements OnInit {
   get description() { return this.createMeetingForm.get('description'); }
   get date() { return this.createMeetingForm.get('date'); }
 
-  public saveMeetingEnabled(): boolean {
-    return this.createMeetingForm.valid;
+  public onPresentationInput(event: Event) {
+    this.presentation = (event.target as HTMLInputElement).files[0];
+  }
+
+  public onPosterInput(event: Event) {
+    this.posterImage = (event.target as HTMLInputElement).files[0];
+  }
+
+  public onImageInput(event: Event) {
+    this.image = (event.target as HTMLInputElement).files[0];
   }
 
   public async filterUsers(name: string) {
@@ -53,6 +69,10 @@ export class CreateMeetingComponent implements OnInit {
 
     authorName.setValue(user.firstName + " " + user.lastName);
     this.selectedUser = user;
+  }
+
+  public saveMeetingEnabled(): boolean {
+    return this.createMeetingForm.valid;
   }
 
   public onSaveMeeting() {
@@ -69,7 +89,13 @@ export class CreateMeetingComponent implements OnInit {
                                        .filter((word: string) => word !== "");
     }
     
-    this.meetingsService.addMeeting(jsonData);
-    this.createMeetingForm.reset();
+    const formData = new FormData();
+    Object.keys(jsonData).forEach(key => formData.append(key, jsonData[key]));
+    formData.append('poster', this.posterImage);
+    formData.append('presentation', this.presentation);
+    formData.append('image', this.image);
+
+    this.meetingsService.addMeeting(formData);
+    // this.createMeetingForm.reset();
   }
 }

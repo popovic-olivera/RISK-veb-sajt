@@ -39,7 +39,7 @@ export class MeetingsService {
     this.visibleLen = this.NUMBER_OF_VISIBLE_MEETINGS;
   }
 
-  public async addMeeting(newMeeting: Meeting) {
+  public async addMeeting(newMeeting: FormData) {
     const addedMeeting = await this.http.post<Meeting>(this.meetingsUrl, newMeeting).toPromise();
 
     if (addedMeeting) {

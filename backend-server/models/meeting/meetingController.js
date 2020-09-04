@@ -1,6 +1,5 @@
-const mongoose = require("mongoose");
 const Meeting = require("./meeting");
-
+const File = require("../file/file");
 
 module.exports.getMeetings = async (req, res, next) => {
     try {
@@ -29,6 +28,22 @@ module.exports.getMeetingById = async (req, res, next) => {
 module.exports.createMeeting = async (req, res, next) => {
     try {
         const newMeeting = new Meeting(req.body);
+
+        if (req.files) {
+            if (req.files['poster']) {
+                const posterUrl = await File.fromRequestFile(req.files['poster'], 'public/posters');
+                newMeeting.posterUrl = posterUrl.path(true);
+            } 
+            
+            if (req.files['presentation']) {
+                const presentationUrl = await File.fromRequestFile(req.files['presentation'], 'public/presentations');
+                newMeeting.presentationUrl = presentationUrl.path(true);
+            }
+
+            if (req.files['image']) {
+                await File.fromRequestFile(req.files['image'], 'public/meetings');
+            }
+        }
 
         await newMeeting.save();
         res.status(201).json(newMeeting);

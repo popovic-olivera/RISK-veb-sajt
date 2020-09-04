@@ -66,7 +66,7 @@ const userRoutes = require("./models/user/userRouter");
 app.use("/api/user", userRoutes);
 
 const fileRoutes = require("./models/file/fileRouter");
-app.use("/api/files", fileRoutes);
+app.use("/api/public", fileRoutes);
 
 const meetingRoutes = require("./models/meeting/meetingRouter");
 app.use("/api/meetings", meetingRoutes);

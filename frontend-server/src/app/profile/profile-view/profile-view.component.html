@@ -1,4 +1,4 @@
-<div style="align-items: flex-start;" fxLayout='row' fxFlexAlign="space-evenly" fxLayout.lt-md="column">
+<div *ngIf="profile" style="align-items: flex-start;" fxLayout='row' fxFlexAlign="space-evenly" fxLayout.lt-md="column">
   <div class="sticky" fxFlex="0 1 calc(20%)">
     <img src="{{ profile.profilePictureUrl }}" style="width: 18vw; height: 18vw; border-radius: 50%;"/>
     <div style="padding-top: 14px; font-size: 24px; letter-spacing: 1px; font-weight: 500;">

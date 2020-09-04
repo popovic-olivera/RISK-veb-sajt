@@ -10,8 +10,9 @@ const meetingSchema = new mongoose.Schema({
     tags: [String],
 
     posterUrl: {type: String},
-    githubRepoUrl: {type: String},
     presentationUrl: {type: String},
+
+    githubRepoUrl: {type: String},
     videoUrl: {type: String},
     surveyUrl: {type: String},
 });

@@ -80,7 +80,6 @@ export class RegisterComponent implements OnInit {
       });
     } 
     else {
-      this.dialogRef.close();
       this.dialog.open(InfoDialogComponent, {
         data: {successfulRegistration: false}
       });

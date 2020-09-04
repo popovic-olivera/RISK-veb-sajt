@@ -3,7 +3,7 @@
         <mat-card-header fxFlex="0 1 auto" class="header">
             <div (click)="goToAuthorPage()" mat-card-avatar class="header-image" style="background-image: url({{meeting.authorImage}});" id="profileImage"></div>
             <mat-card-title style="font-size: x-large;">{{meeting.title}}</mat-card-title>
-            <mat-card-subtitle class="link" (click)="goToAuthorPage()">Autor: {{meeting.authorName}}</mat-card-subtitle>
+            <mat-card-subtitle (click)="goToAuthorPage()">Autor: <span class="link">{{meeting.authorName}}</span></mat-card-subtitle>
             <mat-card-subtitle>{{ meeting.date | serbianDate}}</mat-card-subtitle>
         </mat-card-header>
         
@@ -20,5 +20,5 @@
             </a>
         </mat-card-actions>
     </div>
-    <img class="poster second" fxFlex="1 1 auto" src="http://localhost:3000/images/posters/android.png" alt="poster" />
+    <img class="poster second" fxFlex="1 1 auto" src={{meeting.posterUrl}} alt="poster" />
 </mat-card>

@@ -8,7 +8,7 @@
     margin-right: 10px;
 }
 
-::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+/* ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
   padding: 0.7em 0 0.7em 0 !important;
   top: -0.25em;
 }
@@ -19,4 +19,4 @@
 
 ::ng-deep .mat-form-field-wrapper {
   padding-bottom: 0;
-}
+} */
