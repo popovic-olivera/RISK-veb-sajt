@@ -19,18 +19,8 @@ fileSchema.methods.path = function (url = false) {
 };
 
 fileSchema.methods.store = async function (file) {
-
-    // Check whether directory exists, because file::mv doesn't create directories by itself.
-    if (!fs.existsSync(this.dir)) {
-        console.log(`Directory ${this.dir} doesn't exist.`);
-        fs.mkdirSync(this.dir);
-        
-        if (!fs.existsSync(this.dir)) {
-            console.log(`Error creating directory ${this.dir}.`);
-        } else {
-            console.log(`Created directory ${this.dir}.`)
-        }
-    }
+    createDirectoryIfNeeded("public");
+    createDirectoryIfNeeded(this.dir);
 
     const promise = new Promise((resolve, reject) => {
         file.mv(this.path(), err => {
@@ -43,6 +33,21 @@ fileSchema.methods.store = async function (file) {
     });
 
     return promise;
+}
+
+function createDirectoryIfNeeded(dirname) {
+
+    // Check whether directory exists, because file::mv doesn't create directories by itself.
+    if (!fs.existsSync(dirname)) {
+        console.log(`Directory ${dirname} doesn't exist.`);
+        fs.mkdirSync(dirname);
+
+        if (!fs.existsSync(dirname)) {
+            console.log(`Error creating directory ${dirname}.`);
+        } else {
+            console.log(`Created directory ${dirname}.`)
+        }
+    }
 }
 
 fileSchema.statics.fromRequestFile = async function (requestFile, dir) {
