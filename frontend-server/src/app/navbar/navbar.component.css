@@ -3,7 +3,6 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  vertical-align: middle;
   height: 8vh;
   min-height: 60px !important;
 }

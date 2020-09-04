@@ -20,7 +20,7 @@ a {
 .sticky {
   position: -webkit-sticky;
   position: sticky;
-  top: 6.2rem;
+  top: 16vh;
   height: 555px;
 }
 

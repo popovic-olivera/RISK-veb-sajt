@@ -1,4 +1,4 @@
-<mat-form-field appearance="outline" class="search">
+<mat-form-field appearance="outline" class="search" id="nav-search">
     <input name="find" type="search" matInput placeholder="Pretraži korisnike" [formControl]="find" [matAutocomplete]="auto" (keyup)="filterUsers(findUser.value)" #findUser>
     <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let user of users" (click)="onSelectionChanged(user)">

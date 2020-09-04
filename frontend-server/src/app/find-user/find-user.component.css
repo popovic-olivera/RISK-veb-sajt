@@ -8,15 +8,20 @@
     margin-right: 10px;
 }
 
-/* ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+::ng-deep #nav-search .mat-form-field-appearance-outline {
   padding: 0.7em 0 0.7em 0 !important;
   top: -0.25em;
 }
 
-::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper {
-  margin-bottom: 1em;
+::ng-deep #nav-search .mat-form-field-infix {
+  padding: 0.7em 0 0.7em 0 !important;
+  top: -0.25em;
 }
 
-::ng-deep .mat-form-field-wrapper {
+::ng-deep #nav-search .mat-form-field-appearance-outline {
+  margin-bottom: 15px;
+}
+
+::ng-deep #nav-search .mat-form-field-wrapper {
   padding-bottom: 0;
-} */
+}

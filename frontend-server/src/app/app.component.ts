@@ -13,7 +13,7 @@ import { ThemingService } from './theming/theming.service';
 export class AppComponent implements OnInit {
   title = 'frontend-server';
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe('(max-width: 767px)')
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe('(max-width: 780px)')
     .pipe(
       map(result => result.matches),
       shareReplay()
