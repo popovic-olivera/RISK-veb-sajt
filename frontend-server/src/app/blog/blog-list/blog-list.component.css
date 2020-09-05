@@ -4,3 +4,13 @@
 .mat-card-image:first-child {
   margin-top: 0;
 }
+.mat-card {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.mat-card-content {
+  display: flex;
+  flex: 1;
+}

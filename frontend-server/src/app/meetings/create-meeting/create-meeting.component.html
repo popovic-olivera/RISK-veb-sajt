@@ -10,7 +10,7 @@
                     <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
                     <mat-error *ngIf="title.invalid">Ovo polje je obavezno</mat-error>
                 </mat-form-field>
-            
+
                 <mat-card-subtitle>Ako ima profil odaberite ga iz padajuće liste, inače unesite ime i prezime</mat-card-subtitle>
                 <mat-form-field appearance="outline" class="input">
                     <mat-label>Unesite autora</mat-label>
@@ -38,7 +38,7 @@
                     <textarea matInput name="description" placeholder="Kratak opis predavanja" [formControl]="description" required></textarea>
                     <mat-error *ngIf="description.invalid">Ovo polje je obavezno</mat-error>
                 </mat-form-field>
-            
+
                 <mat-form-field appearance="outline" class="input">
                     <mat-label>Unesite link do GitHub repozitorijuma sa kodom</mat-label>
                     <input matInput name="githubRepoUrl" placeholder="Link do repozitorijuma" [formControl]="createMeetingForm.get('githubRepoUrl')">
@@ -66,8 +66,10 @@
 
                 <div>
                     <button mat-button color="primary" (click)="posterInput.click()" type="button" class="load">
-                        <mat-icon>file_upload</mat-icon>
+                      <span style="white-space: normal;">
+                        <mat-icon style="vertical-align: middle;">file_upload</mat-icon>
                         Učitajte poster
+                      </span>
                     </button>
                     <input #posterInput type="file" style="display:none;" (change)="onPosterInput($event)"/>
                     <div style="display: inline-block; margin-left: 5%;">
@@ -77,8 +79,10 @@
 
                 <div>
                     <button mat-button color="primary" (click)="presentationInput.click()" type="button" class="load">
-                        <mat-icon>file_upload</mat-icon>
+                      <span style="white-space: normal;">
+                        <mat-icon style="vertical-align: middle;">file_upload</mat-icon>
                         Učitajte prezentaciju
+                      </span>
                     </button>
                     <input #presentationInput type="file" style="display:none;" (change)="onPresentationInput($event)"/>
                     <div style="display: inline-block; margin-left: 5%;">
@@ -88,8 +92,10 @@
 
                 <div>
                     <button mat-button color="primary" (click)="imageInput.click()" type="button" class="load">
-                        <mat-icon>file_upload</mat-icon>
+                      <span style="white-space: normal;">
+                        <mat-icon style="vertical-align: middle;">file_upload</mat-icon>
                         Učitajte sliku
+                      </span>
                     </button>
                     <input #imageInput type="file" style="display:none;" (change)="onImageInput($event)"/>
                     <div style="display: inline-block; margin-left: 5%;">
@@ -98,7 +104,7 @@
                 </div>
             </div>
         </div>
-        
+
         <button mat-raised-button color="primary" class="btn-lg" type="submit" [disabled]="!saveMeetingEnabled()">Sačuvaj</button>
     </form>
 </mat-card>

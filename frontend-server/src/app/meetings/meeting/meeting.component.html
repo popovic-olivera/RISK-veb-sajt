@@ -1,24 +1,29 @@
-<mat-card class="card" fxLayout="row" fxLayoutGap="30px" fxLayout.lt-md="column">
-    <div class="first" fxLayout="column" fxFlex="2 1 auto">
-        <mat-card-header fxFlex="0 1 auto" class="header">
+  <mat-card class="card">
+    <div fxLayout="row" fxLayout.lt-md="column">
+      <div fxFlex="0 1 calc(70%)" class="left">
+        <mat-card-header class="header">
             <div (click)="goToAuthorPage()" mat-card-avatar class="header-image" style="background-image: url({{meeting.authorImage}});" id="profileImage"></div>
             <mat-card-title style="font-size: x-large;">{{meeting.title}}</mat-card-title>
             <mat-card-subtitle (click)="goToAuthorPage()">Autor: <span class="link">{{meeting.authorName}}</span></mat-card-subtitle>
-            <mat-card-subtitle>{{ meeting.date | serbianDate}}</mat-card-subtitle>
+            <mat-card-subtitle>{{meeting.date | serbianDate}}</mat-card-subtitle>
         </mat-card-header>
-        
-        <mat-card-content style="font-size: large;" fxFlex="2 1 auto">
+
+        <mat-card-content style="font-size: large;">
             <p>{{meeting.description}}</p>
         </mat-card-content>
-        <mat-card-actions fxFlex="0 1 auto" fxLayout="row" fxFlexAlign="space-evenly">
-            <a fxFlex mat-raised-button *ngFor="let btn of buttons" href="{{btn.url}}" target="_blank" class="{{btn.color}}">
+        <mat-card-actions>
+            <a mat-raised-button *ngFor="let btn of buttons" href="{{btn.url}}" target="_blank" class="{{btn.color}}" style="width: auto;">
                 <i class="{{btn.icon}}"></i> {{btn.text}}
             </a>
-    
-            <a *ngIf="auth.getUserProfile() && auth.isUserAdmin()" fxFlex mat-raised-button (click)="onDeleteMeeting()">
+            <br>
+            <a *ngIf="auth.getUserProfile() && auth.isUserAdmin()" mat-raised-button class="delete" (click)="onDeleteMeeting()">
                 <i class="fa fa-trash"></i> Obriši okupljanje
             </a>
         </mat-card-actions>
+      </div>
+      <div #image fxFlex="0 1 calc(30%)">
+        <img class="poster" src={{meeting.posterUrl}} alt="poster" />
+      </div>
     </div>
-    <img class="poster second" fxFlex="1 1 auto" src={{meeting.posterUrl}} alt="poster" />
-</mat-card>
+  </mat-card>
+
