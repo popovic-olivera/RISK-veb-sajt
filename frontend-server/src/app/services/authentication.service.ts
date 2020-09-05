@@ -55,6 +55,10 @@ export class AuthenticationService {
     await this.router.navigateByUrl('/');
   }
 
+  public updateProfile() {
+    this.fetchProfile(this.userProfile._id);
+  }
+
   private fetchProfile(id: string): void {
     this.http.get<UserProfile>(
       `api/user/${id}`,
@@ -133,6 +137,12 @@ export class AuthenticationService {
       const rawPayload = atob(encodedPayload);
       const payload = JSON.parse(rawPayload);
       return payload.id;
+  }
+
+  public async updateFollowers(id: string) {
+    const currentUserId = this.getUserProfile()._id;
+
+    await this.http.put('api/user/followers/'+id, {currentUserId: currentUserId}).toPromise();
   }
 
   public resetPassword(email: string): Promise<boolean> {

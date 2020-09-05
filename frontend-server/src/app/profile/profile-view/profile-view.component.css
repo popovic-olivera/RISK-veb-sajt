@@ -1,5 +1,22 @@
+#profile-image {
+  width: 18vw; 
+  height: 18vw; 
+  border-radius: 50%; 
+  object-fit: cover;
+}
+
+#name {
+  padding-top: 14px; 
+  font-size: 24px; 
+  letter-spacing: 1px; 
+  font-weight: 500;
+}
+
 .text {
   font-size: 16px;
+  font-style: oblique;
+  letter-spacing: 2px;
+  margin-bottom: 0;
 }
 
 ul {
@@ -25,6 +42,11 @@ a {
 }
 
 .btn-grad {
+  margin: 15px 0; 
+  width: 66.6%; 
+  font-size: 18px; 
+  letter-spacing: 3px;
+
   background: linear-gradient(147deg, #00aeef, #37769b, #552e9e, #929b9e);
   background-size: 600% 600%;
   color: whitesmoke;
@@ -50,6 +72,16 @@ a {
   100%{background-position:0% 23%}
 }
 
+#profile-numbers {
+  width:100%; 
+  table-layout: fixed; 
+  text-align: center;
+}
+
 th {
   font-weight: 500 !important;
+}
+
+th:hover {
+  cursor: pointer;
 }

@@ -10,6 +10,8 @@ router.post("/register", userController.register);
 
 router.post("/login", userController.login);
 
+router.put("/followers/:id", userController.updateFollowers);
+
 router.put("/:id", userController.updateProfile);
 
 router.post("/filter", userController.filterUsers);

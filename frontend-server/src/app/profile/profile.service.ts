@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UserProfile } from './user-profile.model';
@@ -15,7 +14,6 @@ export class ProfileService extends HttpErrorHandler {
   private readonly profileUrl = 'http://localhost:4200/api/user/';
 
   constructor(
-    private auth: AuthenticationService,
     router: Router,
     private http: HttpClient) {
       super(router);

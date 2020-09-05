@@ -1,0 +1,18 @@
+.option {
+    width: 100%;
+    margin: 10% 0;
+}
+
+.user-image {
+    border-radius: 50%; 
+    object-fit: cover;
+    height: 50px;
+    width: 50px;
+    margin-right: 10px;
+}
+
+.text {
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 1px;
+}

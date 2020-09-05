@@ -33,6 +33,7 @@ import { ResponseResetComponent } from './restore-password/response-reset/respon
 import { ResponseResetDialogComponent } from './restore-password/response-reset/response-reset-dialog/response-reset-dialog.component';
 import { MessageDialogComponent } from './restore-password/message-dialog/message-dialog.component';
 import { FindUserComponent } from './find-user/find-user.component';
+import { ShowUserListComponent } from './profile/profile-view/show-user-list/show-user-list.component';
 
 
 @NgModule({
@@ -58,6 +59,7 @@ import { FindUserComponent } from './find-user/find-user.component';
     ResponseResetDialogComponent,
     MessageDialogComponent,
     FindUserComponent,
+    ShowUserListComponent,
   ],
   imports: [
     BrowserModule,

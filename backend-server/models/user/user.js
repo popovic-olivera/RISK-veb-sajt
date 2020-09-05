@@ -11,6 +11,10 @@ const userSchema = new mongoose.Schema({
     // TODO separate into "thumbnail" and "full_res" variants
     profilePictureUrl: String,
 
+    postsNum: {type: Number, default: 0},
+    followers: {type: [String]},
+    following: {type: [String]},
+
     // TODO remove these fields from HTTP responses
     passwordHash: String,
     passwordSalt: String

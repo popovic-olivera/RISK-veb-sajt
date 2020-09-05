@@ -1,11 +1,11 @@
 .search {
-    width: 100%;
-    margin: 1%;
-    font-size: 15px;
-  }
+  width: 100%;
+  margin: 1%;
+  font-size: 15px;
+}
 
 .search mat-icon {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 ::ng-deep #nav-search .mat-form-field-appearance-outline {
@@ -24,4 +24,12 @@
 
 ::ng-deep #nav-search .mat-form-field-wrapper {
   padding-bottom: 0;
+}
+
+.user-image {
+  border-radius: 50%; 
+  object-fit: cover;
+  height: 25px;
+  width: 25px;
+  margin-right: 5px;
 }

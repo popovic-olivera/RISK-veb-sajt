@@ -1,21 +1,22 @@
 <div *ngIf="profile" style="align-items: flex-start;" fxLayout='row' fxFlexAlign="space-evenly" fxLayout.lt-md="column">
   <div class="sticky" fxFlex="0 1 calc(20%)">
-    <img src="{{ profile.profilePictureUrl }}" style="width: 18vw; height: 18vw; border-radius: 50%;"/>
-    <div style="padding-top: 14px; font-size: 24px; letter-spacing: 1px; font-weight: 500;">
+    <img src="{{ profile.profilePictureUrl }}" id="profile-image"/>
+    <div id="name">
       {{ profile.firstName }} {{ profile.lastName }}
-      <p class="text" style="font-style: oblique; letter-spacing: 2px; margin-bottom: 0;">CS student</p>
+      <p class="text">CS student</p>
     </div>
-    <button class="btn-grad" mat-raised-button style="margin: 15px 0; width: 66.6%; font-size: 18px; letter-spacing: 3px;">Zaprati</button>
-    <table style="width:100%; table-layout: fixed; text-align: center;">
+    <button class="btn-grad" mat-raised-button *ngIf="isFollowEnabled(); else empty" (click)="onFollow()" [disabled]="alreadyFollowing()">{{btnText}}</button>
+    <ng-template #empty><br/></ng-template>
+    <table id="profile-numbers">
       <tr>
         <th>Objave</th>
-        <th>Pratioci</th>
-        <th>Praćenje</th>
+        <th (click)="openFollowers()">Pratioci</th>
+        <th (click)="openFollowing()">Praćenje</th>
       </tr>
       <tr>
-        <td>{{ profile.posts }}</td>
-        <td>{{ profile.followers }}</td>
-        <td>{{ profile.following }}</td>
+        <td>{{ profile.postsNum }}</td>
+        <td>{{ profile.followers.length }}</td>
+        <td>{{ profile.following.length }}</td>
       </tr>
     </table>
     <div style="border-bottom: 1px #777 solid; margin: 15px 0px;"></div>

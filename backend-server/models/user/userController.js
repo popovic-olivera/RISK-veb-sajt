@@ -99,6 +99,61 @@ module.exports.login = async (req, res, next) => {
     }
 };
 
+module.exports.updateFollowers = async (req, res, next) => {
+    try {
+        const followedUserId = req.params.id;
+        const currentUserId = req.body.currentUserId;
+
+        if (!currentUserId) {
+            res.status(400).json({
+                message: "Missing 'currentUserId' parameter"
+            });
+        }
+
+        // check if already following
+        const user = await User.findOne({
+            _id: currentUserId,
+            following: {$elemMatch: {$eq: followedUserId}}
+        }).exec();
+        
+        if (user) {
+            res.status(404).json({
+                message: `Already following user ${followedUserId}`
+            });
+            return;
+        }
+
+        // update followers
+        const followedUser = User.findOneAndUpdate(
+            {_id: followedUserId},
+            {$push: {followers: currentUserId}}).exec();
+        
+        if (!followedUser) {
+            res.status(404).json({
+                message: `No user with id ${followedUserId}`
+            });
+            return;
+        }
+            
+        // update current user following
+        const currentUser = User.findOneAndUpdate(
+            {_id: currentUserId},
+            {$push: {following: followedUserId}}).exec();
+
+        if (!currentUser) {
+            res.status(404).json({
+                message: `No user with id ${currentUserId}`
+            });
+            return;
+        }
+
+        res.status(200).send();
+        
+    } catch (err) {
+        next(err);
+    }
+}
+
 // TODO test this
 module.exports.updateProfile = async (req, res, next) => {
     try {

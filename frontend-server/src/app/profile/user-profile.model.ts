@@ -7,9 +7,9 @@ export interface UserProfile {
   lastName: string;
   administrator: boolean;
   profilePictureUrl: string;
-  posts: number;
-  followers: number;
-  following: number;
+  postsNum: number;
+  followers: string[];
+  following: string[];
   social_list: Social[];
   bio: string;
   exp: number;
