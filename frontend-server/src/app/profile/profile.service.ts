@@ -10,25 +10,10 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ProfileService extends HttpErrorHandler {
-  private profiles: Observable<UserProfile[]>;
-  private readonly profileUrl = 'http://localhost:4200/api/user/';
+  private readonly profileUrl = 'http://localhost:4200/api/users/';
 
-  constructor(
-    router: Router,
-    private http: HttpClient) {
+  constructor(router: Router, private http: HttpClient) {
       super(router);
-      this.refreshProfiles();
-    }
-
-  private refreshProfiles(): Observable<UserProfile[]> {
-    this.profiles = this.http
-      .get<UserProfile[]>(this.profileUrl)
-      .pipe(catchError(super.handleError()));
-    return this.profiles;
-  }
-
-  public getProfiles(): Observable<UserProfile[]> {
-    return this.profiles;
   }
 
   public getProfileById(id: string): Observable<UserProfile> {

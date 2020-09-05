@@ -36,6 +36,7 @@ module.exports.resetPassword = async (req, res, next) => {
             resetToken: { $ne: resetToken.resetToken }
         }).remove().exec();
 
+        // TODO remove credentials
         const transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
             port: 587,

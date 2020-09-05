@@ -10,7 +10,8 @@ const fileSchema = new mongoose.Schema({
 });
 
 fileSchema.methods.path = function (url = false) {
-    const filepath = path.join( this.dir, `${this._id.toString()}.${this.type}`);
+    const filepath = path.join(this.dir, `${this._id.toString()}.${this.type}`);
+
     if (url) {
         return "http://localhost:4200/api/" + filepath;
     } else {
@@ -45,7 +46,7 @@ function createDirectoryIfNeeded(dirname) {
         if (!fs.existsSync(dirname)) {
             console.log(`Error creating directory ${dirname}.`);
         } else {
-            console.log(`Created directory ${dirname}.`)
+            console.log(`Created directory ${dirname}.`);
         }
     }
 }

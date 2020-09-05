@@ -2,7 +2,8 @@
   width: 18vw; 
   height: 18vw; 
   border-radius: 50%; 
-  object-fit: cover;
+  background-size: cover;
+  background-position: center;
 }
 
 #name {

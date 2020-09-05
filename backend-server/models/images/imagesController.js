@@ -1,7 +1,6 @@
 const path = require('path');
 const fs = require('fs');
 
-
 module.exports.getMeetingImages = async (req, res, next) => {
     try {
       const rootDir = path.dirname(require.main.filename);
@@ -16,9 +15,13 @@ module.exports.getMeetingImages = async (req, res, next) => {
           "imageName": image,
           "imageUrl": 'http://localhost:4200/api/public/meetings/' + image
         }));
-      }
 
-      res.status(200).json(imageArray);
+        res.status(200).json(imageArray);
+      } else {
+        res.status(404).json({
+          message: `Directory ${imagesDir} not found`
+        });
+      }
     } catch (err) {
       next(err);
     }

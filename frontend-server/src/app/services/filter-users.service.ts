@@ -7,7 +7,7 @@ import { UserProfile } from '../profile/user-profile.model';
 })
 
 export class FilterUsersService {
-  private readonly filterUsersUrl = '/api/user/filter';
+  private readonly filterUsersUrl = '/api/users/filter';
 
   constructor(private http: HttpClient) { }
 

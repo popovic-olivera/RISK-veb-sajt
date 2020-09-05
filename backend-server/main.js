@@ -62,9 +62,8 @@ app.use(jwt({
 const blogPostRoutes = require("./models/blog_post/blogPostRouter");
 app.use("/api/blogPosts", blogPostRoutes);
 
-const userRoutes = require("./models/user/userRouter");
-// TODO replace with "users"
-app.use("/api/user", userRoutes);
+const userRoutes = require("./models/users/userRouter");
+app.use("/api/users", userRoutes);
 
 const fileRoutes = require("./models/file/fileRouter");
 app.use("/api/public", fileRoutes);

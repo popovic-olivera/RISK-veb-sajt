@@ -59,14 +59,18 @@ module.exports.updateMeeting = async (req, res, next) => {
         if (meeting) {
             const newMeeting = new Meeting(req.body);
 
-            const updatedMeeting = await Meeting.findByIdAndUpdate(req.params.id, newMeeting, {useFindAndModify: false, new: true}).exec();
+            const updatedMeeting = await Meeting.findByIdAndUpdate(req.params.id, newMeeting, {new: true}).exec();
             if (updatedMeeting) {
                 res.status(200).json(updatedMeeting);
             } else {
-                res.status(404).send();
+                res.status(404).json({
+                    message: `Updating meeting with id: ${req.params.id} failed`
+                })
             }
         } else {
-          res.status(404).send();
+          res.status(404).json({
+              message: `Meeting with id: ${req.params.id} not found`
+          });
         }
     } catch (err) {
         next(err);

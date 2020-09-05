@@ -13,9 +13,15 @@ import { ShowUserListComponent } from './show-user-list/show-user-list.component
   templateUrl: './profile-view.component.html',
   styleUrls: ['./profile-view.component.css', '../../app.component.css']
 })
+
 export class ProfileViewComponent implements OnInit, OnDestroy {
+  private readonly btnTextMap = {
+    following: "Praćenje",
+    follow: "Zaprati"
+  };
+
   public profile: UserProfile;
-  public btnText = "Zaprati";
+  public btnText = this.btnTextMap.follow;
   private subscription: Subscription;
 
   constructor(private router: Router, private profileService: ProfileService,
@@ -55,12 +61,12 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     const currentUser = this.auth.getUserProfile();
     
     if (currentUser.following.includes(this.profile._id)) {
-      this.btnText = "Praćenje";
+      this.btnText = this.btnTextMap.following;
 
       return true;
     }
 
-    this.btnText = "Zaprati";
+    this.btnText = this.btnTextMap.follow;
     return false;
   }
 

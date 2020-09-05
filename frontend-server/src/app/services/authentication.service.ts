@@ -2,17 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { catchError, map } from 'rxjs/operators';
-import { of, Observable } from 'rxjs';
+import { of } from 'rxjs';
 import { UserProfile } from '../profile/user-profile.model';
-
-interface TokenResponse {
-  token: string;
-}
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthenticationService {
+  private readonly usersUrl = '/api/users/';
 
   private userProfile: UserProfile;
   private token: string;
@@ -52,6 +50,7 @@ export class AuthenticationService {
     this.userProfile = undefined;
     window.localStorage.removeItem('auth-token');
     window.localStorage.removeItem('user-profile');
+
     await this.router.navigateByUrl('/');
   }
 
@@ -61,7 +60,7 @@ export class AuthenticationService {
 
   private fetchProfile(id: string): void {
     this.http.get<UserProfile>(
-      `api/user/${id}`,
+      `api/users/${id}`,
       {
         headers: {
           Authorization: `Bearer ${this.getToken()}`
@@ -72,8 +71,15 @@ export class AuthenticationService {
     });
   }
 
+  private static extractUserIdFromJwtToken(token: string): string {
+    const encodedPayload = token.split('.')[1];
+    const rawPayload = atob(encodedPayload);
+    const payload = JSON.parse(rawPayload);
+    return payload.id;
+  }
+
   public register(newUser: FormData): Promise<boolean> {
-    const success = this.http.post(`api/user/register`, newUser, {observe: 'response'}).pipe(
+    const success = this.http.post(this.usersUrl + 'register', newUser, {observe: 'response'}).pipe(
       map((response: any) => {
         if (response.status === 200) {
           if (response.body.token) {
@@ -108,7 +114,7 @@ export class AuthenticationService {
 
     // TODO error appears in the console when the server returns status 400, we should look into suppressing
     //  that error to avoid noise in the console.
-    const observable = this.http.post('api/user/login', credentialsPayload, {observe: 'response'}).pipe(
+    const observable = this.http.post(this.usersUrl + 'login', credentialsPayload, {observe: 'response'}).pipe(
       map((response: any) => {
         if (response.status === 200) {
           const body: any = response.body;
@@ -132,21 +138,14 @@ export class AuthenticationService {
     return observable.toPromise();
   }
 
-  private static extractUserIdFromJwtToken(token: string): string {
-      const encodedPayload = token.split('.')[1];
-      const rawPayload = atob(encodedPayload);
-      const payload = JSON.parse(rawPayload);
-      return payload.id;
-  }
-
   public async updateFollowers(id: string) {
     const currentUserId = this.getUserProfile()._id;
 
-    await this.http.put('api/user/followers/'+id, {currentUserId: currentUserId}).toPromise();
+    await this.http.put(this.usersUrl + 'followers/' + id, {currentUserId: currentUserId}).toPromise();
   }
 
   public resetPassword(email: string): Promise<boolean> {
-    const success = this.http.post('api/user/reset-password', { email: email }, {observe: 'response'}).pipe(
+    const success = this.http.post(this.usersUrl + 'reset-password', { email: email }, {observe: 'response'}).pipe(
       map( response => {
         if (response.status === 200) {
           return true;
@@ -155,8 +154,6 @@ export class AuthenticationService {
         return false;
       }),
       catchError(() => {
-        // TODO error appears in the console when the server returns status 400, we should look into suppressing
-        //  that error to avoid noise in the console.
         return of(false);
       }));
     
@@ -164,7 +161,7 @@ export class AuthenticationService {
   }
 
   public validPasswordToken(token: string): Promise<boolean> {
-    const success = this.http.post('api/user/validate-password-token/' + token, '', {observe: 'response'}).pipe(
+    const success = this.http.post(this.usersUrl + 'validate-password-token/' + token, '', {observe: 'response'}).pipe(
       map( response => {
         if (response.status === 200) {
           return true;
@@ -173,8 +170,6 @@ export class AuthenticationService {
         return false;
       }),
       catchError(() => {
-        // TODO error appears in the console when the server returns status 400, we should look into suppressing
-        //  that error to avoid noise in the console.
         return of(false);
       }));
     
@@ -182,7 +177,7 @@ export class AuthenticationService {
   }
 
   public newPassword(newPassword: string, resetToken: string): Promise<boolean> {
-    const success = this.http.post('api/user/set-new-password', {newPassword, resetToken}, {observe: 'response'}).pipe(
+    const success = this.http.post(this.usersUrl + 'set-new-password', {newPassword, resetToken}, {observe: 'response'}).pipe(
       map( response => {
         if (response.status === 200) {
           return true;
@@ -191,8 +186,6 @@ export class AuthenticationService {
         return false;
       }),
       catchError(() => {
-        // TODO error appears in the console when the server returns status 400, we should look into suppressing
-        //  that error to avoid noise in the console.
         return of(false);
       }));
     
