@@ -14,7 +14,9 @@ export class MeetingsService {
   private meetings: Meeting[] = [];
   private visibleLen = this.NUMBER_OF_VISIBLE_MEETINGS;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.initMeetings();
+  }
 
   public async initMeetings() {
     if (this.meetings.length !== 0) {

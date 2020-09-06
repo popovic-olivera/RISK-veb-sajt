@@ -1,0 +1,42 @@
+.mat-card {
+  padding: 0;
+  border-radius: 20px;
+}
+
+.mat-card-title {
+  text-align: center;
+  padding: 1vh 0 !important;
+  margin: 0;
+  border-bottom: #777 1px solid;
+  font-size: x-large;
+}
+
+.mat-card-content {
+  font-size: large;
+}
+
+.image {
+  position: relative;
+  color: white;
+  margin: 0 16px;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color:rgba(0, 0, 0, 0.75);
+  border-radius: 20px;
+  width: 70%;
+}
+
+.mat-card-image:first-child {
+  margin-top: 0 !important;
+}
+
+img {
+  margin-bottom: 0;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}

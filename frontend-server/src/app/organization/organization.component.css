@@ -7,3 +7,16 @@ p {
   font-weight: 400;
   letter-spacing: 2px;
 }
+
+.mat-card {
+  border-radius: 20px;
+}
+
+.mat-card-title {
+  text-align: center;
+  font-size: x-large;
+}
+
+.mat-card-content {
+  font-size: large;
+}

@@ -20,7 +20,6 @@ export class MeetingsListComponent implements OnInit {
               public auth: AuthenticationService) {}
 
   ngOnInit(): void {
-    this.meetingsService.initMeetings(); 
     this.initImages();
   }
 
