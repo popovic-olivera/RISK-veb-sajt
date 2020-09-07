@@ -138,6 +138,22 @@ export class AuthenticationService {
     return observable.toPromise();
   }
 
+  public update(newUser: FormData): Promise<boolean> {
+    const success = this.http.put(this.usersUrl + this.userProfile._id, newUser, {observe: 'response'}).pipe(
+      map((response: any) => {
+        if (response.status === 200) {
+          return true;
+        } else {
+          return false;
+        }
+      }),
+      catchError(() => {
+        return of(false);
+      }));
+    
+      return success.toPromise();
+  }
+
   public async updateFollowers(id: string) {
     const currentUserId = this.getUserProfile()._id;
 

@@ -114,7 +114,7 @@ module.exports.updateFollowers = async (req, res, next) => {
             _id: currentUserId,
             following: {$elemMatch: {$eq: followedUserId}}
         }).exec();
-        
+
         if (user) {
             res.status(404).json({
                 message: `Already following user ${followedUserId}`
@@ -126,14 +126,14 @@ module.exports.updateFollowers = async (req, res, next) => {
         const followedUser = User.findOneAndUpdate(
             {_id: followedUserId},
             {$push: {followers: currentUserId}}).exec();
-        
+
         if (!followedUser) {
             res.status(404).json({
                 message: `No user with id ${followedUserId}`
             });
             return;
         }
-            
+
         // update current user following
         const currentUser = User.findOneAndUpdate(
             {_id: currentUserId},
@@ -147,7 +147,7 @@ module.exports.updateFollowers = async (req, res, next) => {
         }
 
         res.status(200).send();
-        
+
     } catch (err) {
         next(err);
     }
@@ -160,10 +160,6 @@ module.exports.updateProfile = async (req, res, next) => {
             res.status(400).json({
                 message: "Invalid id"
             });
-        } else if (!req.authData || req.authData.id !== req.params.id) {
-            res.status(401).json({
-                message: "Only the profile owner can edit their profile"
-            });
         } else if (req.body._id !== req.params.id) {
             res.status(400).json({
                 message: "id in the path parameter doesn't match the id in the body"
@@ -171,14 +167,19 @@ module.exports.updateProfile = async (req, res, next) => {
         } else {
             const userFromPayload = new User(req.body);
             const error = userFromPayload.validateSync();
+
             if (error) {
                 res.status(400).json({
                     message: `Fields [${Object.keys(error.errors)}] are not correct`
                 });
             } else {
+                if (req.files && req.files['profilePicture']) {
+                    const profilePictureFile = await File.fromRequestFile(req.files['profilePicture'], 'public/profileImages');
+                    userFromPayload.profilePictureUrl = profilePictureFile.path(true);
+                }
+
                 const user = await User.findByIdAndUpdate(req.params.id, userFromPayload, {
-                    useFindAndModify: false,
-                    new: true
+                  new: true
                 }).exec();
 
                 if (user) {

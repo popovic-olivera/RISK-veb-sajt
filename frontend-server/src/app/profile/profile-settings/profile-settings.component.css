@@ -1,0 +1,40 @@
+.card {
+    border-radius: 20px;
+    padding: 2% 5%;
+}
+
+.title {
+    font-size: xx-large;
+    margin-bottom: 0;
+}
+
+.column {
+    width: 50%;
+}
+
+.field mat-label {
+    font-size: larger;
+    margin-right: 5%;
+}
+
+.field mat-form-field {
+    width: 50%;
+    text-align: center;
+}
+
+.field button {
+    margin-left: 2%;
+}
+
+#profile-image-lbl {
+    font-size: larger;
+}
+
+#profile-image {
+    width: 18vw; 
+    height: 18vw; 
+    border-radius: 50%; 
+    background-size: cover;
+    background-position: center;
+    margin-top: 5%;
+}

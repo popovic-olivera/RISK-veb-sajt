@@ -1,6 +1,5 @@
 <div *ngIf="profile" style="align-items: flex-start;" fxLayout='row' fxFlexAlign="space-evenly" fxLayout.lt-md="column">
   <div class="sticky" fxFlex="0 1 calc(20%)">
-    <!-- <img src="{{ profile.profilePictureUrl }}" id="profile-image"/> -->
     <div id="profile-image" style="background-image: url({{profile.profilePictureUrl}})"></div>
     <div id="name">
       {{ profile.firstName }} {{ profile.lastName }}
@@ -39,26 +38,23 @@
     <div style="border-bottom: 1px #777 solid; margin: 15px 0px;"></div>
     <div class="ft-social">
       <ul class="ft-social-list">
-        <li *ngFor="let soc of profile.social_list"
-          [ngSwitch]="soc.network">
-          <ng-template ngSwitchCase="web">
-            <a href="{{ soc.link }}"><i class="fa fa-lg fa-globe"></i></a>
-          </ng-template>
-          <ng-template ngSwitchCase="github">
-            <a href="{{ soc.link }}"><i class="fa fa-lg fa-github"></i></a>
-          </ng-template>
-          <ng-template ngSwitchCase="linkedin">
-            <a href="{{ soc.link }}"><i class="fa fa-lg fa-linkedin"></i></a>
-          </ng-template>
-          <ng-template ngSwitchCase="instagram">
-            <a href="{{ soc.link }}"><i class="fa fa-lg fa-instagram"></i></a>
-          </ng-template>
-          <ng-template ngSwitchCase="facebook">
-            <a href="{{ soc.link }}"><i class="fa fa-lg fa-facebook"></i></a>
-          </ng-template>
-          <ng-template ngSwitchCase="portfolio">
-            <a href="{{ soc.link }}"><i class="fa fa-lg fa-address-card"></i></a>
-          </ng-template>
+        <li>
+          <a href="{{ profile.webUrl }}"><i class="fa fa-lg fa-globe"></i></a>
+        </li>
+        <li>
+          <a href="{{ profile.githubUrl }}"><i class="fa fa-lg fa-github"></i></a>
+        </li>
+        <li>
+          <a href="{{ profile.linkedinUrl }}"><i class="fa fa-lg fa-linkedin"></i></a>
+        </li>
+        <li>
+          <a href="{{ profile.instagramUrl }}"><i class="fa fa-lg fa-instagram"></i></a>
+        </li>
+        <li>
+          <a href="{{ profile.facebookUrl }}"><i class="fa fa-lg fa-facebook"></i></a>
+        </li>
+        <li>
+          <a href="{{ profile.portfolioUrl }}"><i class="fa fa-lg fa-address-card"></i></a>
         </li>
       </ul>
     </div>

@@ -1,1 +1,89 @@
-<p>profile-settings works!</p>
+<mat-card class="card container" fxLayout="column">
+    <mat-card-title class="title">Podešavanja profila</mat-card-title>
+    <hr>
+
+    <div class="row" style="margin-top: 3%">
+        <div class="column" fxLayout="column">
+            <div class="field">
+                <mat-label fxFlex="0 1 auto">Ime</mat-label>
+                <mat-form-field fxFlex="1 1 auto">
+                    <input matInput [readonly]="isReadonlyMap['firstName']" [value]="this.profile.firstName" (blur)="onBlurFirstName(firstName.value)" #firstName>
+                    <mat-error *ngIf="firstName.invalid">Ovo polje je obavezno</mat-error>
+                </mat-form-field>
+                <button mat-mini-fab fxFlex="0 1 auto" (click)="isReadonlyMap['firstName']=false">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </div>
+        
+            <div class="field">
+                <mat-label fxFlex="0 1 auto">Prezime</mat-label>
+                <mat-form-field fxFlex="1 1 auto">
+                    <input matInput [readonly]="isReadonlyMap['lastName']" [value]="this.profile.lastName" (blur)="onBlurLastName(lastName.value)" #lastName>
+                    <mat-error *ngIf="lastName.invalid">Ovo polje je obavezno</mat-error>
+                </mat-form-field>
+                <button mat-mini-fab fxFlex="0 1 auto" (click)="isReadonlyMap['lastName']=false">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </div>
+        
+            <div class="field">
+                <mat-label fxFlex="0 1 auto">Biografija</mat-label>
+                <mat-form-field fxFlex="1 1 auto">
+                    <textarea matInput [readonly]="isReadonlyMap['bio']" [value]="this.profile.bio" (blur)="onBlurBio(bio.value)" #bio></textarea>
+                </mat-form-field>
+                <button mat-mini-fab fxFlex="0 1 auto" (click)="isReadonlyMap['bio']=false">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </div>
+        
+            <div class="field">
+                <mat-label fxFlex="0 1 auto">Zanimanje</mat-label>
+                <mat-form-field fxFlex="1 1 auto">
+                    <input matInput [readonly]="isReadonlyMap['occupation']" [value]="this.profile.occupation" (blur)="onBlurOccupation(occ.value)" #occ>
+                </mat-form-field>
+                <button mat-mini-fab fxFlex="0 1 auto" (click)="isReadonlyMap['occupation']=false">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </div>
+        
+            <div class="field" *ngFor="let soc of socialNetworks; let i = index">
+                <mat-label fxFlex="0 1 auto">{{labels[i]}}</mat-label>
+                <mat-form-field fxFlex="1 1 auto">
+                    <input matInput [readonly]="isReadonlyMap[soc]" (blur)="onBlurSoc(i, soc.value)" #soc>
+                </mat-form-field>
+                <button mat-mini-fab fxFlex="0 1 auto" (click)="isReadonlyMap[soc]=false">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </div>
+        </div>
+
+        <div class="column" fxLayoutAlign="end start">
+            <div style="text-align: center;">
+                <mat-label id="profile-image-lbl">Slika na profilu</mat-label>
+                <div id="profile-image" *ngIf="!selectedImageUrl" fxLayoutAlign="end end" style="background-image: url({{profile.profilePictureUrl}});">
+                    <button mat-mini-fab (click)="fileInput.click()" type="button">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <input #fileInput type="file" style="display:none;" (change)="onFileChanged($event)"/>
+                </div>
+                <div *ngIf="selectedImageUrl" id="profile-image" fxLayoutAlign="end end" [style.background-image]="'url('+selectedImageUrl+')'">
+                    <button mat-mini-fab (click)="fileInput.click()" type="button">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <input #fileInput type="file" style="display:none;" (change)="onFileChanged($event)"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" fxLayoutAlign="end">
+        <div style="text-align: center">
+            <button mat-raised-button style="font-size: x-large" color="accent" (click)="onSave()">
+                Sačuvaj
+            </button>
+            <br>
+            <mat-label *ngIf="successfulSave" class="mat-small">Promene uspešno sačuvane</mat-label>
+            <mat-error *ngIf="!successfulSave && successfulSave !== undefined" class="mat-small">Čuvanje promena nije uspelo</mat-error>
+        </div>
+    </div>
+</mat-card>

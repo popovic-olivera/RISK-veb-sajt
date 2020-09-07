@@ -1,5 +1,3 @@
-import { Social } from '../organization/social.model';
-
 export interface UserProfile {
   _id: string;
   email: string;
@@ -10,8 +8,14 @@ export interface UserProfile {
   postsNum: number;
   followers: string[];
   following: string[];
-  social_list: Social[];
   bio: string;
+  occupation: string;
+  webUrl: string;
+  githubUrl: string;
+  linkedinUrl: string;
+  instagramUrl: string;
+  facebookUrl: string;
+  portfolioUrl: string;
   exp: number;
   iat: number;
 }

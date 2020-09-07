@@ -11,6 +11,15 @@ const userSchema = new mongoose.Schema({
     // TODO separate into "thumbnail" and "full_res" variants
     profilePictureUrl: String,
 
+    bio: String,
+    occupation: String,
+    webUrl: String,
+    githubUrl: String,
+    linkedinUrl: String,
+    instagramUrl: String,
+    facebookUrl: String,
+    portfolioUrl:String,
+
     postsNum: {type: Number, default: 0},
     followers: {type: [String]},
     following: {type: [String]},
