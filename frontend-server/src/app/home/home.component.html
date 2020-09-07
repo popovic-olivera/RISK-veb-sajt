@@ -1,10 +1,10 @@
-<div *ngIf="!auth.getUserProfile()" fxLayout="row" fxLayout.lt-sm="column" fxFlexAlign="space-evenly" fxLayoutGap="30px">
+<div *ngIf="!auth.getUserProfile()" fxLayout="row" fxLayout.lt-sm="column" FxLayoutAlign="space-evenly" fxLayoutGap="30px">
   <div fxFlex="0 1 calc(30%)" fxFlex.lt-sm="0 1 calc(100%)">
     <mat-card>
       <mat-card-title>Najskorije okupljanje</mat-card-title>
-        <div style="margin: 0 16px;">
-          <img *ngIf="this.meetingService.getVisibleMeetings()[0]" mat-card-image src="{{ this.meetingService.getVisibleMeetings()[0].posterUrl }}" alt="Slika postera">
-        </div>
+      <div style="margin: 0 16px;">
+        <img *ngIf="this.meetingService.getVisibleMeetings()[0]" mat-card-image src="{{ this.meetingService.getVisibleMeetings()[0].posterUrl }}" alt="Slika postera">
+      </div>
     </mat-card>
   </div>
   <div fxFlex="0 1 calc(70%)" fxFlex.lt-sm="0 1 calc(100%)">
@@ -39,5 +39,52 @@
         </div>
       </div>
     </mat-card>
+  </div>
+</div>
+
+<div *ngIf="auth.getUserProfile()" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center start" fxLayoutGap="70px">
+  <div fxFlex="0 1 calc(35%)" fxFlex.lt-sm="0 1 calc(100%)" fxLayout="column" fxLayoutGap="30px">
+    <mat-card>
+      <mat-card-title>Najskorija objava</mat-card-title>
+      <div class="image">
+        <a *ngIf="latestPost" style="min-width: 100%; max-width: 100%;" [routerLink]="['/blog/' + latestPost.url_id]">
+          <img mat-card-image src="{{ latestPost.header_image }}" alt="Slika clanka">
+        </a>
+        <div class="centered">
+          <a *ngIf="latestPost" [routerLink]="['/blog/' + latestPost.url_id]">
+            <mat-card-title style="padding-left: 15px; margin-bottom: 1vh !important;">{{ latestPost.title }}</mat-card-title>
+          </a>
+          <mat-card-content style="word-wrap: break-word; margin-left: 15px; margin-right: 15px; font-size: 16px;">
+            <p *ngIf="latestPost">{{ latestPost.desc }}</p>
+          </mat-card-content>
+          <mat-card-header>
+            <div mat-card-avatar class="avatarImage">
+              <a style="margin-left: 15px;" [routerLink]="['/okupljanja']">
+                <img *ngIf="latestPost" mat-card-avatar src="{{ latestPost.author_image }}" alt="Autorova slika">
+              </a>
+            </div>
+            <div>
+                <a *ngIf="latestPost" [routerLink]="['/okupljanja']">
+                  {{ latestPost.title }}
+                </a>
+              <div>
+                <mat-card-subtitle *ngIf="latestPost" style="color: #777;">{{ latestPost.date | date: 'longDate'}}</mat-card-subtitle>
+              </div>
+            </div>
+          </mat-card-header>
+        </div>
+      </div>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-title>Najskorije okupljanje</mat-card-title>
+      <div style="margin: 0 16px;">
+        <img *ngIf="this.meetingService.getVisibleMeetings()[0]" mat-card-image src="{{ this.meetingService.getVisibleMeetings()[0].posterUrl }}" alt="Slika postera">
+      </div>
+    </mat-card>
+  </div>
+
+  <div fxFlex="0 1 calc(50%)" fxFlex.lt-sm="0 1 calc(100%)" fxLayout="column">
+    <app-blog-list></app-blog-list>
   </div>
 </div>

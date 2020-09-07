@@ -6,6 +6,7 @@ import { reduce, map, flatMap, first } from 'rxjs/operators';
 import { Meeting } from '../meetings/meeting.model';
 import { MeetingsService } from '../meetings/meetings.service';
 import { AuthenticationService } from '../services/authentication.service';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-home',
@@ -18,12 +19,14 @@ export class HomeComponent implements OnInit {
 
   constructor(private blogService: BlogService,
               public meetingService: MeetingsService,
-              public auth: AuthenticationService) {
-    this.blogService.getBlogPosts().subscribe(data => this.latestPost = data[0]);
+              public auth: AuthenticationService,
+              private data: DataService) {
+    this.blogService.getBlogPosts().subscribe(post => this.latestPost = post[0]);
     // this.latestMeeting = this.meetingService.getVisibleMeetings()[0];
   }
 
   ngOnInit(): void {
+    this.data.changeMessage('profile-view');
   }
 
 }

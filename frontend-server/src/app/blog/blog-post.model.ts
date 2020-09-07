@@ -12,6 +12,6 @@ export interface BlogPost {
   url_id: string;
   desc: string;
   content: string;
-  tags: [string];
-  comments: [Comment];
+  tags: string[];
+  comments: Comment[];
 }
