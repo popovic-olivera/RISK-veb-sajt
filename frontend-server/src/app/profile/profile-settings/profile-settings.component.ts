@@ -3,6 +3,8 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { UserProfile } from '../user-profile.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
+import { MatDialog } from '@angular/material/dialog';
+import { ResponseResetDialogComponent } from 'src/app/restore-password/response-reset/response-reset-dialog/response-reset-dialog.component';
 
 @Component({
   selector: 'app-profile-settings',
@@ -10,10 +12,6 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./profile-settings.component.css']
 })
 export class ProfileSettingsComponent implements OnInit {
-  public readonly socialNetworks = ['web', 'github', 'linkedin', 'instagram', 'facebook', 'portfolio'];
-  public readonly labels = ['Veb adresa', 'Github profil', 'LinkedIn profil', 'Instagram profil',
-                            'Facebook profil', 'Portfolio'];
-  
   public changeForm: FormGroup;
   public profile: UserProfile;
   private selectedImage: File;
@@ -24,12 +22,16 @@ export class ProfileSettingsComponent implements OnInit {
     'firstName': true,
     'lastName': true,
     'bio': true,
-    'occupation': true
+    'occupation': true,
+    'web': true, 
+    'github': true, 
+    'linkedin': true, 
+    'instagram': true, 
+    'facebook': true, 
+    'portfolio': true
   };
 
-  constructor(private auth: AuthenticationService) { 
-    this.socialNetworks.forEach(soc => this.isReadonlyMap[soc]=true);
-  }
+  constructor(private auth: AuthenticationService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.profile = this.auth.getUserProfile();
@@ -43,7 +45,14 @@ export class ProfileSettingsComponent implements OnInit {
   get firstName() { return this.changeForm.get('firstName'); }
   get lastName() { return this.changeForm.get('lastName'); }
 
-  onFileChanged(event: Event) {
+  public toNull(value: string) {
+    if (value === undefined)
+      return null;
+
+    return value;
+  }
+
+  public onFileChanged(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
     const reader = new FileReader();
 
@@ -77,27 +86,38 @@ export class ProfileSettingsComponent implements OnInit {
     this.isReadonlyMap['occupation'] = true;
   }
 
-  public onBlurSoc(index: number, value: string) {
-    switch(index) {
-      case 0: this.profile.webUrl = value;
-              this.isReadonlyMap['web'] = true;
-              break;
-      case 1: this.profile.githubUrl = value;
-              this.isReadonlyMap['github'] = true;
-              break;
-      case 2: this.profile.linkedinUrl = value;
-              this.isReadonlyMap['linkedin'] = true;
-              break;
-      case 3: this.profile.instagramUrl = value;
-              this.isReadonlyMap['instagram'] = true;
-              break;
-      case 4: this.profile.facebookUrl = value;
-              this.isReadonlyMap['facebook'] = true;
-              break;
-      case 5: this.profile.portfolioUrl = value;
-              this.isReadonlyMap['portfolio'] = true;
-              break;
-    }
+  public onBlurWeb(value: string) {
+    this.profile.webUrl = value;
+    this.isReadonlyMap['web'] = true;
+  }
+
+  public onBlurGithub(value: string) {
+    this.profile.githubUrl = value;
+    this.isReadonlyMap['github'] = true;
+  }
+
+  public onBlurLinkedin(value: string) {
+    this.profile.linkedinUrl = value;
+    this.isReadonlyMap['linkedin'] = true;
+  }
+
+  public onBlurInstagram(value: string) {
+    this.profile.instagramUrl = value;
+    this.isReadonlyMap['instagram'] = true;
+  }
+
+  public onBlurFacebook(value: string) {
+    this.profile.facebookUrl = value;
+    this.isReadonlyMap['facebook'] = true;
+  }
+
+  public onBlurPortfolio(value: string) {
+    this.profile.portfolioUrl = value;
+    this.isReadonlyMap['portfolio'] = true;
+  }
+
+  public onChangePassword() {
+    this.dialog.open(ResponseResetDialogComponent);
   }
 
   public async onSave() {

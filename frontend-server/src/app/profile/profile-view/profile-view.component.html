@@ -3,7 +3,7 @@
     <div id="profile-image" style="background-image: url({{profile.profilePictureUrl}})"></div>
     <div id="name">
       {{ profile.firstName }} {{ profile.lastName }}
-      <p class="text">CS student</p>
+      <p class="text">{{profile.occupation}}</p>
     </div>
     <button class="btn-grad" mat-raised-button *ngIf="isFollowEnabled(); else empty" (click)="onFollow()" [disabled]="alreadyFollowing()">{{btnText}}</button>
     <ng-template #empty><br/></ng-template>
@@ -20,14 +20,14 @@
       </tr>
     </table>
     <div style="border-bottom: 1px #777 solid; margin: 15px 0px;"></div>
-    <ul style="font-size: 18px; font-weight: bold; letter-spacing: 5px;">
+    <!-- <ul style="font-size: 18px; font-weight: bold; letter-spacing: 5px;">
       <li>
         <a [routerLink]="['/okupljanja']">Omiljeno</a>
       </li>
       <li>
         <a [routerLink]="['/okupljanja']">Tag2</a>
       </li>
-    </ul>
+    </ul> -->
   </div>
   <div fxFlex="0 1 calc(60%)" style="margin: 0 4vw;">
     <app-blog-list></app-blog-list>
@@ -39,22 +39,22 @@
     <div class="ft-social">
       <ul class="ft-social-list">
         <li>
-          <a href="{{ profile.webUrl }}"><i class="fa fa-lg fa-globe"></i></a>
+          <a *ngIf="profile.webUrl" href="{{profile.webUrl}}"><i class="fa fa-lg fa-globe"></i></a>
         </li>
         <li>
-          <a href="{{ profile.githubUrl }}"><i class="fa fa-lg fa-github"></i></a>
+          <a *ngIf="profile.githubUrl" href="{{profile.githubUrl}}"><i class="fa fa-lg fa-github"></i></a>
         </li>
         <li>
-          <a href="{{ profile.linkedinUrl }}"><i class="fa fa-lg fa-linkedin"></i></a>
+          <a *ngIf="profile.linkedinUrl" href="{{profile.linkedinUrl}}"><i class="fa fa-lg fa-linkedin"></i></a>
         </li>
         <li>
-          <a href="{{ profile.instagramUrl }}"><i class="fa fa-lg fa-instagram"></i></a>
+          <a *ngIf="profile.instagramUrl" href="{{profile.instagramUrl}}"><i class="fa fa-lg fa-instagram"></i></a>
         </li>
         <li>
-          <a href="{{ profile.facebookUrl }}"><i class="fa fa-lg fa-facebook"></i></a>
+          <a *ngIf="profile.facebookUrl" href="{{profile.facebookUrl}}"><i class="fa fa-lg fa-facebook"></i></a>
         </li>
         <li>
-          <a href="{{ profile.portfolioUrl }}"><i class="fa fa-lg fa-address-card"></i></a>
+          <a *ngIf="profile.portfolioUrl" href="{{profile.portfolioUrl}}"><i class="fa fa-lg fa-address-card"></i></a>
         </li>
       </ul>
     </div>

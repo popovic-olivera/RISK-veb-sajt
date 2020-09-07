@@ -29,7 +29,7 @@
             <div class="field">
                 <mat-label fxFlex="0 1 auto">Biografija</mat-label>
                 <mat-form-field fxFlex="1 1 auto">
-                    <textarea matInput [readonly]="isReadonlyMap['bio']" [value]="this.profile.bio" (blur)="onBlurBio(bio.value)" #bio></textarea>
+                    <textarea matInput [readonly]="isReadonlyMap['bio']" [value]="toNull(this.profile.bio)" (blur)="onBlurBio(bio.value)" #bio></textarea>
                 </mat-form-field>
                 <button mat-mini-fab fxFlex="0 1 auto" (click)="isReadonlyMap['bio']=false">
                     <mat-icon>edit</mat-icon>
@@ -39,19 +39,69 @@
             <div class="field">
                 <mat-label fxFlex="0 1 auto">Zanimanje</mat-label>
                 <mat-form-field fxFlex="1 1 auto">
-                    <input matInput [readonly]="isReadonlyMap['occupation']" [value]="this.profile.occupation" (blur)="onBlurOccupation(occ.value)" #occ>
+                    <input matInput [readonly]="isReadonlyMap['occupation']" [value]="toNull(this.profile.occupation)" (blur)="onBlurOccupation(occ.value)" #occ>
                 </mat-form-field>
                 <button mat-mini-fab fxFlex="0 1 auto" (click)="isReadonlyMap['occupation']=false">
                     <mat-icon>edit</mat-icon>
                 </button>
             </div>
         
-            <div class="field" *ngFor="let soc of socialNetworks; let i = index">
-                <mat-label fxFlex="0 1 auto">{{labels[i]}}</mat-label>
+            <div class="field">
+                <mat-label fxFlex="0 1 auto">Veb adresa</mat-label>
                 <mat-form-field fxFlex="1 1 auto">
-                    <input matInput [readonly]="isReadonlyMap[soc]" (blur)="onBlurSoc(i, soc.value)" #soc>
+                    <input matInput [readonly]="isReadonlyMap['web']" [value]="toNull(this.profile.webUrl)" (blur)="onBlurWeb(web.value)" #web>
                 </mat-form-field>
-                <button mat-mini-fab fxFlex="0 1 auto" (click)="isReadonlyMap[soc]=false">
+                <button mat-mini-fab fxFlex="0 1 auto" (click)="isReadonlyMap['web']=false">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </div>
+
+            <div class="field">
+                <mat-label fxFlex="0 1 auto">Github nalog</mat-label>
+                <mat-form-field fxFlex="1 1 auto">
+                    <input matInput [readonly]="isReadonlyMap['github']" [value]="toNull(this.profile.githubUrl)" (blur)="onBlurGithub(git.value)" #git>
+                </mat-form-field>
+                <button mat-mini-fab fxFlex="0 1 auto" (click)="isReadonlyMap['github']=false">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </div>
+
+            <div class="field">
+                <mat-label fxFlex="0 1 auto">LinkedIn nalog</mat-label>
+                <mat-form-field fxFlex="1 1 auto">
+                    <input matInput [readonly]="isReadonlyMap['linkedin']" [value]="toNull(this.profile.linkedinUrl)" (blur)="onBlurLinkedin(lin.value)" #lin>
+                </mat-form-field>
+                <button mat-mini-fab fxFlex="0 1 auto" (click)="isReadonlyMap['linkedin']=false">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </div>
+
+            <div class="field">
+                <mat-label fxFlex="0 1 auto">Instagram nalog</mat-label>
+                <mat-form-field fxFlex="1 1 auto">
+                    <input matInput [readonly]="isReadonlyMap['instagram']" [value]="toNull(this.profile.instagramUrl)" (blur)="onBlurInstagram(instagram.value)" #instagram>
+                </mat-form-field>
+                <button mat-mini-fab fxFlex="0 1 auto" (click)="isReadonlyMap['instagram']=false">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </div>
+
+            <div class="field">
+                <mat-label fxFlex="0 1 auto">Facebook nalog</mat-label>
+                <mat-form-field fxFlex="1 1 auto">
+                    <input matInput [readonly]="isReadonlyMap['facebook']" [value]="toNull(this.profile.facebookUrl)" (blur)="onBlurFacebook(face.value)" #face>
+                </mat-form-field>
+                <button mat-mini-fab fxFlex="0 1 auto" (click)="isReadonlyMap['facebook']=false">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </div>
+
+            <div class="field">
+                <mat-label fxFlex="0 1 auto">Portfolio url</mat-label>
+                <mat-form-field fxFlex="1 1 auto">
+                    <input matInput [readonly]="isReadonlyMap['portfolio']" [value]="toNull(this.profile.portfolioUrl)" (blur)="onBlurPortfolio(portfolio.value)" #portfolio>
+                </mat-form-field>
+                <button mat-mini-fab fxFlex="0 1 auto" (click)="isReadonlyMap['portfolio']=false">
                     <mat-icon>edit</mat-icon>
                 </button>
             </div>
@@ -72,6 +122,9 @@
                     </button>
                     <input #fileInput type="file" style="display:none;" (change)="onFileChanged($event)"/>
                 </div>
+                <button mat-raised-button style="font-size: x-large; margin-top: 15%" color="accent" (click)="onChangePassword()">
+                    Promeni lozinku
+                </button>
             </div>
         </div>
     </div>

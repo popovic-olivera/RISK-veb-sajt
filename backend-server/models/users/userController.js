@@ -1,6 +1,7 @@
 const User = require("./user");
 const File = require("../file/file");
 const mongoose = require("mongoose");
+const fs = require("fs");
 
 module.exports.getProfileById = async (req, res, next) => {
     try {
@@ -153,7 +154,6 @@ module.exports.updateFollowers = async (req, res, next) => {
     }
 }
 
-// TODO test this
 module.exports.updateProfile = async (req, res, next) => {
     try {
         if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
@@ -175,6 +175,25 @@ module.exports.updateProfile = async (req, res, next) => {
             } else {
                 if (req.files && req.files['profilePicture']) {
                     const profilePictureFile = await File.fromRequestFile(req.files['profilePicture'], 'public/profileImages');
+
+                    // delete old image
+                    if (userFromPayload.profilePictureUrl) {
+                        const oldUrl = new URL(userFromPayload.profilePictureUrl);
+
+                        const pathParts = oldUrl.pathname.split("/");
+                        const fileSystemPath = pathParts.slice(2).join("/");
+                        const filename = pathParts.pop();
+
+                        const filenameTokens = filename.split(".");
+
+                        let id, type;
+                        [id, type] = filenameTokens;
+
+                        await File.deleteOne({_id: id, type: type}).exec();
+                        fs.unlinkSync(fileSystemPath);
+                    }
+                    
+                    // save new image url
                     userFromPayload.profilePictureUrl = profilePictureFile.path(true);
                 }
 
