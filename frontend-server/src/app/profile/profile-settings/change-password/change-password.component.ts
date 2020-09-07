@@ -43,17 +43,7 @@ export class ChangePasswordComponent implements OnInit {
   public async changePassword() {
     const newPass = this.changeForm.get('password').value;
     const oldPass = this.changeForm.get('oldPassword').value;
-    const success = await this.auth.changePassword(newPass, oldPass);
-
-    // if (success) {
-    //   this.dialog.open(MessageDialogComponent, {
-    //     data: {changeSuccessful: true}
-    //   });
-    // } else {
-    //   this.dialog.open(MessageDialogComponent, {
-    //     data: {changeFailed: true}
-    //   });
-    // }
+    await this.auth.changePassword(newPass, oldPass);
   }
 
 }

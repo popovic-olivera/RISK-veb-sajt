@@ -2,6 +2,7 @@ const User = require("./user");
 const File = require("../file/file");
 const mongoose = require("mongoose");
 const fs = require("fs");
+const { use } = require("chai");
 
 module.exports.getProfileById = async (req, res, next) => {
     try {
@@ -165,6 +166,14 @@ module.exports.updateProfile = async (req, res, next) => {
                 message: "id in the path parameter doesn't match the id in the body"
             });
         } else {
+            if (req.body.followers === '') {
+                req.body.followers = [];
+            }
+
+            if (req.body.following === '') {
+                req.body.following = [];
+            }
+            
             const userFromPayload = new User(req.body);
             const error = userFromPayload.validateSync();
 
