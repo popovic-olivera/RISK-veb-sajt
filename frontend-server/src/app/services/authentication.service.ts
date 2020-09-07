@@ -179,4 +179,14 @@ export class AuthenticationService {
 
     return success.toPromise();
   }
+
+  public changePassword(newPassword: string, oldPassword: string) {
+    const success = this.http.post(this.usersUrl + 'change-password/' + this.userProfile._id, {newPassword, oldPassword}, {observe: 'response'}).pipe(
+      map( response => response.status === 200),
+      catchError(() => {
+        return of(false);
+      }));
+
+    return success.toPromise();
+  }
 }

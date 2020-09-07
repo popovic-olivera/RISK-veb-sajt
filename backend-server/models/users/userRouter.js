@@ -16,6 +16,7 @@ router.post("/filter", filterUsers.filter);
 router.post("/reset-password", resetPasswordController.resetPassword);
 router.post("/validate-password-token/:resetToken", resetPasswordController.validPasswordToken);
 router.post("/set-new-password", resetPasswordController.newPassword);
+router.post("/change-password/:id", resetPasswordController.changePassword);
 
 module.exports = router;
 

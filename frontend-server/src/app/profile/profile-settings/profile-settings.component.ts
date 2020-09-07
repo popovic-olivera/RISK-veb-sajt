@@ -5,6 +5,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
 import { ResponseResetDialogComponent } from 'src/app/restore-password/response-reset/response-reset-dialog/response-reset-dialog.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @Component({
   selector: 'app-profile-settings',
@@ -117,7 +118,7 @@ export class ProfileSettingsComponent implements OnInit {
   }
 
   public onChangePassword() {
-    this.dialog.open(ResponseResetDialogComponent);
+    this.dialog.open(ChangePasswordComponent);
   }
 
   public async onSave() {

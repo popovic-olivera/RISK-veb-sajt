@@ -2,6 +2,7 @@ const User = require("./user");
 const PasswordResetToken = require("./resetToken");
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
+const mongoose = require("mongoose");
 
 module.exports.resetPassword = async (req, res, next) => {
     try {
@@ -140,6 +141,41 @@ module.exports.newPassword = async (req, res, next) => {
                 res.status(200).json({token});
             });
         });
+    } catch(err) {
+        next(err);
+    }
+}
+
+module.exports.changePassword = async (req, res, next) => {
+    try {
+        if (!req.params.id || !mongoose.Types.ObjectId.isValid(req.params.id)) {
+            res.status(400).json({
+                message: "Invalid id"
+            });
+        } else if (!req.body.oldPassword || !req.body.newPassword) {
+            res.status(400).json({
+                message: "Missing old or new pasword"
+            });
+        } else {
+            const user = await User.findById({_id: req.params.id}).exec();
+
+            if (!user || !user.validPassword(req.body.oldPassword)) {
+                res.status(400).json({
+                    message: "Wrong username or password"
+                });
+            } else {
+                user.setPassword(req.body.newPassword);
+                
+                await User.findOneAndUpdate({
+                    _id: req.params.id
+                }, {
+                    passwordSalt: user.passwordSalt,
+                    passwordHash: user.passwordHash
+                }).exec();
+
+                res.status(200).send();
+            }
+        }
     } catch(err) {
         next(err);
     }

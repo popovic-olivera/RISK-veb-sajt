@@ -35,6 +35,7 @@ import { MessageDialogComponent } from './restore-password/message-dialog/messag
 import { FindUserComponent } from './find-user/find-user.component';
 import { ShowUserListComponent } from './profile/profile-view/show-user-list/show-user-list.component';
 import { TokenInterceptor } from './providers/TokenInterceptor';
+import { ChangePasswordComponent } from './profile/profile-settings/change-password/change-password.component';
 
 
 @NgModule({
@@ -61,6 +62,7 @@ import { TokenInterceptor } from './providers/TokenInterceptor';
     MessageDialogComponent,
     FindUserComponent,
     ShowUserListComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule,
