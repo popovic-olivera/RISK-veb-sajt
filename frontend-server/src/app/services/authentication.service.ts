@@ -69,11 +69,6 @@ export class AuthenticationService {
   private fetchProfile(id: string): void {
     this.http.get<UserProfile>(
       `api/users/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${this.getToken()}`
-        }
-      }
     ).subscribe((profile) => {
       this.saveUserProfile(profile);
     });
@@ -141,18 +136,12 @@ export class AuthenticationService {
 
   public update(newUser: FormData): Promise<boolean> {
     const success = this.http.put(this.usersUrl + this.userProfile._id, newUser, {observe: 'response'}).pipe(
-      map((response: any) => {
-        if (response.status === 200) {
-          return true;
-        } else {
-          return false;
-        }
-      }),
+      map((response: any) => response.status === 200),
       catchError(() => {
         return of(false);
       }));
-    
-      return success.toPromise();
+
+    return success.toPromise();
   }
 
   public async updateFollowers(id: string) {
