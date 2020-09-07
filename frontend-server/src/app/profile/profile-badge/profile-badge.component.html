@@ -1,5 +1,6 @@
 <button id="badge-container" mat-flat-button [matMenuTriggerFor]="menu">
-  <img [src]="auth.getUserProfile().profilePictureUrl"/>
+  <img *ngIf="auth.getUserProfile().profilePictureUrl" [src]="auth.getUserProfile().profilePictureUrl"/>
+  <img *ngIf="!auth.getUserProfile().profilePictureUrl" src="assets/generic_user.jpeg"/>
   <span fxShow="true" fxHide.lt-md="true">
     {{auth.getUserProfile().firstName}} {{auth.getUserProfile().lastName}}
   </span>

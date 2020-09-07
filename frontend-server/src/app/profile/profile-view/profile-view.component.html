@@ -1,6 +1,7 @@
 <div *ngIf="profile" style="align-items: flex-start;" fxLayout='row' fxFlexAlign="space-evenly" fxLayout.lt-md="column">
   <div class="sticky" fxFlex="0 1 calc(20%)">
-    <div id="profile-image" style="background-image: url({{profile.profilePictureUrl}})"></div>
+    <div class="profile-image" *ngIf="profile.profilePictureUrl" style="background-image: url({{profile.profilePictureUrl}})"></div>
+    <div class="profile-image" *ngIf="!profile.profilePictureUrl" style="background-image: url('assets/generic_user.jpeg')"></div>
     <div id="name">
       {{ profile.firstName }} {{ profile.lastName }}
       <p class="text">{{profile.occupation}}</p>
