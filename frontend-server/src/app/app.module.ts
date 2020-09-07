@@ -12,7 +12,7 @@ import { ProjectsComponent } from './projects/projects.component';
 import { BlogListComponent } from './blog/blog-list/blog-list.component';
 import { BlogPostComponent } from './blog/blog-post/blog-post.component';
 import { CreateBlogPostComponent } from './blog/create-blog-post/create-blog-post.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -34,6 +34,7 @@ import { ResponseResetDialogComponent } from './restore-password/response-reset/
 import { MessageDialogComponent } from './restore-password/message-dialog/message-dialog.component';
 import { FindUserComponent } from './find-user/find-user.component';
 import { ShowUserListComponent } from './profile/profile-view/show-user-list/show-user-list.component';
+import { TokenInterceptor } from './providers/TokenInterceptor';
 
 
 @NgModule({
@@ -75,7 +76,14 @@ import { ShowUserListComponent } from './profile/profile-view/show-user-list/sho
     MarkdownModule.forRoot(),
     NgxFileHelpersModule,
   ],
-  providers: [DatePipe],
+  providers: [
+    DatePipe,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

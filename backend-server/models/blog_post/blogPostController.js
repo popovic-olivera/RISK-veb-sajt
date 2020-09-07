@@ -38,8 +38,7 @@ module.exports.getBlogPostById = async (req, res, next) => {
 
 module.exports.createBlogPost = async (req, res, next) => {
     try {
-        // noinspection JSUnresolvedVariable
-        if (!req.authData.id) {
+        if (!req.authData) {
             res.status(401).json({
                 message: "You need to be authorized to POST a blog post"
             });

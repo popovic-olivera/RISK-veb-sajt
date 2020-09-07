@@ -10,19 +10,27 @@ import { UserProfile } from '../profile/user-profile.model';
 })
 
 export class AuthenticationService {
+
+  constructor(private http: HttpClient, private router: Router) { }
+
   private readonly usersUrl = '/api/users/';
 
   private userProfile: UserProfile;
   private token: string;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  private static extractUserIdFromJwtToken(token: string): string {
+    const encodedPayload = token.split('.')[1];
+    const rawPayload = atob(encodedPayload);
+    const payload = JSON.parse(rawPayload);
+    return payload.id;
+  }
 
   private saveToken(token: string) {
     localStorage.setItem('auth-token', token);
     this.token = token;
   }
 
-  private getToken(): string {
+  public getToken(): string {
     if (!this.token) {
       this.token = localStorage.getItem('auth-token');
     }
@@ -71,13 +79,6 @@ export class AuthenticationService {
     });
   }
 
-  private static extractUserIdFromJwtToken(token: string): string {
-    const encodedPayload = token.split('.')[1];
-    const rawPayload = atob(encodedPayload);
-    const payload = JSON.parse(rawPayload);
-    return payload.id;
-  }
-
   public register(newUser: FormData): Promise<boolean> {
     const success = this.http.post(this.usersUrl + 'register', newUser, {observe: 'response'}).pipe(
       map((response: any) => {
@@ -99,8 +100,8 @@ export class AuthenticationService {
       catchError(() => {
         return of(false);
       }));
-    
-      return success.toPromise();
+
+    return success.toPromise();
   }
 
   /**
@@ -157,54 +158,36 @@ export class AuthenticationService {
   public async updateFollowers(id: string) {
     const currentUserId = this.getUserProfile()._id;
 
-    await this.http.put(this.usersUrl + 'followers/' + id, {currentUserId: currentUserId}).toPromise();
+    await this.http.put(this.usersUrl + 'followers/' + id, {currentUserId}).toPromise();
   }
 
   public resetPassword(email: string): Promise<boolean> {
-    const success = this.http.post(this.usersUrl + 'reset-password', { email: email }, {observe: 'response'}).pipe(
-      map( response => {
-        if (response.status === 200) {
-          return true;
-        }
-
-        return false;
-      }),
+    const success = this.http.post(this.usersUrl + 'reset-password', { email }, {observe: 'response'}).pipe(
+      map( response => response.status === 200),
       catchError(() => {
         return of(false);
       }));
-    
-      return success.toPromise();
+
+    return success.toPromise();
   }
 
   public validPasswordToken(token: string): Promise<boolean> {
     const success = this.http.post(this.usersUrl + 'validate-password-token/' + token, '', {observe: 'response'}).pipe(
-      map( response => {
-        if (response.status === 200) {
-          return true;
-        }
-
-        return false;
-      }),
+      map( response => response.status === 200),
       catchError(() => {
         return of(false);
       }));
-    
-      return success.toPromise(); 
+
+    return success.toPromise();
   }
 
   public newPassword(newPassword: string, resetToken: string): Promise<boolean> {
     const success = this.http.post(this.usersUrl + 'set-new-password', {newPassword, resetToken}, {observe: 'response'}).pipe(
-      map( response => {
-        if (response.status === 200) {
-          return true;
-        }
-
-        return false;
-      }),
+      map( response => response.status === 200),
       catchError(() => {
         return of(false);
       }));
-    
-      return success.toPromise();
+
+    return success.toPromise();
   }
 }
