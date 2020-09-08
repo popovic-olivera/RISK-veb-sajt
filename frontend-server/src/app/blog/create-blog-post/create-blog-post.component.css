@@ -34,3 +34,7 @@
 .checklist-disabled {
   color: rgba(0, 0, 0, 0.5);
 }
+
+.tab {
+  padding: 15px;
+}

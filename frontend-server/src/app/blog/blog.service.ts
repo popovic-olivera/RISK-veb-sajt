@@ -35,7 +35,7 @@ export class BlogService extends HttpErrorHandler {
       .pipe(catchError(super.handleError()));
   }
 
-  public createBlogPost(data) {
+  public createBlogPost(data): Observable<BlogPost> {
     return this.http
       .post<BlogPost>(this.blogPostsUrl, data)
       .pipe(catchError(super.handleError()));

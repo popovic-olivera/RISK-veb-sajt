@@ -1,26 +1,68 @@
 <div class="main-content" fxLayout="column">
+  <small style="opacity: 0.5;"><i>Radna verzija će biti sačuvana i nakon zatvaranja stranice</i></small>
+  <mat-tab-group style="min-height: 80vh; padding-top: 30px;" dynamicHeight>
+    <mat-tab label="Naslov i opis">
+      <form class="tab">
+        <mat-form-field appearance="outline">
+          <mat-label>Naslov</mat-label>
+          <input type="text" [(ngModel)]="draftBlogPost.title" name="title" (ngModelChange)="propertyChanged('title', $event)" matInput>
+        </mat-form-field>
+        <!-- TODO enforce character limit on the post description -->
+        <mat-form-field appearance="outline" hintLabel="Opis blog objave se pojavljuje u umanjenom prikazu blog objave.">
+          <mat-label>Opis</mat-label>
+          <input type="text" [(ngModel)]="draftBlogPost.desc" name="desc" (ngModelChange)="propertyChanged('desc', $event)" matInput>
+        </mat-form-field>
+        <mat-form-field hintLabel="Napišite do 5 oznaka koje opisuju ovu objavu." appearance="outline">
+          <mat-label>Oznake</mat-label>
+          <mat-chip-list #chipList>
+            <mat-chip color="primary" removable *ngFor="let tag of draftBlogPost.tags" (removed)="removeTag(tag)">
+              {{tag}}
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+            <input *ngIf="draftBlogPost.tags.length < 5"
+                   [matChipInputFor]="chipList"
+                   [matChipInputSeparatorKeyCodes]="separatorKeyCodes"
+                   matChipInputAddOnBlur="true"
+                   (matChipInputTokenEnd)="addTag($event)">
+          </mat-chip-list>
+        </mat-form-field>
+      </form>
+    </mat-tab>
+    <mat-tab label="Slika zaglavlja">
+      <div class="tab" fxLayout="column" fxLayoutAlign=" start">
+        <button mat-raised-button ngxFilePicker accept="image/*" (filePick)="setHeader($event)">Izaberi sliku</button>
+        <mat-list dense>
+          <mat-list-item [class]="publishCheckList.get('imageRatio').getStatusClass()"><mat-icon>{{publishCheckList.get('imageRatio').getIconName()}}</mat-icon> {{publishCheckList.get('imageRatio').message}} </mat-list-item>
+          <mat-list-item [class]="publishCheckList.get('imageResolution').getStatusClass()"> <mat-icon>{{publishCheckList.get('imageResolution').getIconName()}}</mat-icon> {{publishCheckList.get('imageResolution').message}} </mat-list-item>
+        </mat-list>
+        <img [src]="draftBlogPost.header_image" style="margin-top: 30px; max-height: 50vh" *ngIf="draftBlogPost.header_image" alt="Pregled slike zaglavlja"/>
+      </div>
+    </mat-tab>
+    <mat-tab label="Tekst">
+      <form class="tab">
+        <mat-form-field appearance="outline">
+          <mat-label>Tekst</mat-label>
+          <textarea [(ngModel)]="draftBlogPost.content" name="content" (ngModelChange)="propertyChanged('content', $event)" matInput cdkTextareaAutosize></textarea>
+        </mat-form-field>
+      </form>
+    </mat-tab>
+    <mat-tab label="Pregled" style="width: 100vw">
+      <app-blog-post [blogPost]="draftBlogPost"></app-blog-post>
+    </mat-tab>
+    <mat-tab label="Objavi">
+      <div class="tab">
+        <mat-list style="margin-left: -16px;">
+          <mat-list-item [class]="publishCheckList.get('title').getStatusClass()"><mat-icon>{{publishCheckList.get('title').getIconName()}}</mat-icon> {{publishCheckList.get('title').message}} </mat-list-item>
+          <mat-list-item [class]="publishCheckList.get('desc').getStatusClass()"><mat-icon>{{publishCheckList.get('desc').getIconName()}}</mat-icon> {{publishCheckList.get('desc').message}} </mat-list-item>
+          <mat-list-item [class]="checkListHeaderConditions().getStatusClass()"><mat-icon>{{checkListHeaderConditions().getIconName()}}</mat-icon> {{checkListHeaderConditions().message}} </mat-list-item>
+          <mat-list-item [class]="publishCheckList.get('content').getStatusClass()"><mat-icon>{{publishCheckList.get('content').getIconName()}}</mat-icon> {{publishCheckList.get('content').message}} </mat-list-item>
+        </mat-list>
+        <button mat-raised-button [disabled]="!canPublish()" (click)="publish()">Objavi</button>
+        <br>
+        <!-- TODO make this happen:       -->
+<!--        <small><i>Blog objavu je moguće izmeniti i nakon objavljivanja.</i></small>-->
+      </div>
 
-  <form>
-    <mat-form-field appearance="outline">
-      <mat-label>Naslov</mat-label>
-      <input type="text" matInput>
-    </mat-form-field>
-  </form>
-  <h5>Slika zaglavlja</h5>
-  <div fxLayout="row" fxLayoutAlign=" start">
-    <button mat-raised-button ngxFilePicker accept="image/*" (filePick)="onFilePicked($event)">Izaberi sliku</button>
-    <mat-list dense>
-      <mat-list-item [class.checklist-disabled]="ratioInfo.statusLevel == 'NONE'" [class.checklist-ok]="ratioInfo.statusLevel == 'OK'" [class.checklist-warn]="ratioInfo.statusLevel == 'WARNING'" [class.checklist-error]="ratioInfo.statusLevel == 'ERROR'"><mat-icon>{{getIconName(ratioInfo.statusLevel)}}</mat-icon> {{ratioInfo.message}} </mat-list-item>
-      <mat-list-item [class.checklist-disabled]="resolutionInfo.statusLevel == 'NONE'" [class.checklist-ok]="resolutionInfo.statusLevel == 'OK'" [class.checklist-warn]="resolutionInfo.statusLevel == 'WARNING'" [class.checklist-error]="resolutionInfo.statusLevel == 'ERROR'"> <mat-icon>{{getIconName(resolutionInfo.statusLevel)}}</mat-icon> {{resolutionInfo.message}} </mat-list-item>
-    </mat-list>
-    <img [src]="file.content" height="200" *ngIf="file" alt="Pregled slike zaglavlja"/>
-  </div>
-  <form>
-    <mat-form-field appearance="outline">
-      <mat-label>Sadržaj</mat-label>
-      <textarea [(ngModel)]="content" name="content" matInput cdkTextareaAutosize></textarea>
-    </mat-form-field>
-  </form>
-
-  <markdown [data]="content"></markdown>
+    </mat-tab>
+  </mat-tab-group>
 </div>

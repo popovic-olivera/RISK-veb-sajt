@@ -14,7 +14,6 @@ const blogPostSchema = new mongoose.Schema({
     comments: [{author_id: mongoose.Schema.Types.ObjectId, date: Date, content: String}]
 });
 
-// TODO whether syntetic properties appear in both blog post and its comments
 blogPostSchema.methods.expanded = async function () {
     const author = await User.findById(this.author_id).exec();
 
@@ -26,13 +25,14 @@ blogPostSchema.methods.expanded = async function () {
         thisJson.author_last_name = author.lastName;
     }
 
-    thisJson.comments = Promise.all(thisJson.comments.map(async comment => {
-        const comment_author = await User.findById(comment.author_id).exec();
-        if (comment_author) {
-            comment.author_image = comment_author.profilePictureUrl;
-            comment.author_first_name = comment_author.firstName;
-            comment.author_last_name = comment_author.lastName;
+    thisJson.comments = await Promise.all(thisJson.comments.map(async comment => {
+        const commentAuthor = await User.findById(comment.author_id);
+        if (commentAuthor) {
+            comment.author_image = commentAuthor.profilePictureUrl;
+            comment.author_first_name = commentAuthor.firstName;
+            comment.author_last_name = commentAuthor.lastName;
         }
+        return comment;
     }));
 
     return thisJson;

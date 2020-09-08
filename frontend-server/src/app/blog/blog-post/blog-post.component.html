@@ -11,6 +11,12 @@
         <small>{{blogPost.date | date:'longDate'}}</small>
       </div>
     </div>
+    <mat-chip-list>
+      <mat-chip *ngFor="let tag of blogPost.tags">{{tag}}</mat-chip>
+    </mat-chip-list>
+    <br>
+    <mat-divider></mat-divider>
+    <br>
     <markdown [data]="blogPost.content"></markdown>
   </mat-card>
 </div>

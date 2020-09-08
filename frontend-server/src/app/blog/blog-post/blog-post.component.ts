@@ -1,9 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, Input } from '@angular/core';
 import { BlogPost } from '../blog-post.model';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BlogService } from '../blog.service';
-import { map, switchMap } from 'rxjs/operators';
+import { filter, map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-blog-post',
@@ -11,6 +11,7 @@ import { map, switchMap } from 'rxjs/operators';
   styleUrls: ['./blog-post.component.css']
 })
 export class BlogPostComponent implements OnDestroy {
+  @Input()
   public blogPost: BlogPost;
   private activeSubs: Subscription[];
 
@@ -27,6 +28,7 @@ export class BlogPostComponent implements OnDestroy {
     const getBlogPostSub = this.route.paramMap
       .pipe(
         map((params) => params.get('id')),
+        filter((id) => id !== null),
         switchMap((blogPostIdParam) =>
           this.blogService.getBlogPostById(blogPostIdParam)
         )

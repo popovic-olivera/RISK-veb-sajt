@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const BlogPost = require("./blogPost");
+const resizer = require("../../util/imageResizer")
 
 module.exports.getBlogPosts = async (req, res, next) => {
     try {
@@ -43,6 +44,8 @@ module.exports.createBlogPost = async (req, res, next) => {
                 message: "You need to be authorized to POST a blog post"
             });
         } else {
+            // For unknown reasons, front-end sends array as a comma-delimited string
+            req.body.tags = req.body.tags.split(",");
             // Don't forward the date into the new BlogPost - current date will be applied automatically
             delete req.body.date;
             let blogPost = new BlogPost(req.body);
@@ -54,13 +57,10 @@ module.exports.createBlogPost = async (req, res, next) => {
                     message: `Fields [${Object.keys(error.errors)}] are not correct`
                 });
             } else {
+                blogPost.header_image = resizer.cropResize(req.body.header_image, 1920, 22, 9)
                 blogPost.title = blogPost.title.trim();
-                // TODO test this
                 blogPost.url_id = blogPost.title.toLowerCase().replace(/\s/g, "-");
-
-                // Check whether a blog post with the same url_id exists (and thus the similar title)
                 const existing = await BlogPost.findOne({url_id: blogPost.url_id}).exec();
-                // TODO Test this
                 if (existing) {
                     res.status(400).json({
                         message: "Blog post with a similar title already exists",
