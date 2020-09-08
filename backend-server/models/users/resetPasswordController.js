@@ -37,20 +37,23 @@ module.exports.resetPassword = async (req, res, next) => {
             resetToken: { $ne: resetToken.resetToken }
         }).remove().exec();
 
-        // TODO remove credentials
+        /*
+         * Add credentials as environment variables on start:
+         * EMAIL=example@gmail.com PASS=password nodemon(node) main.js
+         */
         const transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
             port: 587,
             secure: false,
             auth: {
-                user: 'olivera.popovic97@gmail.com',
-                pass: 'MATF1997'
+                user: process.env.EMAIL,
+                pass: process.env.PASS
             }
         });
 
         const mailOptions = {
             to: user.email,
-            from: 'olivera.popovic97@gmail.com',
+            from: process.env.EMAI,
             subject: 'RISK obnova lozinke',
             text: 'Poštovani, \n' + 'Primili ste ovaj imejl iz razloga što ste Vi (ili neko drugi) zatražili oporavak i promenu lozinke Vašeg profila na platformi organizacije RISK.\n\n'
             + 'Molimo Vas da ispratite sledeći link da završite i potvrdite proces: \n\n' +
@@ -165,7 +168,7 @@ module.exports.changePassword = async (req, res, next) => {
                 });
             } else {
                 user.setPassword(req.body.newPassword);
-                
+
                 await User.findOneAndUpdate({
                     _id: req.params.id
                 }, {
