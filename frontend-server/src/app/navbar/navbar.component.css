@@ -24,3 +24,7 @@
 #nav-button {
   margin-right: 15px;
 }
+
+a {
+  text-decoration: none;
+}
