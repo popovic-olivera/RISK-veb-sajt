@@ -18,7 +18,7 @@ import { BlogPost } from 'src/app/blog/blog-post.model';
 
 export class ProfileViewComponent implements OnInit, OnDestroy {
   private readonly btnTextMap = {
-    following: "Praćenje",
+    following: "Otprati",
     follow: "Zaprati"
   };
 
@@ -70,21 +70,18 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     return currentUser && (currentUser._id !== this.profile._id);
   }
 
-  public alreadyFollowing() {
+  public onClick() {
     const currentUser = this.auth.getUserProfile();
     
     if (currentUser.following.includes(this.profile._id)) {
+      this.btnText = this.btnTextMap.follow;
+
+      this.auth.unfollowUser(this.profile._id);
+    } else {
       this.btnText = this.btnTextMap.following;
 
-      return true;
+      this.auth.followUser(this.profile._id);
     }
-
-    this.btnText = this.btnTextMap.follow;
-    return false;
-  }
-
-  public onFollow() {
-    this.auth.updateFollowers(this.profile._id);
 
     this.findProfileById();
     this.auth.refreshProfile();

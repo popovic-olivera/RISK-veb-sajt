@@ -149,10 +149,16 @@ export class AuthenticationService {
     return success.toPromise();
   }
 
-  public async updateFollowers(id: string) {
+  public async followUser(id: string) {
     const currentUserId = this.getUserProfile()._id;
 
-    await this.http.put(this.usersUrl + 'followers/' + id, {currentUserId}).toPromise();
+    await this.http.put(this.usersUrl + 'follow/' + id, {currentUserId}).toPromise();
+  }
+
+  public async unfollowUser(id: string) {
+    const currentUserId = this.getUserProfile()._id;
+
+    await this.http.put(this.usersUrl + 'unfollow/' + id, {currentUserId}).toPromise();
   }
 
   public resetPassword(email: string): Promise<boolean> {

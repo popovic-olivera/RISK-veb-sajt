@@ -6,7 +6,7 @@
       {{ profile.firstName }} {{ profile.lastName }}
       <p class="text">{{profile.occupation}}</p>
     </div>
-    <button class="btn-grad" mat-raised-button *ngIf="isFollowEnabled(); else empty" (click)="onFollow()" [disabled]="alreadyFollowing()">{{btnText}}</button>
+    <button class="btn-grad" mat-raised-button *ngIf="isFollowEnabled(); else empty" (click)="onClick()">{{btnText}}</button>
     <ng-template #empty><br/></ng-template>
     <table id="profile-numbers">
       <tr>

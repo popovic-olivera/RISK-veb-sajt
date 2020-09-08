@@ -8,7 +8,8 @@ const router = express.Router();
 router.get("/:id", userController.getProfileById);
 router.post("/register", userController.register);
 router.post("/login", userController.login);
-router.put("/followers/:id", userController.updateFollowers);
+router.put("/follow/:id", userController.followUser);
+router.put("/unfollow/:id", userController.unfollowUser);
 router.put("/:id", userController.updateProfile);
 
 router.post("/filter", filterUsers.filter);
