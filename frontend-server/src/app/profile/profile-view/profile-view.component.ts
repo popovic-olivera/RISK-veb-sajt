@@ -7,6 +7,8 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ShowUserListComponent } from './show-user-list/show-user-list.component';
+import { BlogService } from 'src/app/blog/blog.service';
+import { BlogPost } from 'src/app/blog/blog-post.model';
 
 @Component({
   selector: 'app-profile-view',
@@ -21,12 +23,13 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
   };
 
   public profile: UserProfile;
+  public blogPosts: BlogPost[] = [];
   public btnText = this.btnTextMap.follow;
   private subscription: Subscription;
 
   constructor(private router: Router, private profileService: ProfileService,
               private data: DataService, private auth: AuthenticationService,
-              private dialog: MatDialog) {
+              private dialog: MatDialog, private blogService: BlogService) {
 
     this.findProfileById();
 
@@ -35,10 +38,19 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
         this.onRouteChange();
       }
     });
+
+    this.initBlogPosts();
   }
 
   ngOnInit() {
     this.data.changeMessage('profile-view');
+  }
+
+  private async initBlogPosts() {
+    const profileId = this.router.url.split("/").pop();
+
+    this.blogPosts = await this.blogService.getBlogPostsByAuthorId(profileId);
+    this.blogPosts = this.blogPosts.reverse();
   }
 
   private async findProfileById() {
@@ -74,7 +86,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     this.auth.updateFollowers(this.profile._id);
 
     this.findProfileById();
-    this.auth.updateProfile();
+    this.auth.refreshProfile();
   }
 
   public openFollowing() {

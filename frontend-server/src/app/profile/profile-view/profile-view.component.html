@@ -15,7 +15,7 @@
         <th (click)="openFollowing()">Praćenje</th>
       </tr>
       <tr>
-        <td>{{ profile.postsNum }}</td>
+        <td>{{ blogPosts.length }}</td>
         <td>{{ profile.followers.length }}</td>
         <td>{{ profile.following.length }}</td>
       </tr>
@@ -31,7 +31,7 @@
     </ul> -->
   </div>
   <div fxFlex="0 1 calc(60%)" style="margin: 0 4vw;">
-    <app-blog-list></app-blog-list>
+    <app-blog-list [blogPosts]="blogPosts"></app-blog-list>
   </div>
   <div class="sticky" fxFlex="0 1 calc(20%)">
     <p class="text" style="letter-spacing: 4px; font-weight: 500; font-size: 18px;">Biografija</p>

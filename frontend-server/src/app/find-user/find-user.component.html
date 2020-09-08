@@ -2,7 +2,8 @@
     <input name="find" type="search" matInput placeholder="Pretraži korisnike" [formControl]="find" [matAutocomplete]="auto" (keyup)="filterUsers(findUser.value)" #findUser>
     <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let user of users" (click)="onSelectionChanged(user)">
-          <img class="user-image" aria-hidden [src]="user.profilePictureUrl" height="25">
+          <img class="user-image" aria-hidden *ngIf="user.profilePictureUrl" [src]="user.profilePictureUrl" height="25">
+          <img class="user-image" aria-hidden *ngIf="!user.profilePictureUrl" src="assets/generic_user.jpeg" height="25"/>
           <span>{{user.firstName}} {{user.lastName}}</span>
         </mat-option>
     </mat-autocomplete>

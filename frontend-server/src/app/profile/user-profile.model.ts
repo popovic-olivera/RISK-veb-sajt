@@ -5,7 +5,6 @@ export interface UserProfile {
   lastName: string;
   administrator: boolean;
   profilePictureUrl: string;
-  postsNum: number;
   followers: string[];
   following: string[];
   bio: string;

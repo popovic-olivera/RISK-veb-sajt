@@ -1,6 +1,6 @@
 <div appBlogLayout fxLayout="{{ isProfile ? 'column' : 'row wrap' }}" fxLayout.xs="column" fxFlexAlign="space-evenly">
   <div fxFlex="0 1 calc(33.3%)" fxFlex.sm="0 1 calc(100%)" fxFlex.md="0 1 calc(50%)" fxFlex.gt-md="0 1 calc(33.3%)"
-    *ngFor="let post of blogPosts | async"
+    *ngFor="let post of blogPosts"
     ngStyle.lt-sm="padding-right: '0px'; padding-bottom: '30px';"
     ngStyle.gt-xs="padding-left: '15px'; padding-right: '15px'; padding-bottom: '30px';">
     <mat-card fxFlex style="padding: 0; border-radius: 20px;">
@@ -16,7 +16,8 @@
       <mat-card-header>
         <div mat-card-avatar class="avatar-image">
           <a style="margin-left: 15px;" [routerLink]="['/profil/' + post.author_id]">
-            <img mat-card-avatar src="{{ post.author_image }}" alt="Autorova slika">
+            <img mat-card-avatar *ngIf="post.author_image" src="{{ post.author_image }}" alt="Autorova slika">
+            <img mat-card-avatar *ngIf="!post.author_image" src="assets/generic_user.jpeg" alt="Autorova slika">
           </a>
         </div>
         <div>

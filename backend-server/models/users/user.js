@@ -20,7 +20,6 @@ const userSchema = new mongoose.Schema({
     facebookUrl: String,
     portfolioUrl:String,
 
-    postsNum: {type: Number, default: 0},
     followers: {type: [String]},
     following: {type: [String]},
 

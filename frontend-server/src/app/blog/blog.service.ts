@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { BlogPost } from './blog-post.model';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +33,12 @@ export class BlogService extends HttpErrorHandler {
     return this.http
       .get<BlogPost>(this.blogPostsUrl + id)
       .pipe(catchError(super.handleError()));
+  }
+
+  public async getBlogPostsByAuthorId(id: string) {
+    return await this.blogPosts.pipe(map(
+      posts => posts.filter(post => post.author_id === id)
+    )).toPromise();
   }
 
   public createBlogPost(data): Observable<BlogPost> {

@@ -6,7 +6,8 @@
     <mat-card-header id="header">
       <div mat-card-avatar class="avatar-image">
         <a [routerLink]="['/profil/' + blogPost.author_id]">
-          <img mat-card-avatar class="author-image" src="{{blogPost.author_image}}" alt="Autorova slika">
+          <img mat-card-avatar *ngIf="blogPost.author_image" class="author-image" src="{{blogPost.author_image}}" alt="Autorova slika">
+          <img mat-card-avatar *ngIf="!blogPost.author_image" class="author-image" src="assets/generic_user.jpeg" alt="Autorova slika">
         </a>
       </div>
       <div>

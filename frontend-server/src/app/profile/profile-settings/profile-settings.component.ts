@@ -131,7 +131,7 @@ export class ProfileSettingsComponent implements OnInit {
     this.successfulSave = await this.auth.update(formData);
 
     if (this.successfulSave) {
-      this.auth.updateProfile();
+      this.auth.refreshProfile();
     }
   }
 }

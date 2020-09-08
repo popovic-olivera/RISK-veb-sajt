@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { catchError, map } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { of, BehaviorSubject } from 'rxjs';
 import { UserProfile } from '../profile/user-profile.model';
 import { DataService } from './data.service';
 
@@ -11,13 +11,14 @@ import { DataService } from './data.service';
 })
 
 export class AuthenticationService {
-
-  constructor(private http: HttpClient, private router: Router, private data: DataService) { }
-
   private readonly usersUrl = '/api/users/';
 
   private userProfile: UserProfile;
   private token: string;
+
+  public userChanged: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+  constructor(private http: HttpClient, private router: Router, private data: DataService) { }
 
   private static extractUserIdFromJwtToken(token: string): string {
     const encodedPayload = token.split('.')[1];
@@ -63,7 +64,7 @@ export class AuthenticationService {
     await this.router.navigateByUrl('/');
   }
 
-  public updateProfile() {
+  public refreshProfile() {
     this.fetchProfile(this.userProfile._id);
   }
 
@@ -72,6 +73,7 @@ export class AuthenticationService {
       `api/users/${id}`,
     ).subscribe((profile) => {
       this.saveUserProfile(profile);
+      this.userChanged.next(true);
     });
   }
 
@@ -119,6 +121,7 @@ export class AuthenticationService {
             this.saveToken(body.token);
             const id = AuthenticationService.extractUserIdFromJwtToken(body.token);
             this.fetchProfile(id);
+
             return true;
           } else {
             return false;
@@ -132,6 +135,7 @@ export class AuthenticationService {
       })
     );
     this.data.changeMessage('profile-view');
+
     return observable.toPromise();
   }
 
