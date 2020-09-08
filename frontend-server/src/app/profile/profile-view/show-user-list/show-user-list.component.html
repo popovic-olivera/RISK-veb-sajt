@@ -1,4 +1,5 @@
 <mat-option *ngFor="let user of users" class="option" (click)="onClick(user)">
-    <img class="user-image" aria-hidden [src]="user.profilePictureUrl">
+    <img class="user-image" *ngIf="user.profilePictureUrl" aria-hidden [src]="user.profilePictureUrl">
+    <img class="user-image" *ngIf="!user.profilePictureUrl" aria-hidden src="assets/generic_user.jpeg">
     <span class="text">{{user.firstName}} {{user.lastName}}</span>
 </mat-option>

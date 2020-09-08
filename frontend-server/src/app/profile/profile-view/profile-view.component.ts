@@ -61,6 +61,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
 
   private onRouteChange() {
     this.findProfileById();
+    this.initBlogPosts();
   }
 
   public isFollowEnabled() {
