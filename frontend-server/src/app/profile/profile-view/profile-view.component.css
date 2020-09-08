@@ -1,15 +1,15 @@
 .profile-image {
-  width: 18vw; 
-  height: 18vw; 
-  border-radius: 50%; 
+  width: 18vw;
+  height: 18vw;
+  border-radius: 50%;
   background-size: cover;
   background-position: center;
 }
 
 #name {
-  padding-top: 14px; 
-  font-size: 24px; 
-  letter-spacing: 1px; 
+  padding-top: 14px;
+  font-size: 24px;
+  letter-spacing: 1px;
   font-weight: 500;
 }
 
@@ -17,7 +17,6 @@
   font-size: 16px;
   font-style: oblique;
   letter-spacing: 2px;
-  margin-bottom: 0;
 }
 
 ul {
@@ -43,9 +42,9 @@ a {
 }
 
 .btn-grad {
-  margin: 15px 0; 
-  width: 66.6%; 
-  font-size: 18px; 
+  margin: 15px 0;
+  width: 66.6%;
+  font-size: 18px;
   letter-spacing: 3px;
 
   background: linear-gradient(147deg, #00aeef, #37769b, #552e9e, #929b9e);
@@ -74,8 +73,8 @@ a {
 }
 
 #profile-numbers {
-  width:100%; 
-  table-layout: fixed; 
+  width:100%;
+  table-layout: fixed;
   text-align: center;
 }
 

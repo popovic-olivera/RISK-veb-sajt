@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { UserProfile } from '../profile/user-profile.model';
+import { DataService } from './data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { UserProfile } from '../profile/user-profile.model';
 
 export class AuthenticationService {
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private data: DataService) { }
 
   private readonly usersUrl = '/api/users/';
 
@@ -130,7 +131,7 @@ export class AuthenticationService {
         return of(false);
       })
     );
-
+    this.data.changeMessage('profile-view');
     return observable.toPromise();
   }
 

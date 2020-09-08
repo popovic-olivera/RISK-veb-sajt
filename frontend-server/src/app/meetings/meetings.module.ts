@@ -25,6 +25,9 @@ import { SerbianDatePipe } from './serbian-date.pipe';
     WavesModule,
     FormsModule,
     ReactiveFormsModule
+  ],
+  exports: [
+    SerbianDatePipe
   ]
 })
 

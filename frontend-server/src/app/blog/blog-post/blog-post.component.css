@@ -1,26 +1,34 @@
 .header-image {
   margin-top: -50px;
-  width: 100vw;
+  margin-left: -5vw;
+  width: calc(100% + 10vw);
   height: 41vw; /* 22:9 aspect ratio */
-  object-fit: cover;
+  background-size: cover;
+}
+
+.avatar-image {
+  background-size: cover;
 }
 
 .author-image {
   border-radius: 20px;
-  margin-right: 15px;
   width: 40px;
   height: 40px;
   object-fit: cover;
 }
 
 .content-lt-md {
-  width: 100vw;
+  width: calc(100% + 10vw);
   margin-top: 0;
   padding: 5%;
 }
 
 .content-gt-md {
-  width: 70%;
+  width: calc(70% + 10vw);
   margin-top: -50vh;
   padding: 30px;
+}
+
+::ng-deep #header .mat-card-header-text {
+  margin: 0 8px !important;
 }

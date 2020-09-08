@@ -14,17 +14,17 @@
         <p>{{ post.desc }}</p>
       </mat-card-content>
       <mat-card-header>
-        <div mat-card-avatar class="avatarImage">
-          <a style="margin-left: 15px;" [routerLink]="['/okupljanja']">
+        <div mat-card-avatar class="avatar-image">
+          <a style="margin-left: 15px;" [routerLink]="['/profil/' + post.author_id]">
             <img mat-card-avatar src="{{ post.author_image }}" alt="Autorova slika">
           </a>
         </div>
         <div>
-            <a [routerLink]="['/okupljanja']">
-              {{ post.title }}
+            <a [routerLink]="['/profil/' + post.author_id]">
+              {{ post.author_first_name }} {{ post.author_last_name }}
             </a>
           <div>
-            <mat-card-subtitle>{{ post.date | date: 'longDate'}}</mat-card-subtitle>
+            <mat-card-subtitle>{{ post.date | serbianDate }}</mat-card-subtitle>
           </div>
         </div>
       </mat-card-header>

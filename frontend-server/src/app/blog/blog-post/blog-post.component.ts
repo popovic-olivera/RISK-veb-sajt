@@ -8,7 +8,7 @@ import { filter, map, switchMap } from 'rxjs/operators';
 @Component({
   selector: 'app-blog-post',
   templateUrl: './blog-post.component.html',
-  styleUrls: ['./blog-post.component.css']
+  styleUrls: ['./blog-post.component.css', '../../app.component.css']
 })
 export class BlogPostComponent implements OnDestroy {
   @Input()

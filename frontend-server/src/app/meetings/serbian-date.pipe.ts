@@ -5,8 +5,13 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class SerbianDatePipe implements PipeTransform {
 
-  transform(dateStr: string): string {
-    const date = new Date(dateStr);
+  transform(dateStr: string | Date): string {
+    let date: Date;
+    if (dateStr instanceof Date) {
+      date = dateStr;
+    } else {
+      date = new Date(dateStr);
+    }
     let newDate = date.getDate() + '. ';
 
     const month = date.getMonth();

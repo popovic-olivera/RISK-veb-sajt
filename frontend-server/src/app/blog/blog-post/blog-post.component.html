@@ -1,8 +1,24 @@
-<div *ngIf="blogPost" fxLayout="column" fxLayoutAlign=" center">
-  <img [src]="blogPost.header_image" alt="Slika zaglavlja" class="header-image">
-  <mat-card ngClass.lt-lg="content-lt-md" ngClass.gt-md="content-gt-md">
+<div *ngIf="blogPost" class="header-image" style="background-image: url({{blogPost.header_image}})"></div>
+
+<div *ngIf="blogPost" fxLayout="column" fxLayout.lt-lg="column" fxLayoutAlign=" center">
+  <mat-card ngClass.lt-md="content-lt-md" ngClass.gt-sm="content-gt-md">
     <mat-card-title>{{blogPost.title}}</mat-card-title>
-    <div fxLayout="row" fxLayoutAlign=" start" style="margin-bottom: 2%; margin-top: 2%">
+    <mat-card-header id="header">
+      <div mat-card-avatar class="avatar-image">
+        <a [routerLink]="['/profil/' + blogPost.author_id]">
+          <img mat-card-avatar class="author-image" src="{{blogPost.author_image}}" alt="Autorova slika">
+        </a>
+      </div>
+      <div>
+          <a [routerLink]="['/profil/' + blogPost.author_id]">
+            {{blogPost.author_first_name}} {{blogPost.author_last_name}}<mat-icon *ngIf="authorHasBadges()" inline="true">star</mat-icon>
+          </a>
+        <div>
+          <mat-card-subtitle>{{ blogPost.date | serbianDate }}</mat-card-subtitle>
+        </div>
+      </div>
+    </mat-card-header>
+    <!-- <div fxLayout="row" fxLayoutAlign=" start" style="margin-bottom: 2%; margin-top: 2%">
       <img [src]="blogPost.author_image" alt="Slika autora" class="author-image" />
       <div fxLayout="column">
         <div fxLayout="row" fxLayoutAlign=" center">
@@ -10,13 +26,13 @@
         </div>
         <small>{{blogPost.date | date:'longDate'}}</small>
       </div>
-    </div>
+    </div> -->
     <mat-chip-list>
       <mat-chip *ngFor="let tag of blogPost.tags">{{tag}}</mat-chip>
     </mat-chip-list>
     <br>
     <mat-divider></mat-divider>
     <br>
-    <markdown [data]="blogPost.content"></markdown>
+    <markdown style="word-wrap: break-word;" [data]="blogPost.content"></markdown>
   </mat-card>
 </div>
