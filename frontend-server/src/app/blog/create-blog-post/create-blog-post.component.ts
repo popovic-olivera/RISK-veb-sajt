@@ -6,6 +6,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { interval } from 'rxjs';
 import { BlogService } from '../blog.service';
+import { Router } from '@angular/router';
 
 enum StatusLevel {
   OK= 'OK',
@@ -57,7 +58,7 @@ class ChecklistInfo {
 })
 export class CreateBlogPostComponent implements OnInit {
 
-  constructor(private authService: AuthenticationService, private blogService: BlogService) { }
+  constructor(private authService: AuthenticationService, private blogService: BlogService, private router: Router) { }
 
   public draftBlogPost: BlogPost = {
     _id: '',
@@ -90,6 +91,10 @@ export class CreateBlogPostComponent implements OnInit {
   public separatorKeyCodes = [ENTER, COMMA];
 
   public checkListHeaderConditions(): ChecklistInfo {
+    // If the default image is used
+    if (this.draftBlogPost.header_image.startsWith('assets')) {
+      return new ChecklistInfo('Slika zaglavlja nije postavljena', StatusLevel.ERROR);
+    }
     const ratio = this.publishCheckList.get('imageRatio').statusLevel;
     const resolution = this.publishCheckList.get('imageResolution').statusLevel;
     if (ratio === StatusLevel.NONE || resolution === StatusLevel.NONE) {
@@ -122,8 +127,11 @@ export class CreateBlogPostComponent implements OnInit {
     })
 
     const response = this.blogService.createBlogPost(clone);
-    response.subscribe(_ => {
+    response.subscribe(async response => {
       // TODO error handling
+      localStorage.removeItem('draft-blog-post');
+      localStorage.removeItem('header-image-mime-type');
+      await this.router.navigate(['/blog/', response.url_id]);
     })
   }
 
