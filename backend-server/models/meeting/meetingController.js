@@ -1,5 +1,6 @@
 const Meeting = require("./meeting");
 const File = require("../file/file");
+const fs = require("fs");
 
 module.exports.getMeetings = async (req, res, next) => {
     try {
@@ -59,6 +60,14 @@ module.exports.updateMeeting = async (req, res, next) => {
         if (meeting) {
             const newMeeting = new Meeting(req.body);
 
+            if (newMeeting.posterUrl) {
+                deleteFile(meeting.posterUrl);
+            }
+
+            if (newMeeting.presentationUrl) {
+                deleteFile(meeting.presentationUrl);
+            }
+
             const updatedMeeting = await Meeting.findByIdAndUpdate(req.params.id, newMeeting, {new: true}).exec();
             if (updatedMeeting) {
                 res.status(200).json(updatedMeeting);
@@ -82,12 +91,38 @@ module.exports.deleteMeeting = async (req, res, next) => {
         const meeting = await Meeting.findById(req.params.id).exec();
 
         if (meeting) {
-          await Meeting.findByIdAndDelete(req.params.id).exec();
-          res.status(200).send();
+            // delete media
+            if (meeting.posterUrl) {
+                deleteFile(meeting.posterUrl);
+            }
+
+            if (meeting.presentationUrl) {
+                deleteFile(meeting.presentationUrl);
+            }
+
+            await Meeting.findByIdAndDelete(req.params.id).exec();
+
+            res.status(200).send();
         } else {
-          res.status(404).send();
+            res.status(404).send();
         }
     } catch (err) {
         next(err);
     }
 };
+
+async function deleteFile(fileUrl) {
+    const url = new URL(fileUrl);
+
+    const pathParts = url.pathname.split("/");
+    const fileSystemPath = pathParts.slice(2).join("/");
+    const filename = pathParts.pop();
+
+    const filenameTokens = filename.split(".");
+
+    let id, type;
+    [id, type] = filenameTokens;
+
+    await File.deleteOne({_id: id, type: type}).exec();
+    fs.unlinkSync(fileSystemPath);
+}
