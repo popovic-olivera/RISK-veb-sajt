@@ -33,7 +33,7 @@ export class MeetingsService {
 
   public showOlderMeetings() {
     if (this.visibleLen !== this.meetings.length) {
-      this.visibleLen += 1;
+      this.visibleLen += 2;
     }
   }
 
@@ -52,13 +52,7 @@ export class MeetingsService {
 
   public updateInDatabase(updatedMeeting: Meeting): Promise<boolean>  {
     const success = this.http.put<Meeting>(this.meetingsUrl + updatedMeeting._id, updatedMeeting, {observe: 'response'}).pipe(
-      map( response => {
-        if (response.status === 200) {
-          return true;
-        }
-
-        return false;
-      }),
+      map( response => response.status === 200),
       catchError(() => {
         return of(false);
       }));
@@ -77,13 +71,7 @@ export class MeetingsService {
 
   public deleteFromDatabase(id: string): Promise<boolean> {
     const success = this.http.delete<Meeting>(this.meetingsUrl + id, {observe: 'response'}).pipe(
-      map( response => {
-        if (response.status === 200) {
-          return true;
-        }
-
-        return false;
-      }),
+      map( response => response.status === 200),
       catchError(() => {
         return of(false);
       }));

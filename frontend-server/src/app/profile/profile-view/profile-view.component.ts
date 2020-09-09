@@ -33,14 +33,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
 
     this.findProfileById();
 
-    const currentUser = this.auth.getUserProfile();
-    const profileId = this.getIdFromRoute();
-    
-    if (currentUser.following.includes(profileId)) {
-      this.btnText = this.btnTextMap.following;
-    } else {
-      this.btnText = this.btnTextMap.follow;
-    }
+    this.initBtnText();
                 
     this.subscription = this.router.events.subscribe( (event: Event) => {
       if (event instanceof NavigationEnd) {
@@ -53,6 +46,17 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.data.changeMessage('profile-view');
+  }
+
+  private initBtnText() {
+    const currentUser = this.auth.getUserProfile();
+    const profileId = this.getIdFromRoute();
+    
+    if (currentUser.following.includes(profileId)) {
+      this.btnText = this.btnTextMap.following;
+    } else {
+      this.btnText = this.btnTextMap.follow;
+    }
   }
 
   private getIdFromRoute() {
@@ -75,6 +79,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
   private onRouteChange() {
     this.findProfileById();
     this.initBlogPosts();
+    this.initBtnText();
   }
 
   public isFollowEnabled() {

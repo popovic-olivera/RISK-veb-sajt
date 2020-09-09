@@ -221,10 +221,14 @@ module.exports.updateProfile = async (req, res, next) => {
         } else {
             if (req.body.followers === '') {
                 req.body.followers = [];
+            } else {
+                req.body.followers = req.body.followers.split(",");
             }
 
             if (req.body.following === '') {
                 req.body.following = [];
+            } else {
+                req.body.following = req.body.following.split(",");
             }
             
             const userFromPayload = new User(req.body);

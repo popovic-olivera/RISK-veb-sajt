@@ -17,7 +17,8 @@
                     <input matInput name="authorName" [formControl]="authorName" [matAutocomplete]="auto" (keyup)="filterUsers(author.value)" #author required>
                     <mat-autocomplete #auto="matAutocomplete">
                         <mat-option *ngFor="let user of users" (click)="onSelectionChanged(user)">
-                          <img class="profileImage rounded-circle" aria-hidden [src]="user.profilePictureUrl" height="25">
+                          <img class="profileImage rounded-circle" aria-hidden *ngIf="user.profilePictureUrl" [src]="user.profilePictureUrl" height="25">
+                          <img class="profileImage rounded-circle" aria-hidden *ngIf="!user.profilePictureUrl" src="assets/generic_user.jpeg" height="25">
                           <span>{{user.firstName}} {{user.lastName}}</span>
                         </mat-option>
                     </mat-autocomplete>
