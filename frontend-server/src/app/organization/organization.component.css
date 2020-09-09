@@ -12,6 +12,23 @@ p {
   border-radius: 20px;
 }
 
+mat-panel-title {
+  justify-content: center !important;
+  font-size: x-large;
+}
+
+#title {
+  text-align: center;
+  font-size: xxx-large;
+  display: block;
+  margin: 3% 0;
+}
+
+.text {
+  font-size: x-large;
+  line-height: normal !important;
+}
+
 .mat-card-title {
   text-align: center;
   font-size: x-large;

@@ -18,6 +18,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { MatChipsModule } from '@angular/material/chips';
     MatNativeDateModule,
     MatAutocompleteModule,
     MatTabsModule,
+    MatExpansionModule
   ],
   exports: [
     MatToolbarModule,
@@ -59,6 +61,7 @@ import { MatChipsModule } from '@angular/material/chips';
     MatAutocompleteModule,
     MatTabsModule,
     MatChipsModule,
+    MatExpansionModule
   ]
 })
 
