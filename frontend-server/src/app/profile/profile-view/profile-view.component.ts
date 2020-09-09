@@ -24,7 +24,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
 
   public profile: UserProfile;
   public blogPosts: BlogPost[] = [];
-  public btnText = this.btnTextMap.follow;
+  public btnText: string;
   private subscription: Subscription;
 
   constructor(private router: Router, private profileService: ProfileService,
@@ -33,6 +33,15 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
 
     this.findProfileById();
 
+    const currentUser = this.auth.getUserProfile();
+    const profileId = this.getIdFromRoute();
+    
+    if (currentUser.following.includes(profileId)) {
+      this.btnText = this.btnTextMap.following;
+    } else {
+      this.btnText = this.btnTextMap.follow;
+    }
+                
     this.subscription = this.router.events.subscribe( (event: Event) => {
       if (event instanceof NavigationEnd) {
         this.onRouteChange();
@@ -46,15 +55,19 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     this.data.changeMessage('profile-view');
   }
 
+  private getIdFromRoute() {
+    return this.router.url.split("/").pop();
+  }
+
   private async initBlogPosts() {
-    const profileId = this.router.url.split("/").pop();
+    const profileId = this.getIdFromRoute();
 
     this.blogPosts = await this.blogService.getBlogPostsByAuthorId(profileId);
     this.blogPosts = this.blogPosts.reverse();
   }
 
   private async findProfileById() {
-    const profileId = this.router.url.split("/").pop();
+    const profileId = this.getIdFromRoute();
 
     this.profile = await this.profileService.getProfileById(profileId).toPromise();
   }
