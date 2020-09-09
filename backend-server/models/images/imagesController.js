@@ -17,6 +17,8 @@ module.exports.getMeetingImages = async (req, res, next) => {
         }));
 
         res.status(200).json(imageArray);
+      } else {
+        res.status(200).json([]);
       }
     } catch (err) {
       next(err);

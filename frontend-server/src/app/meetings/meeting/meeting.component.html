@@ -2,8 +2,8 @@
     <div fxLayout="row" fxLayout.lt-md="column">
       <div fxFlex="0 1 calc(70%)" class="left">
         <mat-card-header class="header">
-          <div *ngIf="meeting.authorImage !== 'undefined'" (click)="goToAuthorPage()" mat-card-avatar class="header-image profileImage" style="background-image: url({{meeting.authorImage}});"></div>
-          <div *ngIf="meeting.authorImage === 'undefined'" (click)="goToAuthorPage()" mat-card-avatar class="header-image profileImage" style="background-image: url('assets/generic_user.jpeg');"></div>
+          <div *ngIf="meeting.authorImage" (click)="goToAuthorPage()" mat-card-avatar class="header-image" style="background-image: url({{meeting.authorImage}});"></div>
+          <div *ngIf="!meeting.authorImage" (click)="goToAuthorPage()" mat-card-avatar class="header-image" style="background-image: url('assets/generic_user.jpeg');"></div>
           <mat-card-title *ngIf="!canEdit" style="font-size: x-large;">{{meeting.title}}</mat-card-title>
           <mat-card-subtitle *ngIf="!canEdit" (click)="goToAuthorPage()">Autor: <span class="link">{{meeting.authorName}}</span></mat-card-subtitle>
           <mat-card-subtitle *ngIf="!canEdit">{{meeting.date | serbianDate}}</mat-card-subtitle>

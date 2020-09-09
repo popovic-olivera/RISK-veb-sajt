@@ -5,6 +5,7 @@ import { UserProfile } from 'src/app/profile/user-profile.model';
 import { FilterUsersService } from 'src/app/services/filter-users.service';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { AppDateAdapter, APP_DATE_FORMATS} from './format.datepicker';
+import { ImagesService } from '../meeting-images/images.service';
 
 @Component({
   selector: 'app-create-meeting',
@@ -26,7 +27,7 @@ export class CreateMeetingComponent implements OnInit {
   public presentation: File;
 
   constructor(private meetingsService: MeetingsService,
-              private filterService: FilterUsersService) { }
+              private filterService: FilterUsersService, private imgService: ImagesService) { }
 
   ngOnInit(): void {
     this.createMeetingForm = new FormGroup({
@@ -37,7 +38,8 @@ export class CreateMeetingComponent implements OnInit {
       githubRepoUrl: new FormControl(null, []),
       tags: new FormControl(null, []),
       videoUrl: new FormControl(null, []),
-      surveyUrl: new FormControl(null, [])
+      surveyUrl: new FormControl(null, []),
+      posterImg: new FormControl(null, Validators.required)
     });
   }
 
@@ -45,6 +47,7 @@ export class CreateMeetingComponent implements OnInit {
   get authorName() { return this.createMeetingForm.get('authorName'); }
   get description() { return this.createMeetingForm.get('description'); }
   get date() { return this.createMeetingForm.get('date'); }
+  get posterImg() { return this.createMeetingForm.get('posterImg'); }
 
   public onPresentationInput(event: Event) {
     this.presentation = (event.target as HTMLInputElement).files[0];
@@ -75,7 +78,7 @@ export class CreateMeetingComponent implements OnInit {
     return this.createMeetingForm.valid;
   }
 
-  public onSaveMeeting() {
+  public async onSaveMeeting() {
     const jsonData = this.createMeetingForm.getRawValue();
 
     if (this.selectedUser) {
@@ -95,7 +98,17 @@ export class CreateMeetingComponent implements OnInit {
     formData.append('presentation', this.presentation);
     formData.append('image', this.image);
 
-    this.meetingsService.addMeeting(formData);
-    // this.createMeetingForm.reset();
+    await this.meetingsService.addMeeting(formData);
+
+    this.imgService.updateMeetingImages();
+    this.resetForm();
+  }
+
+  private resetForm() {
+    this.createMeetingForm.reset();
+    this.selectedUser = undefined;
+    this.posterImage = undefined;
+    this.presentation = undefined;
+    this.image = undefined;
   }
 }

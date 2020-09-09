@@ -4,6 +4,7 @@ import { Meeting } from '../meeting.model';
 import { Image } from '../meeting-images/images.model';
 import { ImagesService } from '../meeting-images/images.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-meetings-list',
@@ -12,19 +13,20 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 
 export class MeetingsListComponent implements OnInit {
-  public images: Image[] = [];
   private filterValue: string;
+  private subscription: Subscription;
+  public images: Image[];
 
   constructor(private meetingsService: MeetingsService,
               private imagesService: ImagesService,
               public auth: AuthenticationService) {}
 
   ngOnInit(): void {
-    this.initImages();
-  }
-
-  async initImages() {
-    this.images = await this.imagesService.getMeetingImages();
+    this.subscription = this.imagesService.imagesChanged.subscribe(
+      value => {
+        if (value) this.images = this.imagesService.getMeetingImages();
+      }
+    );
   }
 
   get meetings(): Meeting[] {
@@ -57,5 +59,6 @@ export class MeetingsListComponent implements OnInit {
 
   ngOnDestroy() {
     this.meetingsService.resetVisibleLen();
+    this.subscription.unsubscribe();
   }
 }

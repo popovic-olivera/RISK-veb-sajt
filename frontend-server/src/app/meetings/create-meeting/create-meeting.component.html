@@ -68,10 +68,10 @@
                     <button mat-button color="primary" (click)="posterInput.click()" type="button" class="load">
                       <span style="white-space: normal;">
                         <mat-icon style="vertical-align: middle;">file_upload</mat-icon>
-                        Učitajte poster
+                        Učitajte poster (obavezno polje)
                       </span>
                     </button>
-                    <input #posterInput type="file" style="display:none;" (change)="onPosterInput($event)"/>
+                    <input #posterInput type="file" style="display:none;" (change)="onPosterInput($event)" [formControl]="posterImg" required/>
                     <div style="display: inline-block; margin-left: 5%;">
                         <mat-card-subtitle *ngIf="posterImage">Odabrana slika: {{posterImage.name}}</mat-card-subtitle>
                     </div>
