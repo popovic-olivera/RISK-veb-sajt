@@ -110,16 +110,18 @@ export class CreateBlogPostComponent implements OnInit {
   }
 
   public publish() {
-    const formData = new FormData();
-    Object.entries(this.draftBlogPost).filter(entry => {
-      // avoid these fields
-      return !['_id', 'author_first_name', 'author_last_name', 'author_image',
-        'comments', 'date', 'url_id'].includes(entry[0]);
-    }).forEach(entry => {
-      formData.append(entry[0], entry[1]);
-    });
 
-    const response = this.blogService.createBlogPost(formData);
+    // Avoid these fields
+    const avoid = ['_id', 'author_first_name', 'author_last_name', 'author_image',
+      'comments', 'date', 'url_id'];
+
+    const clone = Object.assign(this.draftBlogPost);
+
+    avoid.forEach(excluded => {
+      delete clone[excluded];
+    })
+
+    const response = this.blogService.createBlogPost(clone);
     response.subscribe(_ => {
       // TODO error handling
     })

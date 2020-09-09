@@ -44,8 +44,12 @@ module.exports.createBlogPost = async (req, res, next) => {
                 message: "You need to be authorized to POST a blog post"
             });
         } else {
-            // For unknown reasons, front-end sends array as a comma-delimited string
-            req.body.tags = req.body.tags.split(",");
+            if (req.body.tags) {
+                if (!Array.isArray(req.body.tags)) {
+                    // For unknown reasons, front-end sends array as a comma-delimited string
+                    req.body.tags = req.body.tags.split(",");
+                }
+            }
             // Don't forward the date into the new BlogPost - current date will be applied automatically
             delete req.body.date;
             let blogPost = new BlogPost(req.body);

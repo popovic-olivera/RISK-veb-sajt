@@ -40,8 +40,8 @@ loadMongoDB().catch((err) => {
 const app = express();
 
 app.use(cors());
-app.use(json());
-app.use(urlencoded({extended: false}));
+app.use(json({limit: '50mb'}));
+app.use(urlencoded({limit: '50mb', extended: false}));
 app.use(fileUpload());
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(fileMiddleware);
