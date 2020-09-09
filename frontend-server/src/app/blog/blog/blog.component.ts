@@ -13,7 +13,7 @@ export class BlogComponent implements OnInit {
 
   constructor(private blogService: BlogService) { 
     this.blogService.getBlogPosts().subscribe(
-      data => this.blogPosts = data
+      data => this.blogPosts = data.reverse()
     );
   }
 

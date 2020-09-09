@@ -27,7 +27,6 @@ export function comparePosts(p1: BlogPost, p2: BlogPost) {
 
 export class HomeComponent implements OnInit, OnDestroy {
   public latestPost: BlogPost;
-  // public latestMeeting: Meeting;
   public blogPosts: BlogPost[] = [];
   private subscription: Subscription;
 
@@ -35,8 +34,7 @@ export class HomeComponent implements OnInit, OnDestroy {
               public meetingService: MeetingsService,
               public auth: AuthenticationService,
               private data: DataService) {
-    this.blogService.getBlogPosts().subscribe(post => this.latestPost = post[0]);
-    // this.latestMeeting = this.meetingService.getVisibleMeetings()[0];
+    this.blogService.getBlogPosts().subscribe(post => this.latestPost = post.reverse()[0]);
 
     this.initBlogPosts();
   }
