@@ -53,7 +53,7 @@ module.exports.resetPassword = async (req, res, next) => {
 
         const mailOptions = {
             to: user.email,
-            from: process.env.EMAI,
+            from: process.env.EMAIL,
             subject: 'RISK obnova lozinke',
             text: 'Poštovani, \n' + 'Primili ste ovaj imejl iz razloga što ste Vi (ili neko drugi) zatražili oporavak i promenu lozinke Vašeg profila na platformi organizacije RISK.\n\n'
             + 'Molimo Vas da ispratite sledeći link da završite i potvrdite proces: \n\n' +

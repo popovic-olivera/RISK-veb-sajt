@@ -27,33 +27,33 @@ export class MeetingComponent implements OnInit, AfterViewInit {
               private renderer: Renderer2) { }
 
   ngOnInit(): void {
-    if (!this.meeting.authorImage) {
-      this.meeting.authorImage = 'assets/generic_user.jpeg';
-    }
-
     const urls = [[this.meeting.githubRepoUrl, 'githubRepoUrl'],
                   [this.meeting.surveyUrl, 'surveyUrl'],
                   [this.meeting.videoUrl, 'videoUrl'],
                   [this.meeting.presentationUrl, 'presentationUrl']];
-
-    this.buttons = urls.filter((url) => { if (url[0] !== null) {return true; }})
+    
+    this.buttons = urls.filter(url => { if (url[0] !== 'null') {return true; }})
                        .map((url) => new Button(url[0], url[1]));
   }
 
   ngAfterViewInit(): void {
-    if (window.innerWidth < 960) {
-      this.unsetRadius();
-    } else {
-      this.setRadius();
+    if (this.elem) {
+      if (window.innerWidth < 960) {
+        this.unsetRadius();
+      } else {
+        this.setRadius();
+      }
     }
   }
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    if (event.target.innerWidth < 960) {
-      this.unsetRadius();
-    } else {
-      this.setRadius();
+    if (this.elem) {
+      if (event.target.innerWidth < 960) {
+        this.unsetRadius();
+      } else {
+        this.setRadius();
+      }
     }
   }
 

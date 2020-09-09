@@ -12,7 +12,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 
 export class MeetingsListComponent implements OnInit {
-  public images: Image[];
+  public images: Image[] = [];
   private filterValue: string;
 
   constructor(private meetingsService: MeetingsService,

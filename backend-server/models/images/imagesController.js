@@ -17,10 +17,6 @@ module.exports.getMeetingImages = async (req, res, next) => {
         }));
 
         res.status(200).json(imageArray);
-      } else {
-        res.status(404).json({
-          message: `Directory ${imagesDir} not found`
-        });
       }
     } catch (err) {
       next(err);

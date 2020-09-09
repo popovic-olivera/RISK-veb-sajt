@@ -2,7 +2,8 @@
     <div fxLayout="row" fxLayout.lt-md="column">
       <div fxFlex="0 1 calc(70%)" class="left">
         <mat-card-header class="header">
-            <div (click)="goToAuthorPage()" mat-card-avatar class="header-image" style="background-image: url({{meeting.authorImage}});" id="profileImage"></div>
+            <div *ngIf="meeting.authorImage !== 'undefined'" (click)="goToAuthorPage()" mat-card-avatar class="header-image profileImage" style="background-image: url({{meeting.authorImage}});"></div>
+            <div *ngIf="meeting.authorImage === 'undefined'" (click)="goToAuthorPage()" mat-card-avatar class="header-image profileImage" style="background-image: url('assets/generic_user.jpeg');"></div>
             <mat-card-title style="font-size: x-large;">{{meeting.title}}</mat-card-title>
             <mat-card-subtitle (click)="goToAuthorPage()">Autor: <span class="link">{{meeting.authorName}}</span></mat-card-subtitle>
             <mat-card-subtitle>{{meeting.date | serbianDate}}</mat-card-subtitle>
@@ -12,16 +13,18 @@
             <p>{{meeting.description}}</p>
         </mat-card-content>
         <mat-card-actions>
-            <a mat-raised-button *ngFor="let btn of buttons" href="{{btn.url}}" target="_blank" class="{{btn.color}}" style="width: auto;">
+          <ng-container *ngFor="let btn of buttons">
+            <a mat-raised-button *ngIf="btn.url" href="{{btn.url}}" target="_blank" class="{{btn.color}}" style="width: auto;">
                 <i class="{{btn.icon}}"></i> {{btn.text}}
             </a>
+          </ng-container>
             <br>
             <a *ngIf="auth.getUserProfile() && auth.isUserAdmin()" mat-raised-button class="delete" (click)="onDeleteMeeting()">
                 <i class="fa fa-trash"></i> Obriši okupljanje
             </a>
         </mat-card-actions>
       </div>
-      <div #image fxFlex="0 1 calc(30%)">
+      <div *ngIf="meeting.posterUrl" #image fxFlex="0 1 calc(30%)">
         <img class="poster" src={{meeting.posterUrl}} alt="poster" />
       </div>
     </div>
