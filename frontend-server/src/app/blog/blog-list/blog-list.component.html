@@ -1,3 +1,4 @@
+<button *ngIf="!isProfile" mat-stroked-button [routerLink]="['/blog/novo']" style="margin-bottom: 20px; margin-left: 15px"><mat-icon>add</mat-icon> Napiši novu blog objavu</button>
 <div appBlogLayout fxLayout="{{ isProfile ? 'column' : 'row wrap' }}" fxLayout.xs="column" fxFlexAlign="space-evenly">
   <div fxFlex="0 1 calc(33.3%)" fxFlex.sm="0 1 calc(100%)" fxFlex.md="0 1 calc(50%)" fxFlex.gt-md="0 1 calc(33.3%)"
     *ngFor="let post of blogPosts"
