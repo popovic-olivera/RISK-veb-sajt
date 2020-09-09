@@ -4,6 +4,10 @@ import { Button } from './button.model';
 import { EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { MeetingsService } from '../meetings.service';
+import { FilterUsersService } from 'src/app/services/filter-users.service';
+import { UserProfile } from 'src/app/profile/user-profile.model';
+import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-meeting',
@@ -11,6 +15,15 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
   styleUrls: ['./meeting.component.css']
 })
 export class MeetingComponent implements OnInit, AfterViewInit {
+  public updateForm: FormGroup;
+  public users: UserProfile[];
+  public selectedUser: UserProfile;
+
+  public canEdit = false;
+  public titleCopy: string;
+  public authorNameCopy: string;
+  public dateCopy: string;
+  public descCopy: string;
 
   @ViewChild('image')
   elem: ElementRef;
@@ -24,7 +37,10 @@ export class MeetingComponent implements OnInit, AfterViewInit {
 
   constructor(private router: Router,
               public auth: AuthenticationService,
-              private renderer: Renderer2) { }
+              private renderer: Renderer2,
+              private meetingsService: MeetingsService,
+              private filterService: FilterUsersService,
+              private fb: FormBuilder) { }
 
   ngOnInit(): void {
     const urls = [[this.meeting.githubRepoUrl, 'githubRepoUrl'],
@@ -34,7 +50,17 @@ export class MeetingComponent implements OnInit, AfterViewInit {
     
     this.buttons = urls.filter(url => { if (url[0] !== 'null') {return true; }})
                        .map((url) => new Button(url[0], url[1]));
+
+    this.updateForm = this.fb.group({
+      title: ['', Validators.required],
+      authorName: ['', Validators.required],
+      date: ['', Validators.required],
+    });
   }
+
+  get title() { return this.updateForm.get('title'); }
+  get authorName() { return this.updateForm.get('authorName'); }
+  get date() { return this.updateForm.get('date'); }
 
   ngAfterViewInit(): void {
     if (this.elem) {
@@ -74,5 +100,49 @@ export class MeetingComponent implements OnInit, AfterViewInit {
   unsetRadius(): void {
     this.renderer.setStyle(this.elem.nativeElement.querySelector('img'), 'border-top-left-radius', '0px');
     this.renderer.setStyle(this.elem.nativeElement.querySelector('img'), 'border-top-right-radius', '0px');
+  }
+
+  public setEditable(): void {
+    this.canEdit = true;
+
+    console.log(this.meeting.date);
+
+    this.titleCopy = this.meeting.title;
+    this.authorNameCopy = this.meeting.authorName;
+    this.dateCopy = this.meeting.date;
+    this.descCopy = this.meeting.description;
+  }
+
+  public confirmEdit(): void {
+    this.canEdit = false;
+
+    this.meeting.authorImage = this.selectedUser.profilePictureUrl;
+    this.meetingsService.updateMeeting(this.meeting);
+  }
+
+  public cancelEdit(): void {
+    this.canEdit = false;
+
+    this.meeting.title = this.titleCopy;
+    this.meeting.authorName = this.authorNameCopy;
+    this.meeting.date = this.dateCopy;
+    this.meeting.description = this.descCopy;
+  }
+
+  public saveMeetingEnabled(): boolean {
+    return this.updateForm.valid;
+  }
+
+  public async filterUsers(name: string) {
+    if (name !== '') {
+      this.users = await this.filterService.getFilteredUsers(name);
+    }
+  }
+
+  public onSelectionChanged(user: UserProfile) {
+    const authorName = this.authorName;
+
+    authorName.setValue(user.firstName + ' ' + user.lastName);
+    this.selectedUser = user;
   }
 }

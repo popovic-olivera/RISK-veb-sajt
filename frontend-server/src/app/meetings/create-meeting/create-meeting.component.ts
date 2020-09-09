@@ -25,7 +25,7 @@ export class CreateMeetingComponent implements OnInit {
   public posterImage: File;
   public presentation: File;
 
-  constructor(private meetingsService: MeetingsService, 
+  constructor(private meetingsService: MeetingsService,
               private filterService: FilterUsersService) { }
 
   ngOnInit(): void {
@@ -59,7 +59,7 @@ export class CreateMeetingComponent implements OnInit {
   }
 
   public async filterUsers(name: string) {
-    if (name !== "") {
+    if (name !== '') {
       this.users = await this.filterService.getFilteredUsers(name);
     }
   }
@@ -67,7 +67,7 @@ export class CreateMeetingComponent implements OnInit {
   public onSelectionChanged(user: UserProfile) {
     const authorName = this.authorName;
 
-    authorName.setValue(user.firstName + " " + user.lastName);
+    authorName.setValue(user.firstName + ' ' + user.lastName);
     this.selectedUser = user;
   }
 
@@ -82,13 +82,13 @@ export class CreateMeetingComponent implements OnInit {
       jsonData["authorID"] = this.selectedUser._id;
       jsonData["authorImage"] = this.selectedUser.profilePictureUrl;
     }
-    
+
     if (jsonData["tags"]) {
       jsonData["tags"] = jsonData["tags"].split(",")
                                        .map((word: string) => word.trim())
                                        .filter((word: string) => word !== "");
     }
-    
+
     const formData = new FormData();
     Object.keys(jsonData).forEach(key => formData.append(key, jsonData[key]));
     formData.append('poster', this.posterImage);

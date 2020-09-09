@@ -50,9 +50,29 @@ export class MeetingsService {
     }
   }
 
-  // TODO
-  public updateMeeting(updatedMeeting: Meeting): void  {
-    this.http.put<Meeting>(this.meetingsUrl + updatedMeeting._id, updatedMeeting).toPromise();
+  public updateInDatabase(updatedMeeting: Meeting): Promise<boolean>  {
+    const success = this.http.put<Meeting>(this.meetingsUrl + updatedMeeting._id, updatedMeeting, {observe: 'response'}).pipe(
+      map( response => {
+        if (response.status === 200) {
+          return true;
+        }
+
+        return false;
+      }),
+      catchError(() => {
+        return of(false);
+      }));
+
+    return success.toPromise();
+  }
+
+  public async updateMeeting(updatedMeeting: Meeting) {
+    const success = await this.updateInDatabase(updatedMeeting);
+
+    if (success) {
+      const index = this.meetings.findIndex(m => m._id === updatedMeeting._id);
+      this.meetings.splice(index, 1, updatedMeeting);
+    }
   }
 
   public deleteFromDatabase(id: string): Promise<boolean> {

@@ -34,7 +34,7 @@ export class SerbianDatePipe implements PipeTransform {
               break;
       case 8: newDate += 'Septembar ';
               break;
-      case 9: newDate += 'Oktobar';
+      case 9: newDate += 'Oktobar ';
               break;
       case 10: newDate += 'Novembar ';
                break;

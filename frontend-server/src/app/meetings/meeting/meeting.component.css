@@ -54,3 +54,22 @@
 .mat-card-actions .mat-raised-button {
   margin: 4px 8px;
 }
+
+.input {
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+::ng-deep #field .mat-form-field-appearance-outline {
+  padding: 0.7em 0 0.7em 0 !important;
+  top: -0.25em;
+}
+
+::ng-deep #field .mat-form-field-infix {
+  padding: 0.7em 0 0.7em 0 !important;
+  top: -0.25em;
+}
+
+::ng-deep #field .mat-form-field-wrapper {
+  padding-bottom: 0;
+}
