@@ -4,6 +4,10 @@ Reimplementacija postojećeg veb sajta studentske organizacije RISK uz dodavanje
 
 ![](screenshots/Screenshot_20200910_162650.png)
 
+## Demo
+
+- Video snimak upotrebe nalazi se na: https://www.youtube.com/watch?v=AsRrhCqnXPY&feature=youtu.be&ab_channel=OliveraPopovic
+
 ## Tehnologije koje su korišćene
 ### Server
 - Node.js
