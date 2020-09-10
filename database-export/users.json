@@ -1,0 +1,136 @@
+[{
+  "_id": {
+    "$oid": "5f58e3df459f9f4372b189bc"
+  },
+  "administrator": true,
+  "followers": [
+    "5f592583860e4d78efc5821a",
+    "5f58e7ba459f9f4372b189ca",
+    "5f5923c9860e4d78efc5820e"
+  ],
+  "following": [
+    "5f58e794459f9f4372b189c8",
+    "5f58e7ba459f9f4372b189ca",
+    "5f592583860e4d78efc5821a",
+    "5f5923c9860e4d78efc5820e"
+  ],
+  "email": "mi16064@alas.matf.bg.ac.rs",
+  "firstName": "Olivera",
+  "lastName": "Popović",
+  "profilePictureUrl": "http://localhost:4200/api/public/profileImages/5f58e3df459f9f4372b189bd.jpeg",
+  "passwordSalt": "50bc758615ce21ea6181698c37856dc3",
+  "passwordHash": "9ee696e0e915a083dab95e48c4e6387ac546a7d50046bf0a9800bfafc9f18e6c85bed549f56dba70330a52d47f298bb473ac89d613546bc63260bc9b072f5a85",
+  "__v": 0,
+  "githubUrl": "https://github.com/popovic-olivera",
+  "instagramUrl": "https://www.instagram.com/olivera.popovic/",
+  "linkedinUrl": "https://www.linkedin.com/in/olivera-popovic",
+  "occupation": "Student",
+  "webUrl": "",
+  "bio": "Sudent završne godine studija na Matematičkom fakultetu Univeziteta u Beogradu, studijski program Informatika. Dolazim iz Pančeva i imam 23 godine."
+},{
+  "_id": {
+    "$oid": "5f58e794459f9f4372b189c8"
+  },
+  "administrator": true,
+  "followers": [
+    "5f58e3df459f9f4372b189bc",
+    "5f592583860e4d78efc5821a",
+    "5f58e7ba459f9f4372b189ca"
+  ],
+  "following": [],
+  "email": "theonewithideas@gmail.com",
+  "firstName": "Aleksandar",
+  "lastName": "Stefanović",
+  "profilePictureUrl": "http://localhost:4200/api/public/profileImages/5f58e794459f9f4372b189c9.jpeg",
+  "passwordSalt": "5a92e3086978fee7c8a97db31bf2c497",
+  "passwordHash": "3540c186dd0da9d469fc61550009ccec65afba739b0b4e5b4bd76720ce82158a059f84f5078e75d2f8463f6ecc73b7e19caf9754dae5b53eebddcc9127b70884",
+  "__v": 0,
+  "githubUrl": "https://github.com/aleksandar-stefanovic",
+  "bio": "Genius, billionaire, playboy philantrophist",
+  "occupation": "Student"
+},{
+  "_id": {
+    "$oid": "5f58e7ba459f9f4372b189ca"
+  },
+  "administrator": true,
+  "followers": [
+    "5f58e3df459f9f4372b189bc",
+    "5f5923c9860e4d78efc5820e"
+  ],
+  "following": [
+    "5f58e3df459f9f4372b189bc",
+    "5f58e794459f9f4372b189c8",
+    "5f5923c9860e4d78efc5820e"
+  ],
+  "email": "mi16048@alas.matf.bg.ac.rs",
+  "firstName": "Aleksandra",
+  "lastName": "Stojanović",
+  "profilePictureUrl": "http://localhost:4200/api/public/profileImages/5f58e7ba459f9f4372b189cb.jpeg",
+  "passwordSalt": "b8f90f98d70e6365f02a8f261aaf385d",
+  "passwordHash": "988676b60967e29238c4486a2c9237be7cb5d3010c32cb76dbe14093aa0cac8e8bc5204b49017ef417bcdaf2dd2736e2ef2c6ebcdbbfb4f55f3accca6cf5cfa1",
+  "__v": 0,
+  "githubUrl": "https://github.com/alex-x-o",
+  "instagramUrl": "https://www.instagram.com/givemeallyourtime/",
+  "occupation": "CS student",
+  "bio": "• Serbia\n• 23 ♌\n• Computer Science 🖥️\n• INFJ-T\nX🖤O"
+},{
+  "_id": {
+    "$oid": "5f5923c9860e4d78efc5820e"
+  },
+  "administrator": false,
+  "followers": [
+    "5f58e3df459f9f4372b189bc",
+    "5f58e7ba459f9f4372b189ca"
+  ],
+  "following": [
+    "5f592583860e4d78efc5821a",
+    "5f58e3df459f9f4372b189bc",
+    "5f58e7ba459f9f4372b189ca"
+  ],
+  "email": "konstantin@gmail.com",
+  "firstName": "Konstantin",
+  "lastName": "Klima",
+  "profilePictureUrl": "http://localhost:4200/api/public/profileImages/5f5923c9860e4d78efc5820f.jpeg",
+  "passwordSalt": "393629d73fd0e93334c356e578119bcd",
+  "passwordHash": "26d3dbd8374a3791a8f3d5ec89c84f11cb53a7ebc8393fa68a92afddcc47af32330a5814f6514ec2a98f9731b3fb8e4ddb98c66b39f5d5127ccd4543aff48836",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f592583860e4d78efc5821a"
+  },
+  "administrator": true,
+  "followers": [
+    "5f58e3df459f9f4372b189bc",
+    "5f5923c9860e4d78efc5820e"
+  ],
+  "following": [
+    "5f58e3df459f9f4372b189bc",
+    "5f58e794459f9f4372b189c8"
+  ],
+  "email": "nemanja@gmail.com",
+  "firstName": "Nemanja",
+  "lastName": "Micovic",
+  "profilePictureUrl": "http://localhost:4200/api/public/profileImages/5f592583860e4d78efc5821b.png",
+  "passwordSalt": "d1b1a7c56750b60cd21ff4214ab7f72d",
+  "passwordHash": "df73bc648ef6afb687c8e4da9c25e8bb7870f1bc43d46459d21472c68c31265a424160ba6cefa00a48c33439a5ee5b907e0165805d30dc9851d5cbd67ff7d41e",
+  "__v": 0,
+  "githubUrl": "https://github.com/termNinja",
+  "instagramUrl": "https://www.instagram.com/nemanja.micovic/",
+  "linkedinUrl": "https://www.linkedin.com/in/nemanja-micovic",
+  "occupation": "Asistent na Katedri za računarstvo i informatiku.",
+  "webUrl": "http://poincare.matf.bg.ac.rs/~nemanja_micovic/",
+  "bio": "Asistent na Katedri za računarstvo i informatiku."
+},{
+  "_id": {
+    "$oid": "5f5926bf860e4d78efc58223"
+  },
+  "administrator": false,
+  "followers": [],
+  "following": [],
+  "email": "hacklab@gmail.com",
+  "firstName": "Hacklab",
+  "lastName": "Beograd",
+  "passwordSalt": "e2c65547e1f240d138ab8861e9a3f269",
+  "passwordHash": "c38a29b39109f79626a10ffe4bfba75f5b83ec738d1c247d3043538892c5a7a5994dee0e4b71bdd5ca1fcd9c19370197a18f549a598ed0d9eb477a77f7bf3c02",
+  "__v": 0
+}]

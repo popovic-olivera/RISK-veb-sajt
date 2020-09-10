@@ -1,0 +1,265 @@
+[{
+  "_id": {
+    "$oid": "5f58e3df459f9f4372b189bd"
+  },
+  "dateOfUpload": {
+    "$date": "2020-09-09T14:13:39.417Z"
+  },
+  "dir": "public/profileImages",
+  "size": 216854,
+  "type": "jpeg",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f58e794459f9f4372b189c9"
+  },
+  "dateOfUpload": {
+    "$date": "2020-09-09T14:13:39.417Z"
+  },
+  "dir": "public/profileImages",
+  "size": 58647,
+  "type": "jpeg",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f58e7ba459f9f4372b189cb"
+  },
+  "dateOfUpload": {
+    "$date": "2020-09-09T14:13:39.417Z"
+  },
+  "dir": "public/profileImages",
+  "size": 539588,
+  "type": "jpeg",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f59231a860e4d78efc58208"
+  },
+  "dateOfUpload": {
+    "$date": "2020-09-09T17:49:35.868Z"
+  },
+  "dir": "public/posters",
+  "size": 581125,
+  "type": "png",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f59231a860e4d78efc58209"
+  },
+  "dateOfUpload": {
+    "$date": "2020-09-09T17:49:35.868Z"
+  },
+  "dir": "public/meetings",
+  "size": 85068,
+  "type": "jpeg",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f59238d860e4d78efc5820b"
+  },
+  "dateOfUpload": {
+    "$date": "2020-09-09T17:49:35.868Z"
+  },
+  "dir": "public/posters",
+  "size": 624224,
+  "type": "png",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f59238d860e4d78efc5820c"
+  },
+  "dateOfUpload": {
+    "$date": "2020-09-09T17:49:35.868Z"
+  },
+  "dir": "public/presentations",
+  "size": 413805,
+  "type": "pdf",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f59238d860e4d78efc5820d"
+  },
+  "dateOfUpload": {
+    "$date": "2020-09-09T17:49:35.868Z"
+  },
+  "dir": "public/meetings",
+  "size": 3678601,
+  "type": "jpeg",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f5923c9860e4d78efc5820f"
+  },
+  "dateOfUpload": {
+    "$date": "2020-09-09T17:49:35.868Z"
+  },
+  "dir": "public/profileImages",
+  "size": 988605,
+  "type": "jpeg",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f592431860e4d78efc58211"
+  },
+  "dateOfUpload": {
+    "$date": "2020-09-09T17:49:35.868Z"
+  },
+  "dir": "public/posters",
+  "size": 947035,
+  "type": "png",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f592431860e4d78efc58212"
+  },
+  "dateOfUpload": {
+    "$date": "2020-09-09T17:49:35.868Z"
+  },
+  "dir": "public/meetings",
+  "size": 2663338,
+  "type": "jpeg",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f5924b2860e4d78efc58214"
+  },
+  "dateOfUpload": {
+    "$date": "2020-09-09T17:49:35.868Z"
+  },
+  "dir": "public/posters",
+  "size": 89798,
+  "type": "png",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f5924b2860e4d78efc58215"
+  },
+  "dateOfUpload": {
+    "$date": "2020-09-09T17:49:35.868Z"
+  },
+  "dir": "public/meetings",
+  "size": 290720,
+  "type": "jpeg",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f592530860e4d78efc58217"
+  },
+  "dateOfUpload": {
+    "$date": "2020-09-09T17:49:35.868Z"
+  },
+  "dir": "public/posters",
+  "size": 1617345,
+  "type": "png",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f592530860e4d78efc58218"
+  },
+  "dateOfUpload": {
+    "$date": "2020-09-09T17:49:35.868Z"
+  },
+  "dir": "public/presentations",
+  "size": 1458035,
+  "type": "pdf",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f592530860e4d78efc58219"
+  },
+  "dateOfUpload": {
+    "$date": "2020-09-09T17:49:35.868Z"
+  },
+  "dir": "public/meetings",
+  "size": 5613948,
+  "type": "jpeg",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f592583860e4d78efc5821b"
+  },
+  "dateOfUpload": {
+    "$date": "2020-09-09T17:49:35.868Z"
+  },
+  "dir": "public/profileImages",
+  "size": 278233,
+  "type": "png",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f592620860e4d78efc5821d"
+  },
+  "dateOfUpload": {
+    "$date": "2020-09-09T17:49:35.868Z"
+  },
+  "dir": "public/posters",
+  "size": 1088593,
+  "type": "png",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f592620860e4d78efc5821e"
+  },
+  "dateOfUpload": {
+    "$date": "2020-09-09T17:49:35.868Z"
+  },
+  "dir": "public/meetings",
+  "size": 212109,
+  "type": "jpeg",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f592692860e4d78efc58220"
+  },
+  "dateOfUpload": {
+    "$date": "2020-09-09T17:49:35.868Z"
+  },
+  "dir": "public/posters",
+  "size": 1036330,
+  "type": "png",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f592692860e4d78efc58221"
+  },
+  "dateOfUpload": {
+    "$date": "2020-09-09T17:49:35.868Z"
+  },
+  "dir": "public/presentations",
+  "size": 3472743,
+  "type": "pdf",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f592692860e4d78efc58222"
+  },
+  "dateOfUpload": {
+    "$date": "2020-09-09T17:49:35.868Z"
+  },
+  "dir": "public/meetings",
+  "size": 427633,
+  "type": "jpeg",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f5927fc860e4d78efc58225"
+  },
+  "dateOfUpload": {
+    "$date": "2020-09-09T17:49:35.868Z"
+  },
+  "dir": "public/posters",
+  "size": 1274701,
+  "type": "png",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f5927fc860e4d78efc58226"
+  },
+  "dateOfUpload": {
+    "$date": "2020-09-09T17:49:35.868Z"
+  },
+  "dir": "public/meetings",
+  "size": 244045,
+  "type": "jpeg",
+  "__v": 0
+}]

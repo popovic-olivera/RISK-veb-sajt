@@ -1,0 +1,155 @@
+[{
+  "_id": {
+    "$oid": "5f59231a860e4d78efc58207"
+  },
+  "tags": [
+    "android,kotlin,Aca,android studio"
+  ],
+  "title": "Moderno Android programiranje",
+  "authorName": "Aleksandar Stefanović",
+  "description": "Kako popularnost i hardverska moc mobilnih uredjaja raste, razvijanje mobilnih aplikacija dobija na sve vecem znacaju, a u industriji je potreban veliki broj Android programera.\n\nPrikazaćemo moderne prakse pri razvijanju Android aplikacija, koristeći Kotlin, treći zvanični jezik za Android, i Android Architecture Components, deo Android Jetpack-a, skup biblioteka koje pruža Google u svrhu olakšavanja razvijanja Android aplikacija.",
+  "date": {
+    "$date": "2019-03-09T23:00:00Z"
+  },
+  "githubRepoUrl": "https://github.com/riskmatf/risk-meetup-14-modern-android",
+  "videoUrl": "null",
+  "surveyUrl": "https://docs.google.com/forms/d/e/1FAIpQLSdIoyiM8QSfwHM-RzH1h3_p40JrRtEwofDFKeamK9skdcS_kg/viewform?usp=sf_link",
+  "authorID": "5f58e794459f9f4372b189c8",
+  "authorImage": "http://localhost:4200/api/public/profileImages/5f58e794459f9f4372b189c9.jpeg",
+  "posterUrl": "http://localhost:4200/api/public/posters/5f59231a860e4d78efc58208.png",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f59238d860e4d78efc5820a"
+  },
+  "tags": [
+    "null"
+  ],
+  "title": "RSA asimetrična kriptografija i primene",
+  "authorName": "Aleksej Jocić",
+  "description": "Asimetrična kriptografija čini osnovu bezbednosti na internetu. Nastala je kao odgovor na problem poverljivosti i integriteta razmene informacija.Na ovom predavanju biće reči o matematici koja stoji iza RSA, prva potpuna implementacija asimetrične kriptografije, kao i slabosti koje nastaju prilikom njene lose implementacije. Biće prikazana i primena u sigurnoj komunikaciji na internetu i verifikaciju identiteta. Takodje biće reči i o ulozi kriptografije u radu Tor anonimne mreže.",
+  "date": {
+    "$date": "2019-03-15T23:00:00Z"
+  },
+  "githubRepoUrl": "https://github.com/riskmatf/risk-meetup-15-asymetric-crypto",
+  "videoUrl": "null",
+  "surveyUrl": "https://docs.google.com/forms/d/e/1FAIpQLSdxKbV7WYepMRmVaRV8fH6af38cyCkznFLxr8HXxAQoM33NFA/viewform?usp=sf_link",
+  "posterUrl": "http://localhost:4200/api/public/posters/5f59238d860e4d78efc5820b.png",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f592431860e4d78efc58210"
+  },
+  "tags": [
+    "veb,web,python,laravel,đango"
+  ],
+  "title": "Uvod u veb radne okvire kroz Laravel i Django",
+  "authorName": "Konstantin Klima",
+  "description": "U doba nemerljivog razvoja veb i internet tehnologija od presudne je važnosti da se veb aplikacije razvijaju brzo, i beskompromisno kada su u pitanju bezbednost i stabilnost. Upravo u ovome leži snaga veb radnih okvira koji programeru daju set alata s kojim lako može razvijati i dodavati funkcionalnosti i apstrakcija koje mogu uštedeti stotine linija koda i sate programiranja i debagovanja.\n\nNa ovom predavanju upoznaćemo se sa osnovama veb razvojnih okvira kroz praktičnu izradu jednostavne aplikacije u dva od tri najzastupljenija moderna veb okvira – Laravel (PHP) i Django (Python). Cilj je da nakon ovog predavanja možete sami da postavite jednostavan sajt u jednom od ova dva okvira, kao i da dobijete bazu znanja koju kasnije sami možete proširiti.",
+  "date": {
+    "$date": "2019-03-23T23:00:00Z"
+  },
+  "githubRepoUrl": "https://github.com/riskmatf/risk-meetup-16-veb-radni-okviri",
+  "videoUrl": "null",
+  "surveyUrl": "https://docs.google.com/forms/d/e/1FAIpQLSeTvLDQe4xnBO-WtPUSyKlF7WpBxQW3YR9NXq8Nz-Zg-9DZ6A/viewform?usp=sf_link",
+  "authorID": "5f5923c9860e4d78efc5820e",
+  "authorImage": "http://localhost:4200/api/public/profileImages/5f5923c9860e4d78efc5820f.jpeg",
+  "posterUrl": "http://localhost:4200/api/public/posters/5f592431860e4d78efc58211.png",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f5924b2860e4d78efc58213"
+  },
+  "tags": [
+    "c,dusan,modern c"
+  ],
+  "title": "Programski jezik C - Savremeni pristup",
+  "authorName": "Dušan Gvozdenović",
+  "description": "Pored C++-a, programski jezik C je već godinama unazad podrazumevani standard za pisanje sistemskog softvera jer je minimalan, omogućava direktno upravljanje memorijom i pisanje izuzetno efikasnih apstrakcija. Na predavanju ćete saznati o novim dodacima i unapređenjima koji su se pojavili u C standardu kao i nestandardnim proširenjima popularnih prevodioca koji omogućavaju pisanje ekspresivnijeg koda",
+  "date": {
+    "$date": "2019-04-19T22:00:00Z"
+  },
+  "githubRepoUrl": "https://github.com/riskmatf/risk-meetup-17-modern-c",
+  "videoUrl": "https://www.youtube.com/watch?v=3C18MS2C2VM&t=892s",
+  "surveyUrl": "https://docs.google.com/forms/d/e/1FAIpQLSehih5X245dn_d9MAIg9H0jrHQxgCM358P4XwS1wBsaeeooxw/viewform",
+  "posterUrl": "http://localhost:4200/api/public/posters/5f5924b2860e4d78efc58214.png",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f592530860e4d78efc58216"
+  },
+  "tags": [
+    "miljenko,godaddy,amazon"
+  ],
+  "title": "Uvod u Amazon veb servise (AWS)",
+  "authorName": "Miljenko Rebernišak (GoDaddy)",
+  "description": "Amazon Web Services (AWS) je jedan od vodećih pružalaca Cloud computing usluga (računarstvo u oblaku) sa učešćem od 62 odsto na svetskom tržištu po nekim od dostupnih statistika. AWS pruža veliki broj usluga kao što su mašinsko učenje, skladištenje i održavanje baza podataka, pružanje računarske infrastrukture za kompleksna izračunavanja, skladištenje i čuvanje poslovnih podataka, ekstrakcija teksta iz dokumenata, autentifikacija i autorizacija korisnika, kontinualna integracija i mnoge druge. Usled povoljnosti i kvaliteta usluge, AWS servisi se izuzetno koriste u industriji od strane drugih kompanija da realizuju svoje poslovanje, te je poznavanje AWS servisa danas više čak i neophodna umesto dodatna veština. ",
+  "date": {
+    "$date": "2019-05-18T22:00:00Z"
+  },
+  "githubRepoUrl": "https://github.com/riskmatf/risk-meetup-18-aws",
+  "videoUrl": "https://www.youtube.com/watch?v=23PXDSjQZnA",
+  "surveyUrl": "https://docs.google.com/forms/d/e/1FAIpQLSeufnRU-fswDd3KReBtPOvhzK-GMN1i04_4gR6U0_MkYVvErg/viewform",
+  "posterUrl": "http://localhost:4200/api/public/posters/5f592530860e4d78efc58217.png",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f592620860e4d78efc5821c"
+  },
+  "tags": [
+    "masinsko ucenje,python,micovic"
+  ],
+  "title": "Uvod u duboko ucenje kroz PyTorch",
+  "authorName": "Nemanja Micovic",
+  "description": "PyTorch je Python biblioteka i okruzenje za duboko ucenje u oblasti Masinskog ucenja. Prepoznavanje i detekcija objekata na slikama, generisanje lica i muzike, verifikacija lica, autonomna voznja i mnogi drugi problemi, su samo neki koji se resavaju izuzetno uspesno u okviru oblasti dubokog ucenja u poslednjih nekoliko godina. Biblioteka PyTorch, zajedno sa bibliotekom TensorFlow je danas vodeci alat za realizaciju, implementaciju i obucavanje modela dubokog ucenja.",
+  "date": {
+    "$date": "2019-11-02T23:00:00Z"
+  },
+  "githubRepoUrl": "https://github.com/riskmatf/risk-meetup-19-pytorch",
+  "videoUrl": "null",
+  "surveyUrl": "https://docs.google.com/forms/d/e/1FAIpQLSdxIOtfL1ddFQuu6l7ClGF3nHWaQxyQAtjyo63qIsCeTVgaJw/viewform",
+  "authorID": "5f592583860e4d78efc5821a",
+  "authorImage": "http://localhost:4200/api/public/profileImages/5f592583860e4d78efc5821b.png",
+  "posterUrl": "http://localhost:4200/api/public/posters/5f592620860e4d78efc5821d.png",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f592692860e4d78efc5821f"
+  },
+  "tags": [
+    "python,programiranje,uvod"
+  ],
+  "title": "Uvod u Python",
+  "authorName": "Konstantin Klima",
+  "description": "Programski jezik Python već godinama je po Stack Overflow Developer istraživanju najpoželjniji jezik, a svoju primenu nalazi u rešavanju najrazličitijih problema – od pravljenja aplikacija za veb do mašinskog učenja i istraživanja podataka.Ovo predavanje za cilj ima da prikaže osnove jezika, kao i osnovna podešavanja okruženja i alata koji studentima mogu biti od koristi pri pisanju Python koda (virtuelna okruženja, Jupyter notebook, pip…).",
+  "date": {
+    "$date": "2019-11-09T23:00:00Z"
+  },
+  "githubRepoUrl": "https://github.com/riskmatf/risk-meetup-20-python",
+  "videoUrl": "null",
+  "surveyUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf6xEvDVqSb2S4pXenjPL-zlnLuIr4J230Ie9QEPGboUUd_sA/viewform",
+  "authorID": "5f5923c9860e4d78efc5820e",
+  "authorImage": "http://localhost:4200/api/public/profileImages/5f5923c9860e4d78efc5820f.jpeg",
+  "posterUrl": "http://localhost:4200/api/public/posters/5f592692860e4d78efc58220.png",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f5927fc860e4d78efc58224"
+  },
+  "tags": [
+    "null"
+  ],
+  "title": "WiFi Hacking",
+  "authorName": "Hacklab Beograd",
+  "description": "Na predavanju će biti reči o sigurnosnim propustima u bežičnim mrezama. Biće prikazani napada na WPA/WPA2 PSK autentifikaciju i razbijanje šifre uz pomoć hashcat alata. Pored toga biće reči i o nekim egoztičnijim propustima.",
+  "date": {
+    "$date": "2020-02-22T23:00:00Z"
+  },
+  "githubRepoUrl": "https://github.com/riskmatf/risk-meetup-21-wifi-hacking?fbclid=IwAR2a7DD--v0_pPncMBonQjsrI7ksTwlLCuZSHfv68PIihabyqr6d-HAxK_0",
+  "videoUrl": "null",
+  "surveyUrl": "https://docs.google.com/forms/d/e/1FAIpQLSeX_gF48RBbIJfq98KPRbB_P_BHN1SZckP2TCgg7wzqUBaJZg/viewform",
+  "authorID": "5f5926bf860e4d78efc58223",
+  "authorImage": "undefined",
+  "posterUrl": "http://localhost:4200/api/public/posters/5f5927fc860e4d78efc58225.png",
+  "__v": 0
+}]
