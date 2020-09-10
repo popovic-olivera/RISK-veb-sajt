@@ -1,4 +1,4 @@
-<div appBlogLayout fxLayout="{{ isProfile ? 'column' : 'row wrap' }}" fxLayout.xs="column" fxFlexAlign="space-evenly">
+<div appBlogLayout fxLayout="{{ isProfile ? 'column' : 'row wrap' }}" fxLayout.xs="column" fxLayoutAlign="start space-evenly">
   <div fxFlex="0 1 calc(33.3%)" fxFlex.sm="0 1 calc(100%)" fxFlex.md="0 1 calc(50%)" fxFlex.gt-md="0 1 calc(33.3%)"
     ngStyle.lt-md="padding-right: '0px'; padding-bottom: '30px';"
     ngStyle.gt-sm="padding-left: '15px'; padding-right: '15px'; padding-bottom: '30px';"
@@ -6,8 +6,8 @@
     <mat-card fxFlex style="position: relative">
       <a [routerLink]="['/blog/novo']" style="display: inline-block; width: 100%; height: 100%;">
         <i id="button" class="fa fa-plus"
-        ngStyle.lt-md="font-size: '30px';"
-        ngStyle.gt-sm="font-size: '300px'"></i>
+        ngStyle="{{ isProfile ? 'font-size: 33px' : 'font-size: 300px' }}"
+        ngStyle.lt-md="font-size: '33px';"></i>
       </a>
     </mat-card>
   </div>

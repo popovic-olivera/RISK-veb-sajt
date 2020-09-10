@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { UserProfile } from '../user-profile.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -18,17 +18,18 @@ export class ProfileSettingsComponent implements OnInit {
   private selectedImage: File;
   public selectedImageUrl: string | ArrayBuffer;
   public successfulSave: boolean;
+  public isMedium: boolean;
 
   public isReadonlyMap = {
     'firstName': true,
     'lastName': true,
     'bio': true,
     'occupation': true,
-    'web': true, 
-    'github': true, 
-    'linkedin': true, 
-    'instagram': true, 
-    'facebook': true, 
+    'web': true,
+    'github': true,
+    'linkedin': true,
+    'instagram': true,
+    'facebook': true,
     'portfolio': true
   };
 
@@ -45,6 +46,15 @@ export class ProfileSettingsComponent implements OnInit {
 
   get firstName() { return this.changeForm.get('firstName'); }
   get lastName() { return this.changeForm.get('lastName'); }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    if (event.target.innerWidth < 959) {
+      this.isMedium = true;
+    } else {
+      this.isMedium = false;
+    }
+  }
 
   public toNull(value: string) {
     if (value === undefined)
@@ -127,7 +137,7 @@ export class ProfileSettingsComponent implements OnInit {
 
     Object.keys(jsonData).forEach(key => formData.append(key, jsonData[key]));
     if (this.selectedImage) formData.append('profilePicture', this.selectedImage);
-    
+
     this.successfulSave = await this.auth.update(formData);
 
     if (this.successfulSave) {

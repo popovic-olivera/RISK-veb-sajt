@@ -1,11 +1,13 @@
 .card {
     border-radius: 20px;
     padding: 2% 5%;
+    align-items: stretch !important;
 }
 
 .title {
     font-size: xx-large;
     margin-bottom: 0;
+    text-align: center;
 }
 
 .column {
@@ -31,10 +33,24 @@
 }
 
 .profile-image {
-    width: 18vw; 
-    height: 18vw; 
-    border-radius: 50%; 
+    width: 18vw;
+    height: 18vw;
+    border-radius: 50%;
     background-size: cover;
     background-position: center;
     margin-top: 5%;
+}
+
+.profile-image2 {
+  min-width: 80vw;
+  min-height: 80vw;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  margin-top: 5%;
+}
+
+.mat-mini-fab {
+  min-width: 40px !important;
+  min-height: 40px !important;
 }

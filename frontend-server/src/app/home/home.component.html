@@ -1,5 +1,5 @@
 <div *ngIf="!auth.getUserProfile()" fxLayout="row" fxLayout.lt-sm="column" FxLayoutAlign="space-evenly" fxLayoutGap="30px">
-  <div fxFlex="0 1 calc(30%)" fxFlex.lt-sm="0 1 calc(100%)">
+  <div fxFlex="0 1 calc(30%)">
     <mat-card>
       <mat-card-title>Najskorije okupljanje</mat-card-title>
       <div style="margin: 0 16px;">
@@ -7,7 +7,7 @@
       </div>
     </mat-card>
   </div>
-  <div fxFlex="0 1 calc(70%)" fxFlex.lt-sm="0 1 calc(100%)">
+  <div fxFlex="0 1 calc(70%)">
     <mat-card>
       <mat-card-title>Najskorija objava</mat-card-title>
       <div class="image">
@@ -43,7 +43,7 @@
 </div>
 
 <div *ngIf="auth.getUserProfile()" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center start" fxLayoutGap="70px">
-  <div fxFlex="0 1 calc(35%)" fxFlex.lt-sm="0 1 calc(100%)" fxLayout="column" fxLayoutGap="30px">
+  <div fxFlex="0 1 calc(35%)" fxLayout="column" fxLayoutGap="30px">
     <mat-card>
       <mat-card-title>Najskorija objava</mat-card-title>
       <div class="image">
@@ -84,7 +84,7 @@
     </mat-card>
   </div>
 
-  <div fxFlex="0 1 calc(50%)" fxFlex.lt-sm="0 1 calc(100%)" fxLayout="column">
+  <div fxFlex="0 1 calc(50%)" fxLayout="column">
     <app-blog-list [blogPosts]="blogPosts"></app-blog-list>
   </div>
 </div>
