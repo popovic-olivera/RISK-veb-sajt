@@ -1,6 +1,6 @@
   <mat-card fxFlex class="card">
-    <div fxLayout="row" fxLayout.lt-md="column">
-      <div fxFlex="0 1 calc(70%)" class="left">
+    <div fxLayout="row wrap" fxLayout.lt-lg="column">
+      <div fxFlex="0 1 calc(70%)" class="left" fxLayout="column" fxLayoutAlign="center stretch" fxFlexFill>
         <mat-card-header class="header">
           <div *ngIf="(meeting.authorImage && meeting.authorImage !== 'undefined') && !canEdit" (click)="goToAuthorPage()" mat-card-avatar class="header-image" style="background-image: url({{meeting.authorImage}});"></div>
           <div *ngIf="(!meeting.authorImage || meeting.authorImage === 'undefined') && !canEdit" (click)="goToAuthorPage()" mat-card-avatar class="header-image" style="background-image: url('assets/generic_user.jpeg');"></div>
@@ -8,10 +8,10 @@
           <mat-card-subtitle *ngIf="!canEdit" (click)="goToAuthorPage()">Autor: <span class="link">{{meeting.authorName}}</span></mat-card-subtitle>
           <mat-card-subtitle *ngIf="!canEdit">{{meeting.date | serbianDate}}</mat-card-subtitle>
           <form *ngIf="canEdit" [formGroup]="updateForm" style="width: -webkit-fill-available;">
-            <div fxLayout="row" fxLayout.lt-md="column">
+            <div fxLayout="row" fxLayout.lt-lg="column">
               <div fxFlex="0 1 calc(50%)"
-              ngStyle.lt-md="margin-bottom: '0px';"
-              ngStyle.gt-sm="padding-right: '0.25em';">
+              ngStyle.lt-lg="margin-bottom: '0px';"
+              ngStyle.gt-md="padding-right: '0.25em';">
                 <mat-form-field id="field" appearance="outline" class="input">
                   <mat-label>Naslov</mat-label>
                   <input matInput [(ngModel)]="meeting.title" name="title" [formControl]="title">
@@ -30,8 +30,8 @@
                 </mat-form-field>
               </div>
               <div fxFlex="0 1 calc(50%)"
-              ngStyle.lt-md="padding-left: '0px';"
-              ngStyle.gt-sm="padding-left: '0.25em';">
+              ngStyle.lt-lg="padding-left: '0px';"
+              ngStyle.gt-md="padding-left: '0.25em';">
                   <mat-form-field id="field" appearance="outline" class="input">
                   <mat-label>Datum</mat-label>
                   <input matInput [(ngModel)]="meeting.date" [matDatepicker]="picker" name="date" [formControl]="date" readonly>
@@ -59,10 +59,10 @@
               </a>
             </ng-container>
           </div>
-          <div *ngIf="canEdit" fxLayout="row" fxLayout.lt-md="column">
+          <div *ngIf="canEdit" fxLayout="row" fxLayout.lt-lg="column">
             <div fxFlex="0 1 calc(50%)"
-            ngStyle.lt-md="margin-bottom: '0px';"
-            ngStyle.gt-sm="padding-right: '0.5em';">
+            ngStyle.lt-lg="margin-bottom: '0px';"
+            ngStyle.gt-md="padding-right: '0.5em';">
               <a mat-raised-button target="_blank" class="btn btn-dark" style="width: -webkit-fill-available;">
                 <i class="fa fa-lg fa-github"></i>
                 <mat-form-field id="field" appearance="outline" class="input">
@@ -79,8 +79,8 @@
               </a>
             </div>
             <div fxFlex="0 1 calc(50%)"
-            ngStyle.lt-md="padding-left: '0px';"
-            ngStyle.gt-sm="padding-left: '0.5em';">
+            ngStyle.lt-lg="padding-left: '0px';"
+            ngStyle.gt-md="padding-left: '0.5em';">
               <a mat-raised-button target="_blank" class="btn btn-secondary" style="width: -webkit-fill-available;">
                 <i class="fa fas fa-comments"></i>
                 <mat-form-field id="field" appearance="outline" class="input">
@@ -108,8 +108,7 @@
       <div *ngIf="meeting.posterUrl && !canEdit" #image fxFlex="0 1 calc(30%)">
         <img class="poster" src={{meeting.posterUrl}} alt="poster" />
       </div>
-      <div #changeMedia *ngIf="!(meeting.posterUrl && !canEdit)" fxLayout="column" fxLayoutAlign="center start" fxLayoutAlign.lt-md="center center">
-        <div fxFlex="0.2 1 auto">
+      <div #changeMedia *ngIf="!(meeting.posterUrl && !canEdit)" fxFlex="0 1 calc(30%)" fxLayout="column" fxLayoutAlign="space-around center" style="padding-bottom: 5%;">
           <button mat-button color="primary" (click)="posterInput.click()" type="button">
             <span style="white-space: normal;">
               <mat-icon style="vertical-align: middle;">file_upload</mat-icon>
@@ -120,9 +119,7 @@
           <div style="display: inline-block; margin-left: 5%;">
               <mat-card-subtitle *ngIf="posterImage">Odabrana slika: {{posterImage.name}}</mat-card-subtitle>
           </div>
-        </div>
-        
-        <div fxFlex="0.2 1 auto">
+
             <button mat-button color="primary" (click)="presentationInput.click()" type="button">
               <span style="white-space: normal;">
                 <mat-icon style="vertical-align: middle;">file_upload</mat-icon>
@@ -133,9 +130,7 @@
             <div style="display: inline-block; margin-left: 5%;">
                 <mat-card-subtitle *ngIf="presentation">Odabrana slika: {{presentation.name}}</mat-card-subtitle>
             </div>
-        </div>
 
-        <div fxFlex="0.2 1 auto">
             <button mat-button color="primary" (click)="imageInput.click()" type="button">
               <span style="white-space: normal;">
                 <mat-icon style="vertical-align: middle;">file_upload</mat-icon>
@@ -146,11 +141,8 @@
             <div style="display: inline-block; margin-left: 5%;">
                 <mat-card-subtitle *ngIf="image">Odabrana slika: {{image.name}}</mat-card-subtitle>
             </div>
-        </div>
       </div>
-    </div>
-    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center center">
-      <div fxFlex="0.3 1 auto" fxLayout="row">
+    <div fxFlex="0 1 calc(100%)" fxLayoutAlign="center center">
           <a *ngIf="auth.getUserProfile() && auth.isUserAdmin() && canEdit" mat-raised-button class="confirm" type="submit" [disabled]="!saveMeetingEnabled()" (click)="saveMeetingEnabled() && confirmEdit()">
             <i class="fa fa-check"></i> Prihvati izmene
           </a>
