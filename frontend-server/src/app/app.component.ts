@@ -17,7 +17,13 @@ export class AppComponent implements OnInit {
     .pipe(
       map(result => result.matches),
       shareReplay()
-    );
+  );
+
+  isMedium$: Observable<boolean> = this.breakpointObserver.observe('(max-width: 959px)')
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+  );
 
   constructor(
     private router: Router,

@@ -1,63 +1,134 @@
-<div *ngIf="profile" style="align-items: flex-start;" fxLayout='row' fxFlexAlign="space-evenly" fxLayout.lt-md="column">
-  <div class="sticky" fxFlex="0 1 calc(20%)">
-    <div class="profile-image" *ngIf="profile.profilePictureUrl" style="background-image: url({{profile.profilePictureUrl}})"></div>
-    <div class="profile-image" *ngIf="!profile.profilePictureUrl" style="background-image: url('assets/generic_user.jpeg')"></div>
-    <div id="name">
-      {{ profile.firstName }} {{ profile.lastName }}
-      <p class="text">{{profile.occupation}}</p>
+<div (window:resize)="onResize($event)">
+  <div *ngIf="profile && !isLtMd" style="align-items: flex-start;" fxLayout='row' fxLayoutAlign="space-evenly">
+    <div fxFlex="0 1 calc(20%)"
+    ngClass.gt-sm="sticky">
+      <div class="profile-image" *ngIf="profile.profilePictureUrl" style="background-image: url({{profile.profilePictureUrl}})"></div>
+      <div class="profile-image" *ngIf="!profile.profilePictureUrl" style="background-image: url('assets/generic_user.jpeg')"></div>
+      <div id="name">
+        {{ profile.firstName }} {{ profile.lastName }}
+        <p class="text">{{profile.occupation}}</p>
+      </div>
+      <button class="btn-grad" mat-raised-button *ngIf="isFollowEnabled(); else empty" (click)="onClick()">{{btnText}}</button>
+      <ng-template #empty><br/></ng-template>
+      <table id="profile-numbers">
+        <tr>
+          <th>Objave</th>
+          <th class="clickable" (click)="openFollowers()">Pratioci</th>
+          <th class="clickable" (click)="openFollowing()">Praćenje</th>
+        </tr>
+        <tr>
+          <td>{{ blogPosts.length }}</td>
+          <td>{{ profile.followers.length }}</td>
+          <td>{{ profile.following.length }}</td>
+        </tr>
+      </table>
+      <div style="border-bottom: 1px #777 solid; margin: 15px 0px;"></div>
+      <!-- <ul style="font-size: 18px; font-weight: bold; letter-spacing: 5px;">
+        <li>
+          <a [routerLink]="['/okupljanja']">Omiljeno</a>
+        </li>
+        <li>
+          <a [routerLink]="['/okupljanja']">Tag2</a>
+        </li>
+      </ul> -->
     </div>
-    <button class="btn-grad" mat-raised-button *ngIf="isFollowEnabled(); else empty" (click)="onClick()">{{btnText}}</button>
-    <ng-template #empty><br/></ng-template>
-    <table id="profile-numbers">
-      <tr>
-        <th>Objave</th>
-        <th class="clickable" (click)="openFollowers()">Pratioci</th>
-        <th class="clickable" (click)="openFollowing()">Praćenje</th>
-      </tr>
-      <tr>
-        <td>{{ blogPosts.length }}</td>
-        <td>{{ profile.followers.length }}</td>
-        <td>{{ profile.following.length }}</td>
-      </tr>
-    </table>
-    <div style="border-bottom: 1px #777 solid; margin: 15px 0px;"></div>
-    <!-- <ul style="font-size: 18px; font-weight: bold; letter-spacing: 5px;">
-      <li>
-        <a [routerLink]="['/okupljanja']">Omiljeno</a>
-      </li>
-      <li>
-        <a [routerLink]="['/okupljanja']">Tag2</a>
-      </li>
-    </ul> -->
+    <div fxFlex="0 1 calc(60%)"
+    ngStyle.gt-sm="margin: '0 4vw';">
+      <app-blog-list [blogPosts]="blogPosts"></app-blog-list>
+    </div>
+    <div fxFlex="0 1 calc(20%)"
+    ngClass.gt-sm="sticky">
+      <p class="text" style="letter-spacing: 4px; font-weight: 500; font-size: 18px;">Biografija</p>
+      <div style="text-align: justify;">{{ profile.bio }}</div>
+      <div style="border-bottom: 1px #777 solid; margin: 15px 0px;"></div>
+      <div class="ft-social">
+        <ul class="ft-social-list">
+          <li *ngIf="profile.webUrl">
+            <a href="{{profile.webUrl}}"><i class="fa fa-lg fa-globe"></i></a>
+          </li>
+          <li *ngIf="profile.githubUrl">
+            <a href="{{profile.githubUrl}}"><i class="fa fa-lg fa-github"></i></a>
+          </li>
+          <li *ngIf="profile.linkedinUrl">
+            <a href="{{profile.linkedinUrl}}"><i class="fa fa-lg fa-linkedin"></i></a>
+          </li>
+          <li *ngIf="profile.instagramUrl">
+            <a href="{{profile.instagramUrl}}"><i class="fa fa-lg fa-instagram"></i></a>
+          </li>
+          <li *ngIf="profile.facebookUrl">
+            <a href="{{profile.facebookUrl}}"><i class="fa fa-lg fa-facebook"></i></a>
+          </li>
+          <li *ngIf="profile.portfolioUrl">
+            <a href="{{profile.portfolioUrl}}"><i class="fa fa-lg fa-address-card"></i></a>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
-  <div fxFlex="0 1 calc(60%)" style="margin: 0 4vw;">
-    <app-blog-list [blogPosts]="blogPosts"></app-blog-list>
-  </div>
-  <div class="sticky" fxFlex="0 1 calc(20%)">
-    <p class="text" style="letter-spacing: 4px; font-weight: 500; font-size: 18px;">Biografija</p>
-    <div style="text-align: justify;">{{ profile.bio }}</div>
-    <div style="border-bottom: 1px #777 solid; margin: 15px 0px;"></div>
-    <div class="ft-social">
-      <ul class="ft-social-list">
-        <li *ngIf="profile.webUrl">
-          <a href="{{profile.webUrl}}"><i class="fa fa-lg fa-globe"></i></a>
+  <div *ngIf="profile && isLtMd" style="align-items: flex-start;" fxLayout='row grid' fxLayoutAlign="space-evenly">
+    <div fxFlex="0 1 calc(100%)"
+    ngClass.gt-sm="sticky">
+      <div class="profile-image" *ngIf="profile.profilePictureUrl" style="background-image: url({{profile.profilePictureUrl}})"></div>
+      <div class="profile-image" *ngIf="!profile.profilePictureUrl" style="background-image: url('assets/generic_user.jpeg')"></div>
+      <div id="name">
+        {{ profile.firstName }} {{ profile.lastName }}
+        <p class="text">{{profile.occupation}}</p>
+      </div>
+      <button class="btn-grad" mat-raised-button *ngIf="isFollowEnabled(); else empty" (click)="onClick()">{{btnText}}</button>
+      <ng-template #empty><br/></ng-template>
+      <table id="profile-numbers">
+        <tr>
+          <th>Objave</th>
+          <th class="clickable" (click)="openFollowers()">Pratioci</th>
+          <th class="clickable" (click)="openFollowing()">Praćenje</th>
+        </tr>
+        <tr>
+          <td>{{ blogPosts.length }}</td>
+          <td>{{ profile.followers.length }}</td>
+          <td>{{ profile.following.length }}</td>
+        </tr>
+      </table>
+      <div style="border-bottom: 1px #777 solid; margin: 15px 0px;"></div>
+      <!-- <ul style="font-size: 18px; font-weight: bold; letter-spacing: 5px;">
+        <li>
+          <a [routerLink]="['/okupljanja']">Omiljeno</a>
         </li>
-        <li *ngIf="profile.githubUrl">
-          <a href="{{profile.githubUrl}}"><i class="fa fa-lg fa-github"></i></a>
+        <li>
+          <a [routerLink]="['/okupljanja']">Tag2</a>
         </li>
-        <li *ngIf="profile.linkedinUrl">
-          <a href="{{profile.linkedinUrl}}"><i class="fa fa-lg fa-linkedin"></i></a>
-        </li>
-        <li *ngIf="profile.instagramUrl">
-          <a href="{{profile.instagramUrl}}"><i class="fa fa-lg fa-instagram"></i></a>
-        </li>
-        <li *ngIf="profile.facebookUrl">
-          <a href="{{profile.facebookUrl}}"><i class="fa fa-lg fa-facebook"></i></a>
-        </li>
-        <li *ngIf="profile.portfolioUrl">
-          <a href="{{profile.portfolioUrl}}"><i class="fa fa-lg fa-address-card"></i></a>
-        </li>
-      </ul>
+      </ul> -->
+    </div>
+    <div fxFlex="0 1 calc(100%)"
+    ngClass.gt-sm="sticky">
+      <div class="text" style="letter-spacing: 4px; font-weight: 500; font-size: 18px;">Biografija</div>
+      <div style="text-align: justify;">{{ profile.bio }}</div>
+      <div style="border-bottom: 1px #777 solid; margin: 15px 0px;"></div>
+      <div class="ft-social">
+        <ul class="ft-social-list">
+          <li *ngIf="profile.webUrl">
+            <a href="{{profile.webUrl}}"><i class="fa fa-lg fa-globe"></i></a>
+          </li>
+          <li *ngIf="profile.githubUrl">
+            <a href="{{profile.githubUrl}}"><i class="fa fa-lg fa-github"></i></a>
+          </li>
+          <li *ngIf="profile.linkedinUrl">
+            <a href="{{profile.linkedinUrl}}"><i class="fa fa-lg fa-linkedin"></i></a>
+          </li>
+          <li *ngIf="profile.instagramUrl">
+            <a href="{{profile.instagramUrl}}"><i class="fa fa-lg fa-instagram"></i></a>
+          </li>
+          <li *ngIf="profile.facebookUrl">
+            <a href="{{profile.facebookUrl}}"><i class="fa fa-lg fa-facebook"></i></a>
+          </li>
+          <li *ngIf="profile.portfolioUrl">
+            <a href="{{profile.portfolioUrl}}"><i class="fa fa-lg fa-address-card"></i></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div fxFlex="0 1 calc(100%)"
+    ngStyle.gt-sm="margin: '0 4vw';">
+      <app-blog-list [blogPosts]="blogPosts"></app-blog-list>
     </div>
   </div>
 </div>

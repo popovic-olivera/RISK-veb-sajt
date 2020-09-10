@@ -1,14 +1,16 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { Router, NavigationEnd, Event } from '@angular/router';
 import { ProfileService } from '../profile.service';
 import { UserProfile } from '../user-profile.model';
 import { DataService } from 'src/app/services/data.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ShowUserListComponent } from './show-user-list/show-user-list.component';
 import { BlogService } from 'src/app/blog/blog.service';
 import { BlogPost } from 'src/app/blog/blog-post.model';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { map, shareReplay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile-view',
@@ -26,6 +28,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
   public blogPosts: BlogPost[] = [];
   public btnText: string;
   private subscription: Subscription;
+  public isLtMd: boolean;
 
   constructor(private router: Router, private profileService: ProfileService,
               private data: DataService, private auth: AuthenticationService,
@@ -34,7 +37,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     this.findProfileById();
 
     this.initBtnText();
-                
+
     this.subscription = this.router.events.subscribe( (event: Event) => {
       if (event instanceof NavigationEnd) {
         this.onRouteChange();
@@ -48,10 +51,21 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     this.data.changeMessage('profile-view');
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    if (event.target.innerWidth < 959) {
+      this.isLtMd = true;
+      this.data.changeMessage('profile-view');
+    } else {
+      this.isLtMd = false;
+      this.data.changeMessage('profile-view');
+    }
+  }
+
   private initBtnText() {
     const currentUser = this.auth.getUserProfile();
     const profileId = this.getIdFromRoute();
-    
+
     if (currentUser.following.includes(profileId)) {
       this.btnText = this.btnTextMap.following;
     } else {
@@ -90,7 +104,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
 
   public onClick() {
     const currentUser = this.auth.getUserProfile();
-    
+
     if (currentUser.following.includes(this.profile._id)) {
       this.btnText = this.btnTextMap.follow;
 
