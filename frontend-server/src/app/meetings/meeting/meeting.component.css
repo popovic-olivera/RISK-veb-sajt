@@ -64,6 +64,9 @@
 .confirm {
   font-size: 1rem;
   font-weight: 400;
+  margin-top: 0;
+  margin-bottom: 10%;
+  margin-right: 10%;
 }
 
 .confirm:hover {
@@ -77,6 +80,8 @@
 .cancel {
   font-size: 1rem;
   font-weight: 400;
+  margin-top: 0;
+  margin-bottom: 10%;
 }
 
 .cancel:hover {
@@ -124,4 +129,12 @@
 
 ::ng-deep #field .mat-form-field-wrapper {
   padding-bottom: 0;
+}
+
+.profileImage {
+  border-radius: 50%;
+  object-fit: cover;
+  height: 25px;
+  width: 25px;
+  margin-right: 5px;
 }

@@ -50,8 +50,8 @@ export class MeetingsService {
     }
   }
 
-  public updateInDatabase(updatedMeeting: Meeting): Promise<boolean>  {
-    const success = this.http.put<Meeting>(this.meetingsUrl + updatedMeeting._id, updatedMeeting, {observe: 'response'}).pipe(
+  public updateInDatabase(updatedMeeting: FormData, id: string): Promise<boolean>  {
+    const success = this.http.put<Meeting>(this.meetingsUrl + id, updatedMeeting, {observe: 'response'}).pipe(
       map( response => response.status === 200),
       catchError(() => {
         return of(false);
@@ -60,11 +60,12 @@ export class MeetingsService {
     return success.toPromise();
   }
 
-  public async updateMeeting(updatedMeeting: Meeting) {
-    const success = await this.updateInDatabase(updatedMeeting);
+  public async updateMeeting(updatedMeeting: FormData, id: string) {
+    const success = await this.updateInDatabase(updatedMeeting, id);
 
     if (success) {
-      const index = this.meetings.findIndex(m => m._id === updatedMeeting._id);
+      const index = this.meetings.findIndex(m => m._id === id);
+      const updatedMeeting = await this.http.get<Meeting>(this.meetingsUrl+id).toPromise();
       this.meetings.splice(index, 1, updatedMeeting);
     }
   }

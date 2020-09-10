@@ -59,13 +59,29 @@ module.exports.updateMeeting = async (req, res, next) => {
 
         if (meeting) {
             const newMeeting = new Meeting(req.body);
+            
+            if (req.files){
+                if (req.files['poster']) {
+                    // delete old poster image
+                    deleteFile(meeting.posterUrl);
+    
+                    // save new poster image
+                    const posterUrl = await File.fromRequestFile(req.files['poster'], 'public/posters');
+                    newMeeting.posterUrl = posterUrl.path(true);
+                }
+    
+                if (req.files['presentation']) {
+                    // delete old presentation
+                    deleteFile(meeting.presentationUrl);
+    
+                    // save new presentation
+                    const presentationUrl = await File.fromRequestFile(req.files['presentation'], 'public/presentations');
+                    newMeeting.presentationUrl = presentationUrl.path(true);
+                }
 
-            if (newMeeting.posterUrl) {
-                deleteFile(meeting.posterUrl);
-            }
-
-            if (newMeeting.presentationUrl) {
-                deleteFile(meeting.presentationUrl);
+                if (req.files['image']) {
+                    await File.fromRequestFile(req.files['image'], 'public/meetings');
+                }
             }
 
             const updatedMeeting = await Meeting.findByIdAndUpdate(req.params.id, newMeeting, {new: true}).exec();

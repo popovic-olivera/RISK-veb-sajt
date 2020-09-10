@@ -30,6 +30,9 @@ export class MeetingComponent implements OnInit, AfterViewInit {
 
   @Input()
   public meeting: Meeting;
+  public presentation: File;
+  public posterImage: File;
+  public image: File;
   public buttons: Button[] = [];
 
   @Output()
@@ -52,9 +55,9 @@ export class MeetingComponent implements OnInit, AfterViewInit {
                        .map((url) => new Button(url[0], url[1]));
 
     this.updateForm = this.fb.group({
-      title: ['', Validators.required],
-      authorName: ['', Validators.required],
-      date: ['', Validators.required],
+      title: [''],
+      authorName: [''],
+      date: [''],
     });
 
   }
@@ -103,6 +106,18 @@ export class MeetingComponent implements OnInit, AfterViewInit {
     this.renderer.setStyle(this.elem.nativeElement.querySelector('img'), 'border-top-right-radius', '0px');
   }
 
+  public onPresentationInput(event: Event) {
+    this.presentation = (event.target as HTMLInputElement).files[0];
+  }
+
+  public onPosterInput(event: Event) {
+    this.posterImage = (event.target as HTMLInputElement).files[0];
+  }
+
+  public onImageInput(event: Event) {
+    this.image = (event.target as HTMLInputElement).files[0];
+  }
+
   public setEditable(): void {
     this.canEdit = true;
 
@@ -116,7 +131,25 @@ export class MeetingComponent implements OnInit, AfterViewInit {
     this.canEdit = false;
 
     this.ngOnInit();
-    this.meetingsService.updateMeeting(this.meeting);
+
+    const jsonData = JSON.parse(JSON.stringify(this.meeting));
+    const formData = new FormData();
+
+    Object.keys(jsonData).forEach(key => formData.append(key, jsonData[key]));
+
+    if (this.posterImage) {
+      formData.append('poster', this.posterImage);
+    }
+
+    if (this.presentation) {
+      formData.append('presentation', this.presentation);
+    }
+
+    if (this.image) {
+      formData.append('image', this.image);
+    }
+
+    this.meetingsService.updateMeeting(formData, this.meeting._id);
   }
 
   public cancelEdit(): void {
@@ -144,5 +177,13 @@ export class MeetingComponent implements OnInit, AfterViewInit {
     authorName.setValue(user.firstName + ' ' + user.lastName);
     this.selectedUser = user;
     this.meeting.authorImage = this.selectedUser.profilePictureUrl;
+  }
+
+  public processText(text: string) {
+    if (text === 'null' || !text) {
+      return '';
+    }
+
+    return text;
   }
 }
