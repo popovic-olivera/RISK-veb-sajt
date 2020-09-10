@@ -1,15 +1,29 @@
-<button *ngIf="!isProfile" mat-stroked-button [routerLink]="['/blog/novo']" style="margin-bottom: 20px; margin-left: 15px"><mat-icon>add</mat-icon> Napiši novu blog objavu</button>
 <div appBlogLayout fxLayout="{{ isProfile ? 'column' : 'row wrap' }}" fxLayout.xs="column" fxFlexAlign="space-evenly">
   <div fxFlex="0 1 calc(33.3%)" fxFlex.sm="0 1 calc(100%)" fxFlex.md="0 1 calc(50%)" fxFlex.gt-md="0 1 calc(33.3%)"
+    ngStyle.lt-md="padding-right: '0px'; padding-bottom: '30px';"
+    ngStyle.gt-sm="padding-left: '15px'; padding-right: '15px'; padding-bottom: '30px';">
+    <mat-card fxFlex style="position: relative">
+      <mat-card-content>
+        <mat-card-title>
+          <a [routerLink]="['/blog/novo']" style="display: inline-block;">
+            <i id="button" class="fa fa-plus"
+            ngStyle.lt-md="font-size: '30px';"
+            ngStyle.gt-sm="font-size: '300px'"></i>
+          </a>
+        </mat-card-title>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex="0 1 calc(33.3%)" fxFlex.sm="0 1 calc(100%)" fxFlex.md="0 1 calc(50%)" fxFlex.gt-md="0 1 calc(33.3%)"
     *ngFor="let post of blogPosts"
-    ngStyle.lt-sm="padding-right: '0px'; padding-bottom: '30px';"
-    ngStyle.gt-xs="padding-left: '15px'; padding-right: '15px'; padding-bottom: '30px';">
-    <mat-card fxFlex style="padding: 0; border-radius: 20px;">
+    ngStyle.lt-md="padding-right: '0px'; padding-bottom: '30px';"
+    ngStyle.gt-sm="padding-left: '15px'; padding-right: '15px'; padding-bottom: '30px';">
+    <mat-card fxFlex>
       <a style="padding: 0 16px; display: inline-block; min-width: 100%; max-width: 100%;" [routerLink]="['/blog/' + post.url_id]">
-        <img mat-card-image src="{{ post.header_image }}" alt="Slika clanka" style="padding: 0; border-top-left-radius: 20px; border-top-right-radius: 20px;">
+        <img mat-card-image src="{{ post.header_image }}" alt="Slika clanka" style="padding: 0; margin-bottom: 0; border-top-left-radius: 20px; border-top-right-radius: 20px;">
       </a>
       <a [routerLink]="['/blog/' + post.url_id]">
-        <mat-card-title style="padding-left: 15px; word-wrap: break-word;">{{ post.title }}</mat-card-title>
+        <mat-card-title style="padding-left: 15px; padding-top: 10px; word-wrap: break-word;">{{ post.title }}</mat-card-title>
       </a>
       <mat-card-content style="word-wrap: break-word; margin-left: 15px; margin-right: 15px;">
         <p>{{ post.desc }}</p>

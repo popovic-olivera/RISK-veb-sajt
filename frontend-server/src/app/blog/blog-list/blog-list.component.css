@@ -1,16 +1,19 @@
 .avatar-image {
   background-size: cover;
 }
-.mat-card-image:first-child {
-  margin-top: 0;
-}
+
 .mat-card {
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
+  padding: 0;
+  border-radius: 20px;
 }
 
-.mat-card-content {
-  display: flex;
-  flex: 1;
+#button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.mat-card-image:first-child {
+  margin-top: 0 !important;
 }
