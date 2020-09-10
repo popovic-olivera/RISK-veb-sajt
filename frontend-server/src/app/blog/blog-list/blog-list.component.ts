@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { BlogPost } from '../blog-post.model';
 import { BlogService } from '../blog.service';
 import { DataService } from 'src/app/services/data.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-blog-list',
@@ -14,9 +15,9 @@ export class BlogListComponent implements OnInit {
   @Input()
   public blogPosts: BlogPost[];
   message: string;
-  isProfile: boolean;
+  public isProfile: boolean;
 
-  constructor(private data: DataService) {}
+  constructor(private data: DataService, public auth: AuthenticationService) {}
 
   ngOnInit(): void {
     this.data.currentMessage.subscribe(message => this.message = message);

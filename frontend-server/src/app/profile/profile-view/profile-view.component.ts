@@ -66,7 +66,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     const currentUser = this.auth.getUserProfile();
     const profileId = this.getIdFromRoute();
 
-    if (currentUser.following.includes(profileId)) {
+    if (currentUser && currentUser.following.includes(profileId)) {
       this.btnText = this.btnTextMap.following;
     } else {
       this.btnText = this.btnTextMap.follow;
