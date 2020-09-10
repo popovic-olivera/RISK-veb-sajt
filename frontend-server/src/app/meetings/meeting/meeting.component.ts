@@ -47,8 +47,8 @@ export class MeetingComponent implements OnInit, AfterViewInit {
                   [this.meeting.surveyUrl, 'surveyUrl'],
                   [this.meeting.videoUrl, 'videoUrl'],
                   [this.meeting.presentationUrl, 'presentationUrl']];
-    
-    this.buttons = urls.filter(url => { if (url[0] !== 'null') {return true; }})
+
+    this.buttons = urls.filter(url => { if (url[0] !== ' ' && url[0] !== 'null') {return true; }})
                        .map((url) => new Button(url[0], url[1]));
 
     this.updateForm = this.fb.group({
@@ -56,6 +56,7 @@ export class MeetingComponent implements OnInit, AfterViewInit {
       authorName: ['', Validators.required],
       date: ['', Validators.required],
     });
+
   }
 
   get title() { return this.updateForm.get('title'); }
@@ -105,8 +106,6 @@ export class MeetingComponent implements OnInit, AfterViewInit {
   public setEditable(): void {
     this.canEdit = true;
 
-    console.log(this.meeting.date);
-
     this.titleCopy = this.meeting.title;
     this.authorNameCopy = this.meeting.authorName;
     this.dateCopy = this.meeting.date;
@@ -116,7 +115,7 @@ export class MeetingComponent implements OnInit, AfterViewInit {
   public confirmEdit(): void {
     this.canEdit = false;
 
-    this.meeting.authorImage = this.selectedUser.profilePictureUrl;
+    this.ngOnInit();
     this.meetingsService.updateMeeting(this.meeting);
   }
 
@@ -144,5 +143,6 @@ export class MeetingComponent implements OnInit, AfterViewInit {
 
     authorName.setValue(user.firstName + ' ' + user.lastName);
     this.selectedUser = user;
+    this.meeting.authorImage = this.selectedUser.profilePictureUrl;
   }
 }

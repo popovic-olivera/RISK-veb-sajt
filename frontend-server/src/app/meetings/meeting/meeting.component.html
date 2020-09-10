@@ -1,15 +1,17 @@
-  <mat-card class="card">
+  <mat-card fxFlex class="card">
     <div fxLayout="row" fxLayout.lt-md="column">
       <div fxFlex="0 1 calc(70%)" class="left">
         <mat-card-header class="header">
-          <div *ngIf="meeting.authorImage && meeting.authorImage !== 'undefined'" (click)="goToAuthorPage()" mat-card-avatar class="header-image" style="background-image: url({{meeting.authorImage}});"></div>
-          <div *ngIf="!meeting.authorImage || meeting.authorImage === 'undefined'" (click)="goToAuthorPage()" mat-card-avatar class="header-image" style="background-image: url('assets/generic_user.jpeg');"></div>
+          <div *ngIf="(meeting.authorImage && meeting.authorImage !== 'undefined') && !canEdit" (click)="goToAuthorPage()" mat-card-avatar class="header-image" style="background-image: url({{meeting.authorImage}});"></div>
+          <div *ngIf="(!meeting.authorImage || meeting.authorImage === 'undefined') && !canEdit" (click)="goToAuthorPage()" mat-card-avatar class="header-image" style="background-image: url('assets/generic_user.jpeg');"></div>
           <mat-card-title *ngIf="!canEdit" style="font-size: x-large;">{{meeting.title}}</mat-card-title>
           <mat-card-subtitle *ngIf="!canEdit" (click)="goToAuthorPage()">Autor: <span class="link">{{meeting.authorName}}</span></mat-card-subtitle>
           <mat-card-subtitle *ngIf="!canEdit">{{meeting.date | serbianDate}}</mat-card-subtitle>
-          <form *ngIf="canEdit" [formGroup]="updateForm">
-            <div class="row">
-              <div class="column">
+          <form *ngIf="canEdit" [formGroup]="updateForm" style="width: -webkit-fill-available;">
+            <div fxLayout="row" fxLayout.lt-md="column">
+              <div fxFlex="0 1 calc(50%)"
+              ngStyle.lt-md="margin-bottom: '0px';"
+              ngStyle.gt-sm="padding-right: '0.25em';">
                 <mat-form-field id="field" appearance="outline" class="input">
                   <mat-label>Naslov</mat-label>
                   <input matInput [(ngModel)]="meeting.title" name="title" [formControl]="title" required>
@@ -26,8 +28,10 @@
                   <mat-icon matSuffix>face</mat-icon>
                 </mat-form-field>
               </div>
-              <div class="column" style="margin-left: 0.50em;">
-                <mat-form-field id="field" appearance="outline" class="input">
+              <div fxFlex="0 1 calc(50%)"
+              ngStyle.lt-md="padding-left: '0px';"
+              ngStyle.gt-sm="padding-left: '0.25em';">
+                  <mat-form-field id="field" appearance="outline" class="input">
                   <mat-label>Datum</mat-label>
                   <input matInput [(ngModel)]="meeting.date" [matDatepicker]="picker" name="date" [formControl]="date" readonly required>
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -47,24 +51,63 @@
         </mat-card-content>
 
         <mat-card-actions>
-          <ng-container *ngFor="let btn of buttons">
-            <a mat-raised-button *ngIf="btn.url" href="{{btn.url}}" target="_blank" class="{{btn.color}}" style="width: auto;">
-                <i class="{{btn.icon}}"></i> {{btn.text}}
-            </a>
-          </ng-container>
-            <br>
-            <a *ngIf="auth.getUserProfile() && auth.isUserAdmin()" mat-raised-button class="delete" (click)="onDeleteMeeting()">
-                <i class="fa fa-trash"></i> Obriši okupljanje
-            </a>
-            <a *ngIf="auth.getUserProfile() && auth.isUserAdmin() && !canEdit" mat-raised-button class="delete" (click)="setEditable()">
-              <i class="fa fa-pencil"></i> Izmeni okupljanje
-            </a>
-            <a *ngIf="auth.getUserProfile() && auth.isUserAdmin() && canEdit" mat-raised-button class="delete" type="submit" [disabled]="!saveMeetingEnabled()" (click)="saveMeetingEnabled() && confirmEdit()">
-              <i class="fa fa-check"></i> Prihvati izmene
-            </a>
-            <a *ngIf="auth.getUserProfile() && auth.isUserAdmin() && canEdit" mat-raised-button class="delete" (click)="cancelEdit()">
-              <i class="fa fa-times"></i> Otkaži izmene
-            </a>
+          <div *ngIf="!canEdit">
+            <ng-container *ngFor="let btn of buttons">
+              <a mat-raised-button *ngIf="btn.url" href="{{btn.url}}" target="_blank" class="{{btn.color}}" style="width: auto;">
+                  <i class="{{btn.icon}}"></i> {{btn.text}}
+              </a>
+            </ng-container>
+          </div>
+          <div *ngIf="canEdit" fxLayout="row" fxLayout.lt-md="column">
+            <div fxFlex="0 1 calc(50%)"
+            ngStyle.lt-md="margin-bottom: '0px';"
+            ngStyle.gt-sm="padding-right: '0.5em';">
+              <a mat-raised-button target="_blank" class="btn btn-dark" style="width: -webkit-fill-available;">
+                <i class="fa fa-lg fa-github"></i>
+                <mat-form-field id="field" appearance="outline" class="input">
+                  <mat-label>Kod</mat-label>
+                  <input matInput [(ngModel)]="meeting.githubRepoUrl" name="github">
+                </mat-form-field>
+              </a>
+              <a mat-raised-button target="_blank" class="btn btn-danger" style="width: -webkit-fill-available;">
+                <i class="fa fa-lg fa-youtube"></i>
+                <mat-form-field id="field" appearance="outline" class="input">
+                  <mat-label>Video</mat-label>
+                  <input matInput [(ngModel)]="meeting.videoUrl" name="video">
+                </mat-form-field>
+              </a>
+            </div>
+            <div fxFlex="0 1 calc(50%)"
+            ngStyle.lt-md="padding-left: '0px';"
+            ngStyle.gt-sm="padding-left: '0.5em';">
+              <a mat-raised-button target="_blank" class="btn btn-secondary" style="width: -webkit-fill-available;">
+                <i class="fa fas fa-comments"></i>
+                <mat-form-field id="field" appearance="outline" class="input">
+                  <mat-label>Utisci</mat-label>
+                  <input matInput [(ngModel)]="meeting.surveyUrl" name="survey">
+                </mat-form-field>
+              </a>
+              <a mat-raised-button target="_blank" class="btn btn-primary" style="width: -webkit-fill-available;">
+                <i class="fa fas fa-lg fa-clone"></i>
+                <mat-form-field id="field" appearance="outline" class="input">
+                  <mat-label>Klikni</mat-label>
+                  <input matInput [(ngModel)]="meeting.presentationUrl" name="presentation">
+                </mat-form-field>
+              </a>
+            </div>
+          </div>
+          <a *ngIf="auth.getUserProfile() && auth.isUserAdmin() && !canEdit" mat-raised-button class="edit" (click)="setEditable()">
+            <i class="fa fa-pencil"></i> Izmeni okupljanje
+          </a>
+          <a *ngIf="auth.getUserProfile() && auth.isUserAdmin() && !canEdit" mat-raised-button class="delete" (click)="onDeleteMeeting()">
+            <i class="fa fa-trash"></i> Obriši okupljanje
+          </a>
+          <a *ngIf="auth.getUserProfile() && auth.isUserAdmin() && canEdit" mat-raised-button class="confirm" type="submit" [disabled]="!saveMeetingEnabled()" (click)="saveMeetingEnabled() && confirmEdit()">
+            <i class="fa fa-check"></i> Prihvati izmene
+          </a>
+          <a *ngIf="auth.getUserProfile() && auth.isUserAdmin() && canEdit" mat-raised-button class="cancel" (click)="cancelEdit()">
+            <i class="fa fa-times"></i> Otkaži izmene
+          </a>
         </mat-card-actions>
       </div>
       <div *ngIf="meeting.posterUrl" #image fxFlex="0 1 calc(30%)">
