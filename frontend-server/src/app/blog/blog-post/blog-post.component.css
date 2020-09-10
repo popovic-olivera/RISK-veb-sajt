@@ -24,11 +24,15 @@
 }
 
 .content-gt-md {
-  width: calc(70% + 10vw);
-  margin-top: -50vh;
+  width: calc(60% + 10vw);
+  margin-top: -30vh;
   padding: 30px;
 }
 
 ::ng-deep #header .mat-card-header-text {
   margin: 0 8px !important;
+}
+
+.mat-card-title {
+  font-size: 2.4em;
 }
