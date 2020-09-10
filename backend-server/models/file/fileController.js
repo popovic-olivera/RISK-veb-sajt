@@ -31,7 +31,7 @@ module.exports.uploadFile = async function(req, res, next) {
         if (!req.files) {
             res.status(400).send();
         } else {
-            // TODO refactor this to not require "file" as a filename
+
             File.fromRequestFile(req.files.file, 'images')
                 .then(value => {
                     res.status(201).json(value);

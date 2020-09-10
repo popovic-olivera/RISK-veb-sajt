@@ -53,7 +53,7 @@ userSchema.methods.generateJwt = function () {
 
     return jwt.sign(
         payload,
-        "MY_SECRET", // FIXME secret should not be within the source code
+        process.env.SECRET,
         {algorithm: "HS256"});
 };
 
